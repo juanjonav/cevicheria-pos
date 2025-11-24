@@ -1,0 +1,190 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model clients {
+  id         Int       @id @default(autoincrement())
+  name       String
+  phone      String?
+  email      String?
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  orders     orders[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model expenses {
+  id                Int       @id @default(autoincrement())
+  category          String
+  amount            Decimal   @db.Decimal(10, 2)
+  description       String
+  receipt_reference String?
+  incurred_at       DateTime? @default(now()) @db.Timestamp(6)
+  created_by        Int?
+  users             users?    @relation(fields: [created_by], references: [id], onUpdate: NoAction)
+
+  @@index([incurred_at], map: "idx_expenses_date")
+}
+
+model menu_categories {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
+  created_at  DateTime?    @default(now()) @db.Timestamp(6)
+  menu_items  menu_items[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model menu_items {
+  id              Int              @id @default(autoincrement())
+  name            String
+  description     String?
+  category_id     Int?
+  price           Decimal          @db.Decimal(10, 2)
+  is_available    Boolean?         @default(true)
+  created_at      DateTime?        @default(now()) @db.Timestamp(6)
+  image_url       String?
+  menu_categories menu_categories? @relation(fields: [category_id], references: [id], onUpdate: NoAction)
+  order_lines     order_lines[]
+  recipe_items    recipe_items[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model order_lines {
+  id            Int        @id @default(autoincrement())
+  order_id      Int
+  menu_item_id  Int
+  quantity      Int
+  price_at_sale Decimal    @db.Decimal(10, 2)
+  line_total    Decimal    @db.Decimal(10, 2)
+  created_at    DateTime?  @default(now()) @db.Timestamp(6)
+  menu_items    menu_items @relation(fields: [menu_item_id], references: [id], onUpdate: NoAction)
+  orders        orders     @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([order_id], map: "idx_order_lines_order")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model orders {
+  id              Int               @id @default(autoincrement())
+  client_id       Int?
+  table_number    String?
+  order_type      String?           @default("salon")
+  status          order_status?     @default(draft)
+  total           Decimal?          @default(0) @db.Decimal(10, 2)
+  notes           String?
+  created_at      DateTime?         @default(now()) @db.Timestamp(6)
+  created_by      Int?
+  order_lines     order_lines[]
+  clients         clients?          @relation(fields: [client_id], references: [id], onUpdate: NoAction)
+  users           users?            @relation(fields: [created_by], references: [id], onUpdate: NoAction)
+  payments        payments[]
+  stock_movements stock_movements[]
+
+  @@index([created_at], map: "idx_orders_date")
+  @@index([status], map: "idx_orders_status")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model payments {
+  id         Int            @id @default(autoincrement())
+  order_id   Int
+  method     payment_method
+  amount     Decimal        @db.Decimal(10, 2)
+  reference  String?
+  paid_at    DateTime?      @default(now()) @db.Timestamp(6)
+  created_by Int?
+  users      users?         @relation(fields: [created_by], references: [id], onUpdate: NoAction)
+  orders     orders         @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model recipe_items {
+  id            Int         @id @default(autoincrement())
+  menu_item_id  Int
+  stock_item_id Int
+  quantity      Decimal     @db.Decimal(10, 2)
+  menu_items    menu_items  @relation(fields: [menu_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  stock_items   stock_items @relation(fields: [stock_item_id], references: [id], onUpdate: NoAction)
+
+  @@unique([menu_item_id, stock_item_id])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model stock_items {
+  id              Int               @id @default(autoincrement())
+  name            String
+  unit            String
+  quantity        Decimal?          @default(0) @db.Decimal(10, 2)
+  min_alert_level Decimal?          @db.Decimal(10, 2)
+  created_at      DateTime?         @default(now()) @db.Timestamp(6)
+  recipe_items    recipe_items[]
+  stock_movements stock_movements[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model stock_movements {
+  id               Int                 @id @default(autoincrement())
+  stock_item_id    Int
+  movement_type    stock_movement_type
+  quantity         Decimal             @db.Decimal(10, 2)
+  related_order_id Int?
+  notes            String?
+  created_at       DateTime?           @default(now()) @db.Timestamp(6)
+  created_by       Int?
+  users            users?              @relation(fields: [created_by], references: [id], onUpdate: NoAction)
+  orders           orders?             @relation(fields: [related_order_id], references: [id], onUpdate: NoAction)
+  stock_items      stock_items         @relation(fields: [stock_item_id], references: [id], onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model users {
+  id              Int               @id @default(autoincrement())
+  username        String            @unique
+  email           String?           @unique
+  full_name       String?
+  password_hash   String
+  role            String            @default("cashier")
+  is_active       Boolean?          @default(true)
+  created_at      DateTime?         @default(now()) @db.Timestamp(6)
+  expenses        expenses[]
+  orders          orders[]
+  payments        payments[]
+  stock_movements stock_movements[]
+}
+
+enum order_status {
+  draft
+  placed
+  completed
+  cancelled
+}
+
+enum payment_method {
+  cash
+  card
+  transfer
+}
+
+enum stock_movement_type {
+  in
+  out
+  adjustment
+}
