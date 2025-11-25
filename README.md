@@ -1,37 +1,40 @@
-# POS store
-
+# POS Store · Cevichería
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/juanjonavs-projects/cevicheria-pos.vercel.app)
 
-
 ## Overview
 
-Overview
+This project is a minimal Point of Sale (POS) and inventory system designed for a small restaurant (cevichería).  
+It includes basic features for managing menu items, customer orders, stock movements, expenses, and sales history.
 
-This project is a minimal Point of Sale (POS) and inventory system designed for a small restaurant (cevichería). It allows basic management of menu items, customer orders, stock usage, expenses, and sales history.
-The purpose of this MVP is to demonstrate core concepts of accounting, costs, and cash flow, including revenue tracking, purchase registration, inventory control, and cash balance reporting.
+The purpose of this MVP is to demonstrate core concepts of **accounting, costs, and financial analysis**, such as:
 
-The system includes:
+- Revenue tracking from daily sales  
+- Registration of operational expenses (insumos, servicios, sueldos)  
+- Inventory control and automatic stock consumption  
+- Cash flow calculation (Ingresos – Gastos)  
+- Generation of simple economic reports  
 
-Menu and category management
+### Main Features
 
-Order creation with automatic stock consumption
+- Menu and category management  
+- Order creation and checkout  
+- Payments (cash, card, transfer)  
+- Operational expense logging  
+- Inventory usage and movement records  
+- Daily / weekly cash flow report  
+- Simple and clean UI for academic analysis  
 
-Payment registration (cash, card, transfer)
+### Tech Stack
 
-Expense tracking for operational costs and purchase of supplies
-
-Basic inventory management and movement logs
-
-Daily/weekly cash flow calculation (Ingresos – Gastos)
-
-This project uses Next.js 16, Prisma ORM, PostgreSQL, and TypeScript.
-It is intentionally simple and focused on being clear, functional, and easy to analyze for academic purposes. 
-
+- **Next.js 16**
+- **Prisma ORM**
+- **PostgreSQL**
+- **TypeScript**
+- **TailwindCSS**
 
 ## Deployment
 
 Your project is live at:
 
-**[https://vercel.com/juanjonavs-projects/cevicheria-pos.vercel.app](https://vercel.com/juanjonavs-projects/cevicheria-pos.vercel.app)**
-
+**https://vercel.com/juanjonavs-projects/cevicheria-pos.vercel.app**
