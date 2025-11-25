@@ -2,35 +2,66 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ArrowDownRight, ArrowUpRight, DollarSign, Wallet, ShoppingBag } from "lucide-react"
-import { recentSales, expenses } from "@/lib/data"
+import {
+  getRecentSales,
+  getRecentExpenses,
+  getDashboardSummary,
+  getExpensesByCategory
+} from "@/lib/db/dashboard"
+import { cn } from "@/lib/utils"
 
-export default function DashboardPage() {
-  // Calculate totals
-  const totalSales = recentSales.filter((s) => s.status === "Completado").reduce((acc, curr) => acc + curr.total, 0)
+export default async function DashboardPage() {
+  // Fetch real data from database
+  const [recentSales, recentExpenses, summary, expensesByCategory] = await Promise.all([
+    getRecentSales(10),
+    getRecentExpenses(10),
+    getDashboardSummary(),
+    getExpensesByCategory()
+  ])
 
-  const totalExpenses = expenses.filter((e) => e.status === "Pagado").reduce((acc, curr) => acc + curr.amount, 0)
+  const { totalSales, totalExpenses, netCashFlow } = summary
 
-  const netCashFlow = totalSales - totalExpenses
+  // Map expense category enum to Spanish labels
+  const categoryLabels: Record<string, string> = {
+    supplies: "Insumos",
+    staff: "Personal",
+    services: "Servicios",
+    maintenance: "Mantenimiento",
+    transport: "Transporte",
+    marketing: "Marketing",
+    taxes: "Impuestos",
+    other: "Otros"
+  }
+
+  // Map order status enum to Spanish labels
+  const statusLabels: Record<string, string> = {
+    draft: "Borrador",
+    placed: "Colocada",
+    in_progress: "En Proceso",
+    ready: "Lista",
+    completed: "Completado",
+    cancelled: "Cancelado"
+  }
 
   // Combine and sort transactions for the feed
   const transactions = [
     ...recentSales.map((s) => ({
-      id: s.id,
-      type: "income",
-      description: `Venta #${s.id.split("-")[1]}`,
+      id: `sale-${s.id}`,
+      type: "income" as const,
+      description: `Venta #${s.order_number.slice(-8)}`,
       amount: s.total,
-      date: s.date,
+      date: s.order_date.toISOString(),
       category: "Venta",
-      status: s.status,
+      status: statusLabels[s.status] || s.status,
     })),
-    ...expenses.map((e) => ({
-      id: e.id,
-      type: "expense",
+    ...recentExpenses.map((e) => ({
+      id: `expense-${e.id}`,
+      type: "expense" as const,
       description: e.description,
-      amount: e.amount,
-      date: e.date,
-      category: e.category,
-      status: e.status,
+      amount: e.total,
+      date: e.expense_date.toISOString(),
+      category: categoryLabels[e.category] || e.category,
+      status: e.is_paid ? "Pagado" : "Pendiente",
     })),
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
@@ -148,27 +179,23 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {["Insumos", "Personal", "Servicios", "Mantenimiento"].map((cat) => {
-                  const amount = expenses.filter((e) => e.category === cat).reduce((acc, curr) => acc + curr.amount, 0)
-
-                  if (amount === 0) return null
-
-                  const percentage = (amount / totalExpenses) * 100
-
-                  return (
-                    <div key={cat} className="space-y-2">
+                {expensesByCategory.length > 0 ? (
+                  expensesByCategory.map((item) => (
+                    <div key={item.category} className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="font-medium">{cat}</span>
+                        <span className="font-medium">{categoryLabels[item.category] || item.category}</span>
                         <span className="text-muted-foreground">
-                          S/ {amount.toFixed(2)} ({percentage.toFixed(0)}%)
+                          S/ {item.amount.toFixed(2)} ({item.percentage.toFixed(0)}%)
                         </span>
                       </div>
                       <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                        <div className="h-full bg-rose-500 rounded-full" style={{ width: `${percentage}%` }} />
+                        <div className="h-full bg-rose-500 rounded-full" style={{ width: `${item.percentage}%` }} />
                       </div>
                     </div>
-                  )
-                })}
+                  ))
+                ) : (
+                  <p className="text-sm text-muted-foreground">No hay gastos registrados</p>
+                )}
               </div>
 
               <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
@@ -184,8 +211,4 @@ export default function DashboardPage() {
       </main>
     </div>
   )
-}
-
-function cn(...classes: (string | undefined | null | false)[]) {
-  return classes.filter(Boolean).join(" ")
 }
