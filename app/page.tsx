@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { products, type Product } from "@/lib/data"
+import { useState, useEffect } from "react"
+import { type Product } from "@/lib/data"
 import { ProductCard } from "@/components/pos/product-card"
 import { CartSidebar } from "@/components/pos/cart-sidebar"
 import { SidebarNav } from "@/components/layout/sidebar-nav"
@@ -12,12 +12,86 @@ interface CartItem extends Product {
   quantity: number
 }
 
+interface MenuItem {
+  id: number
+  name: string
+  description: string | null
+  category_id: number | null
+  price: number | string
+  image_url: string | null
+  is_available: boolean
+  menu_categories?: {
+    id: number
+    name: string
+  } | null
+}
+
 export default function PosPage() {
   const [activeCategory, setActiveCategory] = useState<string>("Clásicos")
   const [cart, setCart] = useState<CartItem[]>([])
   const [searchQuery, setSearchQuery] = useState("")
+  const [products, setProducts] = useState<Product[]>([])
+  const [categories, setCategories] = useState<string[]>(["Clásicos", "Calientes", "Bebidas", "Guarniciones"])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const categories = ["Clásicos", "Calientes", "Bebidas", "Guarniciones"]
+  // Fetch products from API
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        setLoading(true)
+        const response = await fetch('/api/menu')
+
+        if (!response.ok) {
+          throw new Error('Error al cargar los productos')
+        }
+
+        const menuItems: MenuItem[] = await response.json()
+
+        // Helper function to map category to Product category type
+        const mapCategory = (categoryName: string | undefined | null): Product["category"] => {
+          if (!categoryName) return "Clásicos"
+
+          const normalizedCategory = categoryName.toLowerCase()
+          if (normalizedCategory.includes("clásico") || normalizedCategory.includes("clasico")) return "Clásicos"
+          if (normalizedCategory.includes("caliente")) return "Calientes"
+          if (normalizedCategory.includes("bebida")) return "Bebidas"
+          if (normalizedCategory.includes("guarnición") || normalizedCategory.includes("guarnicion")) return "Guarniciones"
+
+          return "Clásicos" // Default fallback
+        }
+
+        // Transform API data to Product format
+        const transformedProducts: Product[] = menuItems.map((item) => ({
+          id: item.id.toString(),
+          name: item.name,
+          price: typeof item.price === 'string' ? parseFloat(item.price) : item.price,
+          category: mapCategory(item.menu_categories?.name),
+          image: item.image_url || "/placeholder.png",
+          description: item.description || "",
+        }))
+
+        // Extract unique categories from products
+        const uniqueCategories: string[] = Array.from(new Set(transformedProducts.map(p => p.category)))
+        setCategories(uniqueCategories.length > 0 ? uniqueCategories : ["Clásicos", "Calientes", "Bebidas", "Guarniciones"])
+
+        // Set first category as active if current active is not in the list
+        if (uniqueCategories.length > 0 && !uniqueCategories.includes(activeCategory)) {
+          setActiveCategory(uniqueCategories[0])
+        }
+
+        setProducts(transformedProducts)
+        setError(null)
+      } catch (err) {
+        console.error('Error fetching products:', err)
+        setError('Error al cargar los productos. Por favor, intenta de nuevo.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProducts()
+  }, [])
 
   const addToCart = (product: Product) => {
     setCart((current) => {
@@ -101,11 +175,32 @@ export default function PosPage() {
 
           {/* Grid */}
           <div className="flex-1 overflow-y-auto px-8 pb-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} onAdd={addToCart} />
-              ))}
-            </div>
+            {loading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                  <p className="text-slate-600">Cargando productos...</p>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center">
+                  <p className="text-red-600 mb-4">{error}</p>
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  >
+                    Reintentar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} onAdd={addToCart} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
