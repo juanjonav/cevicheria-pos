@@ -1,40 +1,79 @@
-# POS Store · Cevichería
+# 🍽️ POS Store · Cevichería
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/juanjonavs-projects/cevicheria-pos.vercel.app)
 
-## Overview
+Sistema POS minimalista para una **cevichería**, diseñado para demostrar procesos de ventas, gasto operativo, inventario básico y flujo de caja.  
+Es un proyecto académico orientado al análisis contable, costos y administración financiera.
 
-This project is a minimal Point of Sale (POS) and inventory system designed for a small restaurant (cevichería).  
-It includes basic features for managing menu items, customer orders, stock movements, expenses, and sales history.
+---
 
-The purpose of this MVP is to demonstrate core concepts of **accounting, costs, and financial analysis**, such as:
+## 📌 Overview
 
-- Revenue tracking from daily sales  
-- Registration of operational expenses (insumos, servicios, sueldos)  
-- Inventory control and automatic stock consumption  
-- Cash flow calculation (Ingresos – Gastos)  
-- Generation of simple economic reports  
+Este proyecto implementa un **Point of Sale (POS)** y sistema de control para un pequeño restaurante.  
+Incluye las funciones esenciales para administrar:
 
-### Main Features
+- Menús y categorías  
+- Órdenes y pagos  
+- Gastos operativos  
+- Movimientos de stock  
+- Historial de ventas  
+- Reportes económicos simples  
 
-- Menu and category management  
-- Order creation and checkout  
-- Payments (cash, card, transfer)  
-- Operational expense logging  
-- Inventory usage and movement records  
-- Daily / weekly cash flow report  
-- Simple and clean UI for academic analysis  
+El objetivo principal es mostrar cómo un negocio pequeño puede obtener:
 
-### Tech Stack
+- **Ingresos diarios y semanales**  
+- **Gastos operativos clasificados**  
+- **Consumo automático de inventario**  
+- **Flujo de caja (Ingresos – Gastos)**  
+- **Indicadores básicos para toma de decisiones**
 
+---
+
+## ⭐ Main Features
+
+- Gestión de categorías y menú  
+- Creación de órdenes y proceso de pago  
+- Métodos de pago: efectivo, tarjeta, transferencia  
+- Registro de gastos operativos  
+- Movimientos automáticos de inventario  
+- Panel de análisis financiero con totales  
+- UI simple, intuitiva y orientada a uso académico  
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
 - **Next.js 16**
-- **Prisma ORM**
-- **PostgreSQL**
 - **TypeScript**
 - **TailwindCSS**
+- **Shadcn/UI**
 
-## Deployment
+### Backend / DB
+- **Prisma ORM**
+- **PostgreSQL**
+- **API fetch desde App Router**
 
-Your project is live at:
+---
 
-**https://vercel.com/juanjonavs-projects/cevicheria-pos.vercel.app**
+## 🚀 Deployment
+
+El proyecto está desplegado en:
+
+🔗 **https://vercel.com/juanjonavs-projects/cevicheria-pos.vercel.app**
+
+---
+
+## 🗄️ Base de datos
+
+El archivo con los datos iniciales para poblar la base de datos se encuentra en:
+
+poner en .env: DATABASE_URL=""
+
+
+estructura
+/app                → Rutas Next.js (dashboard, POS, gastos, ventas)
+/components         → UI y componentes reutilizables
+/lib                → Prisma + consultas + SQL inicial
+/prisma             → Schema de base de datos
+/docs (opcional)    → Documentación técnica
