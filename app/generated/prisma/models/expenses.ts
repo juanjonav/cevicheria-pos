@@ -14,8 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model expenses
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type expensesModel = runtime.Types.Result.DefaultSelection<Prisma.$expensesPayload>
 
@@ -29,88 +28,136 @@ export type AggregateExpenses = {
 
 export type ExpensesAvgAggregateOutputType = {
   id: number | null
+  supplier_id: number | null
   amount: runtime.Decimal | null
+  tax: runtime.Decimal | null
+  total: runtime.Decimal | null
   created_by: number | null
 }
 
 export type ExpensesSumAggregateOutputType = {
   id: number | null
+  supplier_id: number | null
   amount: runtime.Decimal | null
+  tax: runtime.Decimal | null
+  total: runtime.Decimal | null
   created_by: number | null
 }
 
 export type ExpensesMinAggregateOutputType = {
   id: number | null
-  category: string | null
+  category: $Enums.expense_category | null
+  supplier_id: number | null
   amount: runtime.Decimal | null
+  tax: runtime.Decimal | null
+  total: runtime.Decimal | null
   description: string | null
   receipt_reference: string | null
-  incurred_at: Date | null
+  is_paid: boolean | null
+  expense_date: Date | null
   created_by: number | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type ExpensesMaxAggregateOutputType = {
   id: number | null
-  category: string | null
+  category: $Enums.expense_category | null
+  supplier_id: number | null
   amount: runtime.Decimal | null
+  tax: runtime.Decimal | null
+  total: runtime.Decimal | null
   description: string | null
   receipt_reference: string | null
-  incurred_at: Date | null
+  is_paid: boolean | null
+  expense_date: Date | null
   created_by: number | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type ExpensesCountAggregateOutputType = {
   id: number
   category: number
+  supplier_id: number
   amount: number
+  tax: number
+  total: number
   description: number
   receipt_reference: number
-  incurred_at: number
+  is_paid: number
+  expense_date: number
   created_by: number
+  created_at: number
+  updated_at: number
   _all: number
 }
 
 
 export type ExpensesAvgAggregateInputType = {
   id?: true
+  supplier_id?: true
   amount?: true
+  tax?: true
+  total?: true
   created_by?: true
 }
 
 export type ExpensesSumAggregateInputType = {
   id?: true
+  supplier_id?: true
   amount?: true
+  tax?: true
+  total?: true
   created_by?: true
 }
 
 export type ExpensesMinAggregateInputType = {
   id?: true
   category?: true
+  supplier_id?: true
   amount?: true
+  tax?: true
+  total?: true
   description?: true
   receipt_reference?: true
-  incurred_at?: true
+  is_paid?: true
+  expense_date?: true
   created_by?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type ExpensesMaxAggregateInputType = {
   id?: true
   category?: true
+  supplier_id?: true
   amount?: true
+  tax?: true
+  total?: true
   description?: true
   receipt_reference?: true
-  incurred_at?: true
+  is_paid?: true
+  expense_date?: true
   created_by?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type ExpensesCountAggregateInputType = {
   id?: true
   category?: true
+  supplier_id?: true
   amount?: true
+  tax?: true
+  total?: true
   description?: true
   receipt_reference?: true
-  incurred_at?: true
+  is_paid?: true
+  expense_date?: true
   created_by?: true
+  created_at?: true
+  updated_at?: true
   _all?: true
 }
 
@@ -202,12 +249,18 @@ export type expensesGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type ExpensesGroupByOutputType = {
   id: number
-  category: string
+  category: $Enums.expense_category
+  supplier_id: number | null
   amount: runtime.Decimal
+  tax: runtime.Decimal
+  total: runtime.Decimal
   description: string
   receipt_reference: string | null
-  incurred_at: Date | null
-  created_by: number | null
+  is_paid: boolean
+  expense_date: Date
+  created_by: number
+  created_at: Date
+  updated_at: Date
   _count: ExpensesCountAggregateOutputType | null
   _avg: ExpensesAvgAggregateOutputType | null
   _sum: ExpensesSumAggregateOutputType | null
@@ -235,24 +288,42 @@ export type expensesWhereInput = {
   OR?: Prisma.expensesWhereInput[]
   NOT?: Prisma.expensesWhereInput | Prisma.expensesWhereInput[]
   id?: Prisma.IntFilter<"expenses"> | number
-  category?: Prisma.StringFilter<"expenses"> | string
+  category?: Prisma.Enumexpense_categoryFilter<"expenses"> | $Enums.expense_category
+  supplier_id?: Prisma.IntNullableFilter<"expenses"> | number | null
   amount?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableFilter<"expenses"> | string | null
-  incurred_at?: Prisma.DateTimeNullableFilter<"expenses"> | Date | string | null
-  created_by?: Prisma.IntNullableFilter<"expenses"> | number | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
+  is_paid?: Prisma.BoolFilter<"expenses"> | boolean
+  expense_date?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  created_by?: Prisma.IntFilter<"expenses"> | number
+  created_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  supplier?: Prisma.XOR<Prisma.SuppliersNullableScalarRelationFilter, Prisma.suppliersWhereInput> | null
+  user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
+  payments?: Prisma.PaymentsListRelationFilter
+  stock_movements?: Prisma.Stock_movementsListRelationFilter
 }
 
 export type expensesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  tax?: Prisma.SortOrder
+  total?: Prisma.SortOrder
   description?: Prisma.SortOrder
   receipt_reference?: Prisma.SortOrderInput | Prisma.SortOrder
-  incurred_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
-  users?: Prisma.usersOrderByWithRelationInput
+  is_paid?: Prisma.SortOrder
+  expense_date?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  supplier?: Prisma.suppliersOrderByWithRelationInput
+  user?: Prisma.usersOrderByWithRelationInput
+  payments?: Prisma.paymentsOrderByRelationAggregateInput
+  stock_movements?: Prisma.stock_movementsOrderByRelationAggregateInput
 }
 
 export type expensesWhereUniqueInput = Prisma.AtLeast<{
@@ -260,23 +331,38 @@ export type expensesWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.expensesWhereInput | Prisma.expensesWhereInput[]
   OR?: Prisma.expensesWhereInput[]
   NOT?: Prisma.expensesWhereInput | Prisma.expensesWhereInput[]
-  category?: Prisma.StringFilter<"expenses"> | string
+  category?: Prisma.Enumexpense_categoryFilter<"expenses"> | $Enums.expense_category
+  supplier_id?: Prisma.IntNullableFilter<"expenses"> | number | null
   amount?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableFilter<"expenses"> | string | null
-  incurred_at?: Prisma.DateTimeNullableFilter<"expenses"> | Date | string | null
-  created_by?: Prisma.IntNullableFilter<"expenses"> | number | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
+  is_paid?: Prisma.BoolFilter<"expenses"> | boolean
+  expense_date?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  created_by?: Prisma.IntFilter<"expenses"> | number
+  created_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  supplier?: Prisma.XOR<Prisma.SuppliersNullableScalarRelationFilter, Prisma.suppliersWhereInput> | null
+  user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
+  payments?: Prisma.PaymentsListRelationFilter
+  stock_movements?: Prisma.Stock_movementsListRelationFilter
 }, "id">
 
 export type expensesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  tax?: Prisma.SortOrder
+  total?: Prisma.SortOrder
   description?: Prisma.SortOrder
   receipt_reference?: Prisma.SortOrderInput | Prisma.SortOrder
-  incurred_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_paid?: Prisma.SortOrder
+  expense_date?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   _count?: Prisma.expensesCountOrderByAggregateInput
   _avg?: Prisma.expensesAvgOrderByAggregateInput
   _max?: Prisma.expensesMaxOrderByAggregateInput
@@ -289,120 +375,133 @@ export type expensesScalarWhereWithAggregatesInput = {
   OR?: Prisma.expensesScalarWhereWithAggregatesInput[]
   NOT?: Prisma.expensesScalarWhereWithAggregatesInput | Prisma.expensesScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"expenses"> | number
-  category?: Prisma.StringWithAggregatesFilter<"expenses"> | string
+  category?: Prisma.Enumexpense_categoryWithAggregatesFilter<"expenses"> | $Enums.expense_category
+  supplier_id?: Prisma.IntNullableWithAggregatesFilter<"expenses"> | number | null
   amount?: Prisma.DecimalWithAggregatesFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalWithAggregatesFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalWithAggregatesFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringWithAggregatesFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableWithAggregatesFilter<"expenses"> | string | null
-  incurred_at?: Prisma.DateTimeNullableWithAggregatesFilter<"expenses"> | Date | string | null
-  created_by?: Prisma.IntNullableWithAggregatesFilter<"expenses"> | number | null
+  is_paid?: Prisma.BoolWithAggregatesFilter<"expenses"> | boolean
+  expense_date?: Prisma.DateTimeWithAggregatesFilter<"expenses"> | Date | string
+  created_by?: Prisma.IntWithAggregatesFilter<"expenses"> | number
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"expenses"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"expenses"> | Date | string
 }
 
 export type expensesCreateInput = {
-  category: string
+  category: $Enums.expense_category
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
   receipt_reference?: string | null
-  incurred_at?: Date | string | null
-  users?: Prisma.usersCreateNestedOneWithoutExpensesInput
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  supplier?: Prisma.suppliersCreateNestedOneWithoutExpensesInput
+  user: Prisma.usersCreateNestedOneWithoutExpensesInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutExpenseInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutExpenseInput
 }
 
 export type expensesUncheckedCreateInput = {
   id?: number
-  category: string
+  category: $Enums.expense_category
+  supplier_id?: number | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
   receipt_reference?: string | null
-  incurred_at?: Date | string | null
-  created_by?: number | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+  updated_at?: Date | string
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutExpenseInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutExpenseInput
 }
 
 export type expensesUpdateInput = {
-  category?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incurred_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  users?: Prisma.usersUpdateOneWithoutExpensesNestedInput
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplier?: Prisma.suppliersUpdateOneWithoutExpensesNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutExpensesNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutExpenseNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutExpenseNestedInput
 }
 
 export type expensesUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  category?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incurred_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutExpenseNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutExpenseNestedInput
 }
 
 export type expensesCreateManyInput = {
   id?: number
-  category: string
+  category: $Enums.expense_category
+  supplier_id?: number | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
   receipt_reference?: string | null
-  incurred_at?: Date | string | null
-  created_by?: number | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type expensesUpdateManyMutationInput = {
-  category?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incurred_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type expensesUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  category?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incurred_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type expensesCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  category?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  receipt_reference?: Prisma.SortOrder
-  incurred_at?: Prisma.SortOrder
-  created_by?: Prisma.SortOrder
-}
-
-export type expensesAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
-  created_by?: Prisma.SortOrder
-}
-
-export type expensesMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  category?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  receipt_reference?: Prisma.SortOrder
-  incurred_at?: Prisma.SortOrder
-  created_by?: Prisma.SortOrder
-}
-
-export type expensesMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  category?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  receipt_reference?: Prisma.SortOrder
-  incurred_at?: Prisma.SortOrder
-  created_by?: Prisma.SortOrder
-}
-
-export type expensesSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
-  created_by?: Prisma.SortOrder
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ExpensesListRelationFilter = {
@@ -415,105 +514,254 @@ export type expensesOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+export type ExpensesNullableScalarRelationFilter = {
+  is?: Prisma.expensesWhereInput | null
+  isNot?: Prisma.expensesWhereInput | null
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type expensesCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  tax?: Prisma.SortOrder
+  total?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  receipt_reference?: Prisma.SortOrder
+  is_paid?: Prisma.SortOrder
+  expense_date?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
-export type expensesCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.expensesCreateWithoutUsersInput, Prisma.expensesUncheckedCreateWithoutUsersInput> | Prisma.expensesCreateWithoutUsersInput[] | Prisma.expensesUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUsersInput | Prisma.expensesCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.expensesCreateManyUsersInputEnvelope
+export type expensesAvgOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  tax?: Prisma.SortOrder
+  total?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+}
+
+export type expensesMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  tax?: Prisma.SortOrder
+  total?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  receipt_reference?: Prisma.SortOrder
+  is_paid?: Prisma.SortOrder
+  expense_date?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+}
+
+export type expensesMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  tax?: Prisma.SortOrder
+  total?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  receipt_reference?: Prisma.SortOrder
+  is_paid?: Prisma.SortOrder
+  expense_date?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+}
+
+export type expensesSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  tax?: Prisma.SortOrder
+  total?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+}
+
+export type expensesCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutUserInput, Prisma.expensesUncheckedCreateWithoutUserInput> | Prisma.expensesCreateWithoutUserInput[] | Prisma.expensesUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUserInput | Prisma.expensesCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.expensesCreateManyUserInputEnvelope
   connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
 }
 
-export type expensesUncheckedCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.expensesCreateWithoutUsersInput, Prisma.expensesUncheckedCreateWithoutUsersInput> | Prisma.expensesCreateWithoutUsersInput[] | Prisma.expensesUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUsersInput | Prisma.expensesCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.expensesCreateManyUsersInputEnvelope
+export type expensesUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutUserInput, Prisma.expensesUncheckedCreateWithoutUserInput> | Prisma.expensesCreateWithoutUserInput[] | Prisma.expensesUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUserInput | Prisma.expensesCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.expensesCreateManyUserInputEnvelope
   connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
 }
 
-export type expensesUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.expensesCreateWithoutUsersInput, Prisma.expensesUncheckedCreateWithoutUsersInput> | Prisma.expensesCreateWithoutUsersInput[] | Prisma.expensesUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUsersInput | Prisma.expensesCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.expensesUpsertWithWhereUniqueWithoutUsersInput | Prisma.expensesUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.expensesCreateManyUsersInputEnvelope
+export type expensesUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutUserInput, Prisma.expensesUncheckedCreateWithoutUserInput> | Prisma.expensesCreateWithoutUserInput[] | Prisma.expensesUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUserInput | Prisma.expensesCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.expensesUpsertWithWhereUniqueWithoutUserInput | Prisma.expensesUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.expensesCreateManyUserInputEnvelope
   set?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
   disconnect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
   delete?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
   connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
-  update?: Prisma.expensesUpdateWithWhereUniqueWithoutUsersInput | Prisma.expensesUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.expensesUpdateManyWithWhereWithoutUsersInput | Prisma.expensesUpdateManyWithWhereWithoutUsersInput[]
+  update?: Prisma.expensesUpdateWithWhereUniqueWithoutUserInput | Prisma.expensesUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.expensesUpdateManyWithWhereWithoutUserInput | Prisma.expensesUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.expensesScalarWhereInput | Prisma.expensesScalarWhereInput[]
 }
 
-export type expensesUncheckedUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.expensesCreateWithoutUsersInput, Prisma.expensesUncheckedCreateWithoutUsersInput> | Prisma.expensesCreateWithoutUsersInput[] | Prisma.expensesUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUsersInput | Prisma.expensesCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.expensesUpsertWithWhereUniqueWithoutUsersInput | Prisma.expensesUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.expensesCreateManyUsersInputEnvelope
+export type expensesUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutUserInput, Prisma.expensesUncheckedCreateWithoutUserInput> | Prisma.expensesCreateWithoutUserInput[] | Prisma.expensesUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutUserInput | Prisma.expensesCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.expensesUpsertWithWhereUniqueWithoutUserInput | Prisma.expensesUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.expensesCreateManyUserInputEnvelope
   set?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
   disconnect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
   delete?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
   connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
-  update?: Prisma.expensesUpdateWithWhereUniqueWithoutUsersInput | Prisma.expensesUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.expensesUpdateManyWithWhereWithoutUsersInput | Prisma.expensesUpdateManyWithWhereWithoutUsersInput[]
+  update?: Prisma.expensesUpdateWithWhereUniqueWithoutUserInput | Prisma.expensesUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.expensesUpdateManyWithWhereWithoutUserInput | Prisma.expensesUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.expensesScalarWhereInput | Prisma.expensesScalarWhereInput[]
 }
 
-export type expensesCreateWithoutUsersInput = {
-  category: string
+export type expensesCreateNestedManyWithoutSupplierInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutSupplierInput, Prisma.expensesUncheckedCreateWithoutSupplierInput> | Prisma.expensesCreateWithoutSupplierInput[] | Prisma.expensesUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutSupplierInput | Prisma.expensesCreateOrConnectWithoutSupplierInput[]
+  createMany?: Prisma.expensesCreateManySupplierInputEnvelope
+  connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+}
+
+export type expensesUncheckedCreateNestedManyWithoutSupplierInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutSupplierInput, Prisma.expensesUncheckedCreateWithoutSupplierInput> | Prisma.expensesCreateWithoutSupplierInput[] | Prisma.expensesUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutSupplierInput | Prisma.expensesCreateOrConnectWithoutSupplierInput[]
+  createMany?: Prisma.expensesCreateManySupplierInputEnvelope
+  connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+}
+
+export type expensesUpdateManyWithoutSupplierNestedInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutSupplierInput, Prisma.expensesUncheckedCreateWithoutSupplierInput> | Prisma.expensesCreateWithoutSupplierInput[] | Prisma.expensesUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutSupplierInput | Prisma.expensesCreateOrConnectWithoutSupplierInput[]
+  upsert?: Prisma.expensesUpsertWithWhereUniqueWithoutSupplierInput | Prisma.expensesUpsertWithWhereUniqueWithoutSupplierInput[]
+  createMany?: Prisma.expensesCreateManySupplierInputEnvelope
+  set?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  disconnect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  delete?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  update?: Prisma.expensesUpdateWithWhereUniqueWithoutSupplierInput | Prisma.expensesUpdateWithWhereUniqueWithoutSupplierInput[]
+  updateMany?: Prisma.expensesUpdateManyWithWhereWithoutSupplierInput | Prisma.expensesUpdateManyWithWhereWithoutSupplierInput[]
+  deleteMany?: Prisma.expensesScalarWhereInput | Prisma.expensesScalarWhereInput[]
+}
+
+export type expensesUncheckedUpdateManyWithoutSupplierNestedInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutSupplierInput, Prisma.expensesUncheckedCreateWithoutSupplierInput> | Prisma.expensesCreateWithoutSupplierInput[] | Prisma.expensesUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutSupplierInput | Prisma.expensesCreateOrConnectWithoutSupplierInput[]
+  upsert?: Prisma.expensesUpsertWithWhereUniqueWithoutSupplierInput | Prisma.expensesUpsertWithWhereUniqueWithoutSupplierInput[]
+  createMany?: Prisma.expensesCreateManySupplierInputEnvelope
+  set?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  disconnect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  delete?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  connect?: Prisma.expensesWhereUniqueInput | Prisma.expensesWhereUniqueInput[]
+  update?: Prisma.expensesUpdateWithWhereUniqueWithoutSupplierInput | Prisma.expensesUpdateWithWhereUniqueWithoutSupplierInput[]
+  updateMany?: Prisma.expensesUpdateManyWithWhereWithoutSupplierInput | Prisma.expensesUpdateManyWithWhereWithoutSupplierInput[]
+  deleteMany?: Prisma.expensesScalarWhereInput | Prisma.expensesScalarWhereInput[]
+}
+
+export type expensesCreateNestedOneWithoutStock_movementsInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutStock_movementsInput, Prisma.expensesUncheckedCreateWithoutStock_movementsInput>
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutStock_movementsInput
+  connect?: Prisma.expensesWhereUniqueInput
+}
+
+export type expensesUpdateOneWithoutStock_movementsNestedInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutStock_movementsInput, Prisma.expensesUncheckedCreateWithoutStock_movementsInput>
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutStock_movementsInput
+  upsert?: Prisma.expensesUpsertWithoutStock_movementsInput
+  disconnect?: Prisma.expensesWhereInput | boolean
+  delete?: Prisma.expensesWhereInput | boolean
+  connect?: Prisma.expensesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.expensesUpdateToOneWithWhereWithoutStock_movementsInput, Prisma.expensesUpdateWithoutStock_movementsInput>, Prisma.expensesUncheckedUpdateWithoutStock_movementsInput>
+}
+
+export type expensesCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutPaymentsInput, Prisma.expensesUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.expensesWhereUniqueInput
+}
+
+export type expensesUpdateOneWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.expensesCreateWithoutPaymentsInput, Prisma.expensesUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.expensesCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.expensesUpsertWithoutPaymentsInput
+  disconnect?: Prisma.expensesWhereInput | boolean
+  delete?: Prisma.expensesWhereInput | boolean
+  connect?: Prisma.expensesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.expensesUpdateToOneWithWhereWithoutPaymentsInput, Prisma.expensesUpdateWithoutPaymentsInput>, Prisma.expensesUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type Enumexpense_categoryFieldUpdateOperationsInput = {
+  set?: $Enums.expense_category
+}
+
+export type expensesCreateWithoutUserInput = {
+  category: $Enums.expense_category
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
   receipt_reference?: string | null
-  incurred_at?: Date | string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  supplier?: Prisma.suppliersCreateNestedOneWithoutExpensesInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutExpenseInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutExpenseInput
 }
 
-export type expensesUncheckedCreateWithoutUsersInput = {
+export type expensesUncheckedCreateWithoutUserInput = {
   id?: number
-  category: string
+  category: $Enums.expense_category
+  supplier_id?: number | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
   receipt_reference?: string | null
-  incurred_at?: Date | string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutExpenseInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutExpenseInput
 }
 
-export type expensesCreateOrConnectWithoutUsersInput = {
+export type expensesCreateOrConnectWithoutUserInput = {
   where: Prisma.expensesWhereUniqueInput
-  create: Prisma.XOR<Prisma.expensesCreateWithoutUsersInput, Prisma.expensesUncheckedCreateWithoutUsersInput>
+  create: Prisma.XOR<Prisma.expensesCreateWithoutUserInput, Prisma.expensesUncheckedCreateWithoutUserInput>
 }
 
-export type expensesCreateManyUsersInputEnvelope = {
-  data: Prisma.expensesCreateManyUsersInput | Prisma.expensesCreateManyUsersInput[]
+export type expensesCreateManyUserInputEnvelope = {
+  data: Prisma.expensesCreateManyUserInput | Prisma.expensesCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
-export type expensesUpsertWithWhereUniqueWithoutUsersInput = {
+export type expensesUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.expensesWhereUniqueInput
-  update: Prisma.XOR<Prisma.expensesUpdateWithoutUsersInput, Prisma.expensesUncheckedUpdateWithoutUsersInput>
-  create: Prisma.XOR<Prisma.expensesCreateWithoutUsersInput, Prisma.expensesUncheckedCreateWithoutUsersInput>
+  update: Prisma.XOR<Prisma.expensesUpdateWithoutUserInput, Prisma.expensesUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.expensesCreateWithoutUserInput, Prisma.expensesUncheckedCreateWithoutUserInput>
 }
 
-export type expensesUpdateWithWhereUniqueWithoutUsersInput = {
+export type expensesUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.expensesWhereUniqueInput
-  data: Prisma.XOR<Prisma.expensesUpdateWithoutUsersInput, Prisma.expensesUncheckedUpdateWithoutUsersInput>
+  data: Prisma.XOR<Prisma.expensesUpdateWithoutUserInput, Prisma.expensesUncheckedUpdateWithoutUserInput>
 }
 
-export type expensesUpdateManyWithWhereWithoutUsersInput = {
+export type expensesUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.expensesScalarWhereInput
-  data: Prisma.XOR<Prisma.expensesUpdateManyMutationInput, Prisma.expensesUncheckedUpdateManyWithoutUsersInput>
+  data: Prisma.XOR<Prisma.expensesUpdateManyMutationInput, Prisma.expensesUncheckedUpdateManyWithoutUserInput>
 }
 
 export type expensesScalarWhereInput = {
@@ -521,118 +769,521 @@ export type expensesScalarWhereInput = {
   OR?: Prisma.expensesScalarWhereInput[]
   NOT?: Prisma.expensesScalarWhereInput | Prisma.expensesScalarWhereInput[]
   id?: Prisma.IntFilter<"expenses"> | number
-  category?: Prisma.StringFilter<"expenses"> | string
+  category?: Prisma.Enumexpense_categoryFilter<"expenses"> | $Enums.expense_category
+  supplier_id?: Prisma.IntNullableFilter<"expenses"> | number | null
   amount?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFilter<"expenses"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableFilter<"expenses"> | string | null
-  incurred_at?: Prisma.DateTimeNullableFilter<"expenses"> | Date | string | null
-  created_by?: Prisma.IntNullableFilter<"expenses"> | number | null
+  is_paid?: Prisma.BoolFilter<"expenses"> | boolean
+  expense_date?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  created_by?: Prisma.IntFilter<"expenses"> | number
+  created_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
 }
 
-export type expensesCreateManyUsersInput = {
-  id?: number
-  category: string
+export type expensesCreateWithoutSupplierInput = {
+  category: $Enums.expense_category
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
   receipt_reference?: string | null
-  incurred_at?: Date | string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.usersCreateNestedOneWithoutExpensesInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutExpenseInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutExpenseInput
 }
 
-export type expensesUpdateWithoutUsersInput = {
-  category?: Prisma.StringFieldUpdateOperationsInput | string
+export type expensesUncheckedCreateWithoutSupplierInput = {
+  id?: number
+  category: $Enums.expense_category
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  receipt_reference?: string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+  updated_at?: Date | string
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutExpenseInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutExpenseInput
+}
+
+export type expensesCreateOrConnectWithoutSupplierInput = {
+  where: Prisma.expensesWhereUniqueInput
+  create: Prisma.XOR<Prisma.expensesCreateWithoutSupplierInput, Prisma.expensesUncheckedCreateWithoutSupplierInput>
+}
+
+export type expensesCreateManySupplierInputEnvelope = {
+  data: Prisma.expensesCreateManySupplierInput | Prisma.expensesCreateManySupplierInput[]
+  skipDuplicates?: boolean
+}
+
+export type expensesUpsertWithWhereUniqueWithoutSupplierInput = {
+  where: Prisma.expensesWhereUniqueInput
+  update: Prisma.XOR<Prisma.expensesUpdateWithoutSupplierInput, Prisma.expensesUncheckedUpdateWithoutSupplierInput>
+  create: Prisma.XOR<Prisma.expensesCreateWithoutSupplierInput, Prisma.expensesUncheckedCreateWithoutSupplierInput>
+}
+
+export type expensesUpdateWithWhereUniqueWithoutSupplierInput = {
+  where: Prisma.expensesWhereUniqueInput
+  data: Prisma.XOR<Prisma.expensesUpdateWithoutSupplierInput, Prisma.expensesUncheckedUpdateWithoutSupplierInput>
+}
+
+export type expensesUpdateManyWithWhereWithoutSupplierInput = {
+  where: Prisma.expensesScalarWhereInput
+  data: Prisma.XOR<Prisma.expensesUpdateManyMutationInput, Prisma.expensesUncheckedUpdateManyWithoutSupplierInput>
+}
+
+export type expensesCreateWithoutStock_movementsInput = {
+  category: $Enums.expense_category
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  receipt_reference?: string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  supplier?: Prisma.suppliersCreateNestedOneWithoutExpensesInput
+  user: Prisma.usersCreateNestedOneWithoutExpensesInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutExpenseInput
+}
+
+export type expensesUncheckedCreateWithoutStock_movementsInput = {
+  id?: number
+  category: $Enums.expense_category
+  supplier_id?: number | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  receipt_reference?: string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+  updated_at?: Date | string
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutExpenseInput
+}
+
+export type expensesCreateOrConnectWithoutStock_movementsInput = {
+  where: Prisma.expensesWhereUniqueInput
+  create: Prisma.XOR<Prisma.expensesCreateWithoutStock_movementsInput, Prisma.expensesUncheckedCreateWithoutStock_movementsInput>
+}
+
+export type expensesUpsertWithoutStock_movementsInput = {
+  update: Prisma.XOR<Prisma.expensesUpdateWithoutStock_movementsInput, Prisma.expensesUncheckedUpdateWithoutStock_movementsInput>
+  create: Prisma.XOR<Prisma.expensesCreateWithoutStock_movementsInput, Prisma.expensesUncheckedCreateWithoutStock_movementsInput>
+  where?: Prisma.expensesWhereInput
+}
+
+export type expensesUpdateToOneWithWhereWithoutStock_movementsInput = {
+  where?: Prisma.expensesWhereInput
+  data: Prisma.XOR<Prisma.expensesUpdateWithoutStock_movementsInput, Prisma.expensesUncheckedUpdateWithoutStock_movementsInput>
+}
+
+export type expensesUpdateWithoutStock_movementsInput = {
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incurred_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplier?: Prisma.suppliersUpdateOneWithoutExpensesNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutExpensesNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutExpenseNestedInput
 }
 
-export type expensesUncheckedUpdateWithoutUsersInput = {
+export type expensesUncheckedUpdateWithoutStock_movementsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  category?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incurred_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutExpenseNestedInput
 }
 
-export type expensesUncheckedUpdateManyWithoutUsersInput = {
+export type expensesCreateWithoutPaymentsInput = {
+  category: $Enums.expense_category
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  receipt_reference?: string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  supplier?: Prisma.suppliersCreateNestedOneWithoutExpensesInput
+  user: Prisma.usersCreateNestedOneWithoutExpensesInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutExpenseInput
+}
+
+export type expensesUncheckedCreateWithoutPaymentsInput = {
+  id?: number
+  category: $Enums.expense_category
+  supplier_id?: number | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  receipt_reference?: string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+  updated_at?: Date | string
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutExpenseInput
+}
+
+export type expensesCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.expensesWhereUniqueInput
+  create: Prisma.XOR<Prisma.expensesCreateWithoutPaymentsInput, Prisma.expensesUncheckedCreateWithoutPaymentsInput>
+}
+
+export type expensesUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.expensesUpdateWithoutPaymentsInput, Prisma.expensesUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.expensesCreateWithoutPaymentsInput, Prisma.expensesUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.expensesWhereInput
+}
+
+export type expensesUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.expensesWhereInput
+  data: Prisma.XOR<Prisma.expensesUpdateWithoutPaymentsInput, Prisma.expensesUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type expensesUpdateWithoutPaymentsInput = {
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplier?: Prisma.suppliersUpdateOneWithoutExpensesNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutExpensesNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutExpenseNestedInput
+}
+
+export type expensesUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  category?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  incurred_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutExpenseNestedInput
 }
 
+export type expensesCreateManyUserInput = {
+  id?: number
+  category: $Enums.expense_category
+  supplier_id?: number | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  receipt_reference?: string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type expensesUpdateWithoutUserInput = {
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplier?: Prisma.suppliersUpdateOneWithoutExpensesNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutExpenseNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutExpenseNestedInput
+}
+
+export type expensesUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutExpenseNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutExpenseNestedInput
+}
+
+export type expensesUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type expensesCreateManySupplierInput = {
+  id?: number
+  category: $Enums.expense_category
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  receipt_reference?: string | null
+  is_paid?: boolean
+  expense_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type expensesUpdateWithoutSupplierInput = {
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.usersUpdateOneRequiredWithoutExpensesNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutExpenseNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutExpenseNestedInput
+}
+
+export type expensesUncheckedUpdateWithoutSupplierInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutExpenseNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutExpenseNestedInput
+}
+
+export type expensesUncheckedUpdateManyWithoutSupplierInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.Enumexpense_categoryFieldUpdateOperationsInput | $Enums.expense_category
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tax?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type ExpensesCountOutputType
+ */
+
+export type ExpensesCountOutputType = {
+  payments: number
+  stock_movements: number
+}
+
+export type ExpensesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  payments?: boolean | ExpensesCountOutputTypeCountPaymentsArgs
+  stock_movements?: boolean | ExpensesCountOutputTypeCountStock_movementsArgs
+}
+
+/**
+ * ExpensesCountOutputType without action
+ */
+export type ExpensesCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExpensesCountOutputType
+   */
+  select?: Prisma.ExpensesCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ExpensesCountOutputType without action
+ */
+export type ExpensesCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.paymentsWhereInput
+}
+
+/**
+ * ExpensesCountOutputType without action
+ */
+export type ExpensesCountOutputTypeCountStock_movementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.stock_movementsWhereInput
+}
 
 
 export type expensesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   category?: boolean
+  supplier_id?: boolean
   amount?: boolean
+  tax?: boolean
+  total?: boolean
   description?: boolean
   receipt_reference?: boolean
-  incurred_at?: boolean
+  is_paid?: boolean
+  expense_date?: boolean
   created_by?: boolean
-  users?: boolean | Prisma.expenses$usersArgs<ExtArgs>
+  created_at?: boolean
+  updated_at?: boolean
+  supplier?: boolean | Prisma.expenses$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  payments?: boolean | Prisma.expenses$paymentsArgs<ExtArgs>
+  stock_movements?: boolean | Prisma.expenses$stock_movementsArgs<ExtArgs>
+  _count?: boolean | Prisma.ExpensesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expenses"]>
 
 export type expensesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   category?: boolean
+  supplier_id?: boolean
   amount?: boolean
+  tax?: boolean
+  total?: boolean
   description?: boolean
   receipt_reference?: boolean
-  incurred_at?: boolean
+  is_paid?: boolean
+  expense_date?: boolean
   created_by?: boolean
-  users?: boolean | Prisma.expenses$usersArgs<ExtArgs>
+  created_at?: boolean
+  updated_at?: boolean
+  supplier?: boolean | Prisma.expenses$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expenses"]>
 
 export type expensesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   category?: boolean
+  supplier_id?: boolean
   amount?: boolean
+  tax?: boolean
+  total?: boolean
   description?: boolean
   receipt_reference?: boolean
-  incurred_at?: boolean
+  is_paid?: boolean
+  expense_date?: boolean
   created_by?: boolean
-  users?: boolean | Prisma.expenses$usersArgs<ExtArgs>
+  created_at?: boolean
+  updated_at?: boolean
+  supplier?: boolean | Prisma.expenses$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expenses"]>
 
 export type expensesSelectScalar = {
   id?: boolean
   category?: boolean
+  supplier_id?: boolean
   amount?: boolean
+  tax?: boolean
+  total?: boolean
   description?: boolean
   receipt_reference?: boolean
-  incurred_at?: boolean
+  is_paid?: boolean
+  expense_date?: boolean
   created_by?: boolean
+  created_at?: boolean
+  updated_at?: boolean
 }
 
-export type expensesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category" | "amount" | "description" | "receipt_reference" | "incurred_at" | "created_by", ExtArgs["result"]["expenses"]>
+export type expensesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category" | "supplier_id" | "amount" | "tax" | "total" | "description" | "receipt_reference" | "is_paid" | "expense_date" | "created_by" | "created_at" | "updated_at", ExtArgs["result"]["expenses"]>
 export type expensesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.expenses$usersArgs<ExtArgs>
+  supplier?: boolean | Prisma.expenses$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  payments?: boolean | Prisma.expenses$paymentsArgs<ExtArgs>
+  stock_movements?: boolean | Prisma.expenses$stock_movementsArgs<ExtArgs>
+  _count?: boolean | Prisma.ExpensesCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type expensesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.expenses$usersArgs<ExtArgs>
+  supplier?: boolean | Prisma.expenses$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 export type expensesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.expenses$usersArgs<ExtArgs>
+  supplier?: boolean | Prisma.expenses$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 
 export type $expensesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "expenses"
   objects: {
-    users: Prisma.$usersPayload<ExtArgs> | null
+    supplier: Prisma.$suppliersPayload<ExtArgs> | null
+    user: Prisma.$usersPayload<ExtArgs>
+    payments: Prisma.$paymentsPayload<ExtArgs>[]
+    stock_movements: Prisma.$stock_movementsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    category: string
+    category: $Enums.expense_category
+    supplier_id: number | null
     amount: runtime.Decimal
+    tax: runtime.Decimal
+    total: runtime.Decimal
     description: string
     receipt_reference: string | null
-    incurred_at: Date | null
-    created_by: number | null
+    is_paid: boolean
+    expense_date: Date
+    created_by: number
+    created_at: Date
+    updated_at: Date
   }, ExtArgs["result"]["expenses"]>
   composites: {}
 }
@@ -1027,7 +1678,10 @@ readonly fields: expensesFieldRefs;
  */
 export interface Prisma__expensesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  users<T extends Prisma.expenses$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expenses$usersArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  supplier<T extends Prisma.expenses$supplierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expenses$supplierArgs<ExtArgs>>): Prisma.Prisma__suppliersClient<runtime.Types.Result.GetResult<Prisma.$suppliersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.usersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usersDefaultArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  payments<T extends Prisma.expenses$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expenses$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stock_movements<T extends Prisma.expenses$stock_movementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expenses$stock_movementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$stock_movementsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1058,12 +1712,18 @@ export interface Prisma__expensesClient<T, Null = never, ExtArgs extends runtime
  */
 export interface expensesFieldRefs {
   readonly id: Prisma.FieldRef<"expenses", 'Int'>
-  readonly category: Prisma.FieldRef<"expenses", 'String'>
+  readonly category: Prisma.FieldRef<"expenses", 'expense_category'>
+  readonly supplier_id: Prisma.FieldRef<"expenses", 'Int'>
   readonly amount: Prisma.FieldRef<"expenses", 'Decimal'>
+  readonly tax: Prisma.FieldRef<"expenses", 'Decimal'>
+  readonly total: Prisma.FieldRef<"expenses", 'Decimal'>
   readonly description: Prisma.FieldRef<"expenses", 'String'>
   readonly receipt_reference: Prisma.FieldRef<"expenses", 'String'>
-  readonly incurred_at: Prisma.FieldRef<"expenses", 'DateTime'>
+  readonly is_paid: Prisma.FieldRef<"expenses", 'Boolean'>
+  readonly expense_date: Prisma.FieldRef<"expenses", 'DateTime'>
   readonly created_by: Prisma.FieldRef<"expenses", 'Int'>
+  readonly created_at: Prisma.FieldRef<"expenses", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"expenses", 'DateTime'>
 }
     
 
@@ -1460,22 +2120,70 @@ export type expensesDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * expenses.users
+ * expenses.supplier
  */
-export type expenses$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type expenses$supplierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the users
+   * Select specific fields to fetch from the suppliers
    */
-  select?: Prisma.usersSelect<ExtArgs> | null
+  select?: Prisma.suppliersSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the users
+   * Omit specific fields from the suppliers
    */
-  omit?: Prisma.usersOmit<ExtArgs> | null
+  omit?: Prisma.suppliersOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.usersInclude<ExtArgs> | null
-  where?: Prisma.usersWhereInput
+  include?: Prisma.suppliersInclude<ExtArgs> | null
+  where?: Prisma.suppliersWhereInput
+}
+
+/**
+ * expenses.payments
+ */
+export type expenses$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the payments
+   */
+  select?: Prisma.paymentsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the payments
+   */
+  omit?: Prisma.paymentsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.paymentsInclude<ExtArgs> | null
+  where?: Prisma.paymentsWhereInput
+  orderBy?: Prisma.paymentsOrderByWithRelationInput | Prisma.paymentsOrderByWithRelationInput[]
+  cursor?: Prisma.paymentsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentsScalarFieldEnum | Prisma.PaymentsScalarFieldEnum[]
+}
+
+/**
+ * expenses.stock_movements
+ */
+export type expenses$stock_movementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the stock_movements
+   */
+  select?: Prisma.stock_movementsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the stock_movements
+   */
+  omit?: Prisma.stock_movementsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.stock_movementsInclude<ExtArgs> | null
+  where?: Prisma.stock_movementsWhereInput
+  orderBy?: Prisma.stock_movementsOrderByWithRelationInput | Prisma.stock_movementsOrderByWithRelationInput[]
+  cursor?: Prisma.stock_movementsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Stock_movementsScalarFieldEnum | Prisma.Stock_movementsScalarFieldEnum[]
 }
 
 /**

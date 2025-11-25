@@ -12,7 +12,7 @@ export async function GET(
         const menuItem = await prisma.menu_items.findUnique({
             where: { id: Number(id) },
             include: {
-                menu_categories: true,
+                category: true,
             },
         });
 

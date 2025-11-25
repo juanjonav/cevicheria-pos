@@ -14,8 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model stock_movements
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type stock_movementsModel = runtime.Types.Result.DefaultSelection<Prisma.$stock_movementsPayload>
 
@@ -31,7 +30,11 @@ export type Stock_movementsAvgAggregateOutputType = {
   id: number | null
   stock_item_id: number | null
   quantity: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
+  total_cost: runtime.Decimal | null
   related_order_id: number | null
+  related_expense_id: number | null
+  supplier_id: number | null
   created_by: number | null
 }
 
@@ -39,7 +42,11 @@ export type Stock_movementsSumAggregateOutputType = {
   id: number | null
   stock_item_id: number | null
   quantity: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
+  total_cost: runtime.Decimal | null
   related_order_id: number | null
+  related_expense_id: number | null
+  supplier_id: number | null
   created_by: number | null
 }
 
@@ -48,10 +55,15 @@ export type Stock_movementsMinAggregateOutputType = {
   stock_item_id: number | null
   movement_type: $Enums.stock_movement_type | null
   quantity: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
+  total_cost: runtime.Decimal | null
   related_order_id: number | null
+  related_expense_id: number | null
+  supplier_id: number | null
   notes: string | null
-  created_at: Date | null
+  movement_date: Date | null
   created_by: number | null
+  created_at: Date | null
 }
 
 export type Stock_movementsMaxAggregateOutputType = {
@@ -59,10 +71,15 @@ export type Stock_movementsMaxAggregateOutputType = {
   stock_item_id: number | null
   movement_type: $Enums.stock_movement_type | null
   quantity: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
+  total_cost: runtime.Decimal | null
   related_order_id: number | null
+  related_expense_id: number | null
+  supplier_id: number | null
   notes: string | null
-  created_at: Date | null
+  movement_date: Date | null
   created_by: number | null
+  created_at: Date | null
 }
 
 export type Stock_movementsCountAggregateOutputType = {
@@ -70,10 +87,15 @@ export type Stock_movementsCountAggregateOutputType = {
   stock_item_id: number
   movement_type: number
   quantity: number
+  unit_cost: number
+  total_cost: number
   related_order_id: number
+  related_expense_id: number
+  supplier_id: number
   notes: number
-  created_at: number
+  movement_date: number
   created_by: number
+  created_at: number
   _all: number
 }
 
@@ -82,7 +104,11 @@ export type Stock_movementsAvgAggregateInputType = {
   id?: true
   stock_item_id?: true
   quantity?: true
+  unit_cost?: true
+  total_cost?: true
   related_order_id?: true
+  related_expense_id?: true
+  supplier_id?: true
   created_by?: true
 }
 
@@ -90,7 +116,11 @@ export type Stock_movementsSumAggregateInputType = {
   id?: true
   stock_item_id?: true
   quantity?: true
+  unit_cost?: true
+  total_cost?: true
   related_order_id?: true
+  related_expense_id?: true
+  supplier_id?: true
   created_by?: true
 }
 
@@ -99,10 +129,15 @@ export type Stock_movementsMinAggregateInputType = {
   stock_item_id?: true
   movement_type?: true
   quantity?: true
+  unit_cost?: true
+  total_cost?: true
   related_order_id?: true
+  related_expense_id?: true
+  supplier_id?: true
   notes?: true
-  created_at?: true
+  movement_date?: true
   created_by?: true
+  created_at?: true
 }
 
 export type Stock_movementsMaxAggregateInputType = {
@@ -110,10 +145,15 @@ export type Stock_movementsMaxAggregateInputType = {
   stock_item_id?: true
   movement_type?: true
   quantity?: true
+  unit_cost?: true
+  total_cost?: true
   related_order_id?: true
+  related_expense_id?: true
+  supplier_id?: true
   notes?: true
-  created_at?: true
+  movement_date?: true
   created_by?: true
+  created_at?: true
 }
 
 export type Stock_movementsCountAggregateInputType = {
@@ -121,10 +161,15 @@ export type Stock_movementsCountAggregateInputType = {
   stock_item_id?: true
   movement_type?: true
   quantity?: true
+  unit_cost?: true
+  total_cost?: true
   related_order_id?: true
+  related_expense_id?: true
+  supplier_id?: true
   notes?: true
-  created_at?: true
+  movement_date?: true
   created_by?: true
+  created_at?: true
   _all?: true
 }
 
@@ -219,10 +264,15 @@ export type Stock_movementsGroupByOutputType = {
   stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal
+  unit_cost: runtime.Decimal | null
+  total_cost: runtime.Decimal | null
   related_order_id: number | null
+  related_expense_id: number | null
+  supplier_id: number | null
   notes: string | null
-  created_at: Date | null
-  created_by: number | null
+  movement_date: Date
+  created_by: number
+  created_at: Date
   _count: Stock_movementsCountAggregateOutputType | null
   _avg: Stock_movementsAvgAggregateOutputType | null
   _sum: Stock_movementsSumAggregateOutputType | null
@@ -253,13 +303,20 @@ export type stock_movementsWhereInput = {
   stock_item_id?: Prisma.IntFilter<"stock_movements"> | number
   movement_type?: Prisma.Enumstock_movement_typeFilter<"stock_movements"> | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.DecimalNullableFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.DecimalNullableFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
+  related_expense_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
+  supplier_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
   notes?: Prisma.StringNullableFilter<"stock_movements"> | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"stock_movements"> | Date | string | null
-  created_by?: Prisma.IntNullableFilter<"stock_movements"> | number | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
-  orders?: Prisma.XOR<Prisma.OrdersNullableScalarRelationFilter, Prisma.ordersWhereInput> | null
-  stock_items?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
+  movement_date?: Prisma.DateTimeFilter<"stock_movements"> | Date | string
+  created_by?: Prisma.IntFilter<"stock_movements"> | number
+  created_at?: Prisma.DateTimeFilter<"stock_movements"> | Date | string
+  stock_item?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
+  order?: Prisma.XOR<Prisma.OrdersNullableScalarRelationFilter, Prisma.ordersWhereInput> | null
+  expense?: Prisma.XOR<Prisma.ExpensesNullableScalarRelationFilter, Prisma.expensesWhereInput> | null
+  supplier?: Prisma.XOR<Prisma.SuppliersNullableScalarRelationFilter, Prisma.suppliersWhereInput> | null
+  user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
 }
 
 export type stock_movementsOrderByWithRelationInput = {
@@ -267,13 +324,20 @@ export type stock_movementsOrderByWithRelationInput = {
   stock_item_id?: Prisma.SortOrder
   movement_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrderInput | Prisma.SortOrder
+  total_cost?: Prisma.SortOrderInput | Prisma.SortOrder
   related_order_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  related_expense_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplier_id?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
-  users?: Prisma.usersOrderByWithRelationInput
-  orders?: Prisma.ordersOrderByWithRelationInput
-  stock_items?: Prisma.stock_itemsOrderByWithRelationInput
+  movement_date?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  stock_item?: Prisma.stock_itemsOrderByWithRelationInput
+  order?: Prisma.ordersOrderByWithRelationInput
+  expense?: Prisma.expensesOrderByWithRelationInput
+  supplier?: Prisma.suppliersOrderByWithRelationInput
+  user?: Prisma.usersOrderByWithRelationInput
 }
 
 export type stock_movementsWhereUniqueInput = Prisma.AtLeast<{
@@ -284,13 +348,20 @@ export type stock_movementsWhereUniqueInput = Prisma.AtLeast<{
   stock_item_id?: Prisma.IntFilter<"stock_movements"> | number
   movement_type?: Prisma.Enumstock_movement_typeFilter<"stock_movements"> | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.DecimalNullableFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.DecimalNullableFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
+  related_expense_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
+  supplier_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
   notes?: Prisma.StringNullableFilter<"stock_movements"> | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"stock_movements"> | Date | string | null
-  created_by?: Prisma.IntNullableFilter<"stock_movements"> | number | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
-  orders?: Prisma.XOR<Prisma.OrdersNullableScalarRelationFilter, Prisma.ordersWhereInput> | null
-  stock_items?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
+  movement_date?: Prisma.DateTimeFilter<"stock_movements"> | Date | string
+  created_by?: Prisma.IntFilter<"stock_movements"> | number
+  created_at?: Prisma.DateTimeFilter<"stock_movements"> | Date | string
+  stock_item?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
+  order?: Prisma.XOR<Prisma.OrdersNullableScalarRelationFilter, Prisma.ordersWhereInput> | null
+  expense?: Prisma.XOR<Prisma.ExpensesNullableScalarRelationFilter, Prisma.expensesWhereInput> | null
+  supplier?: Prisma.XOR<Prisma.SuppliersNullableScalarRelationFilter, Prisma.suppliersWhereInput> | null
+  user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
 }, "id">
 
 export type stock_movementsOrderByWithAggregationInput = {
@@ -298,10 +369,15 @@ export type stock_movementsOrderByWithAggregationInput = {
   stock_item_id?: Prisma.SortOrder
   movement_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrderInput | Prisma.SortOrder
+  total_cost?: Prisma.SortOrderInput | Prisma.SortOrder
   related_order_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  related_expense_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplier_id?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  movement_date?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
   _count?: Prisma.stock_movementsCountOrderByAggregateInput
   _avg?: Prisma.stock_movementsAvgOrderByAggregateInput
   _max?: Prisma.stock_movementsMaxOrderByAggregateInput
@@ -317,20 +393,30 @@ export type stock_movementsScalarWhereWithAggregatesInput = {
   stock_item_id?: Prisma.IntWithAggregatesFilter<"stock_movements"> | number
   movement_type?: Prisma.Enumstock_movement_typeWithAggregatesFilter<"stock_movements"> | $Enums.stock_movement_type
   quantity?: Prisma.DecimalWithAggregatesFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.DecimalNullableWithAggregatesFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.DecimalNullableWithAggregatesFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.IntNullableWithAggregatesFilter<"stock_movements"> | number | null
+  related_expense_id?: Prisma.IntNullableWithAggregatesFilter<"stock_movements"> | number | null
+  supplier_id?: Prisma.IntNullableWithAggregatesFilter<"stock_movements"> | number | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"stock_movements"> | string | null
-  created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"stock_movements"> | Date | string | null
-  created_by?: Prisma.IntNullableWithAggregatesFilter<"stock_movements"> | number | null
+  movement_date?: Prisma.DateTimeWithAggregatesFilter<"stock_movements"> | Date | string
+  created_by?: Prisma.IntWithAggregatesFilter<"stock_movements"> | number
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"stock_movements"> | Date | string
 }
 
 export type stock_movementsCreateInput = {
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
-  created_at?: Date | string | null
-  users?: Prisma.usersCreateNestedOneWithoutStock_movementsInput
-  orders?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
-  stock_items: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  movement_date?: Date | string
+  created_at?: Date | string
+  stock_item: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  order?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
+  expense?: Prisma.expensesCreateNestedOneWithoutStock_movementsInput
+  supplier?: Prisma.suppliersCreateNestedOneWithoutStock_movementsInput
+  user: Prisma.usersCreateNestedOneWithoutStock_movementsInput
 }
 
 export type stock_movementsUncheckedCreateInput = {
@@ -338,20 +424,30 @@ export type stock_movementsUncheckedCreateInput = {
   stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: number | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
   notes?: string | null
-  created_at?: Date | string | null
-  created_by?: number | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
 }
 
 export type stock_movementsUpdateInput = {
   movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  users?: Prisma.usersUpdateOneWithoutStock_movementsNestedInput
-  orders?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
-  stock_items?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_item?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+  order?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
+  expense?: Prisma.expensesUpdateOneWithoutStock_movementsNestedInput
+  supplier?: Prisma.suppliersUpdateOneWithoutStock_movementsNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutStock_movementsNestedInput
 }
 
 export type stock_movementsUncheckedUpdateInput = {
@@ -359,10 +455,15 @@ export type stock_movementsUncheckedUpdateInput = {
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type stock_movementsCreateManyInput = {
@@ -370,17 +471,25 @@ export type stock_movementsCreateManyInput = {
   stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: number | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
   notes?: string | null
-  created_at?: Date | string | null
-  created_by?: number | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
 }
 
 export type stock_movementsUpdateManyMutationInput = {
   movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type stock_movementsUncheckedUpdateManyInput = {
@@ -388,10 +497,15 @@ export type stock_movementsUncheckedUpdateManyInput = {
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type Stock_movementsListRelationFilter = {
@@ -409,17 +523,26 @@ export type stock_movementsCountOrderByAggregateInput = {
   stock_item_id?: Prisma.SortOrder
   movement_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  total_cost?: Prisma.SortOrder
   related_order_id?: Prisma.SortOrder
+  related_expense_id?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
   notes?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
+  movement_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
 }
 
 export type stock_movementsAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   stock_item_id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  total_cost?: Prisma.SortOrder
   related_order_id?: Prisma.SortOrder
+  related_expense_id?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
 }
 
@@ -428,10 +551,15 @@ export type stock_movementsMaxOrderByAggregateInput = {
   stock_item_id?: Prisma.SortOrder
   movement_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  total_cost?: Prisma.SortOrder
   related_order_id?: Prisma.SortOrder
+  related_expense_id?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
   notes?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
+  movement_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
 }
 
 export type stock_movementsMinOrderByAggregateInput = {
@@ -439,101 +567,152 @@ export type stock_movementsMinOrderByAggregateInput = {
   stock_item_id?: Prisma.SortOrder
   movement_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  total_cost?: Prisma.SortOrder
   related_order_id?: Prisma.SortOrder
+  related_expense_id?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
   notes?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
+  movement_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
 }
 
 export type stock_movementsSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   stock_item_id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  total_cost?: Prisma.SortOrder
   related_order_id?: Prisma.SortOrder
+  related_expense_id?: Prisma.SortOrder
+  supplier_id?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
 }
 
-export type stock_movementsCreateNestedManyWithoutOrdersInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrdersInput, Prisma.stock_movementsUncheckedCreateWithoutOrdersInput> | Prisma.stock_movementsCreateWithoutOrdersInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrdersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrdersInput | Prisma.stock_movementsCreateOrConnectWithoutOrdersInput[]
-  createMany?: Prisma.stock_movementsCreateManyOrdersInputEnvelope
+export type stock_movementsCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUserInput, Prisma.stock_movementsUncheckedCreateWithoutUserInput> | Prisma.stock_movementsCreateWithoutUserInput[] | Prisma.stock_movementsUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUserInput | Prisma.stock_movementsCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.stock_movementsCreateManyUserInputEnvelope
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
 }
 
-export type stock_movementsUncheckedCreateNestedManyWithoutOrdersInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrdersInput, Prisma.stock_movementsUncheckedCreateWithoutOrdersInput> | Prisma.stock_movementsCreateWithoutOrdersInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrdersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrdersInput | Prisma.stock_movementsCreateOrConnectWithoutOrdersInput[]
-  createMany?: Prisma.stock_movementsCreateManyOrdersInputEnvelope
+export type stock_movementsUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUserInput, Prisma.stock_movementsUncheckedCreateWithoutUserInput> | Prisma.stock_movementsCreateWithoutUserInput[] | Prisma.stock_movementsUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUserInput | Prisma.stock_movementsCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.stock_movementsCreateManyUserInputEnvelope
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
 }
 
-export type stock_movementsUpdateManyWithoutOrdersNestedInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrdersInput, Prisma.stock_movementsUncheckedCreateWithoutOrdersInput> | Prisma.stock_movementsCreateWithoutOrdersInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrdersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrdersInput | Prisma.stock_movementsCreateOrConnectWithoutOrdersInput[]
-  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrdersInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrdersInput[]
-  createMany?: Prisma.stock_movementsCreateManyOrdersInputEnvelope
+export type stock_movementsUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUserInput, Prisma.stock_movementsUncheckedCreateWithoutUserInput> | Prisma.stock_movementsCreateWithoutUserInput[] | Prisma.stock_movementsUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUserInput | Prisma.stock_movementsCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutUserInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.stock_movementsCreateManyUserInputEnvelope
   set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
-  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrdersInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrdersInput[]
-  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutOrdersInput | Prisma.stock_movementsUpdateManyWithWhereWithoutOrdersInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutUserInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutUserInput | Prisma.stock_movementsUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
 }
 
-export type stock_movementsUncheckedUpdateManyWithoutOrdersNestedInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrdersInput, Prisma.stock_movementsUncheckedCreateWithoutOrdersInput> | Prisma.stock_movementsCreateWithoutOrdersInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrdersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrdersInput | Prisma.stock_movementsCreateOrConnectWithoutOrdersInput[]
-  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrdersInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrdersInput[]
-  createMany?: Prisma.stock_movementsCreateManyOrdersInputEnvelope
+export type stock_movementsUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUserInput, Prisma.stock_movementsUncheckedCreateWithoutUserInput> | Prisma.stock_movementsCreateWithoutUserInput[] | Prisma.stock_movementsUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUserInput | Prisma.stock_movementsCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutUserInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.stock_movementsCreateManyUserInputEnvelope
   set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
-  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrdersInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrdersInput[]
-  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutOrdersInput | Prisma.stock_movementsUpdateManyWithWhereWithoutOrdersInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutUserInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutUserInput | Prisma.stock_movementsUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
 }
 
-export type stock_movementsCreateNestedManyWithoutStock_itemsInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput> | Prisma.stock_movementsCreateWithoutStock_itemsInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput[]
-  createMany?: Prisma.stock_movementsCreateManyStock_itemsInputEnvelope
+export type stock_movementsCreateNestedManyWithoutSupplierInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutSupplierInput, Prisma.stock_movementsUncheckedCreateWithoutSupplierInput> | Prisma.stock_movementsCreateWithoutSupplierInput[] | Prisma.stock_movementsUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutSupplierInput | Prisma.stock_movementsCreateOrConnectWithoutSupplierInput[]
+  createMany?: Prisma.stock_movementsCreateManySupplierInputEnvelope
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
 }
 
-export type stock_movementsUncheckedCreateNestedManyWithoutStock_itemsInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput> | Prisma.stock_movementsCreateWithoutStock_itemsInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput[]
-  createMany?: Prisma.stock_movementsCreateManyStock_itemsInputEnvelope
+export type stock_movementsUncheckedCreateNestedManyWithoutSupplierInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutSupplierInput, Prisma.stock_movementsUncheckedCreateWithoutSupplierInput> | Prisma.stock_movementsCreateWithoutSupplierInput[] | Prisma.stock_movementsUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutSupplierInput | Prisma.stock_movementsCreateOrConnectWithoutSupplierInput[]
+  createMany?: Prisma.stock_movementsCreateManySupplierInputEnvelope
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
 }
 
-export type stock_movementsUpdateManyWithoutStock_itemsNestedInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput> | Prisma.stock_movementsCreateWithoutStock_itemsInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput[]
-  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemsInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemsInput[]
-  createMany?: Prisma.stock_movementsCreateManyStock_itemsInputEnvelope
+export type stock_movementsUpdateManyWithoutSupplierNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutSupplierInput, Prisma.stock_movementsUncheckedCreateWithoutSupplierInput> | Prisma.stock_movementsCreateWithoutSupplierInput[] | Prisma.stock_movementsUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutSupplierInput | Prisma.stock_movementsCreateOrConnectWithoutSupplierInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutSupplierInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutSupplierInput[]
+  createMany?: Prisma.stock_movementsCreateManySupplierInputEnvelope
   set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
-  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemsInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemsInput[]
-  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemsInput | Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemsInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutSupplierInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutSupplierInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutSupplierInput | Prisma.stock_movementsUpdateManyWithWhereWithoutSupplierInput[]
   deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
 }
 
-export type stock_movementsUncheckedUpdateManyWithoutStock_itemsNestedInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput> | Prisma.stock_movementsCreateWithoutStock_itemsInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemsInput[]
-  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemsInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemsInput[]
-  createMany?: Prisma.stock_movementsCreateManyStock_itemsInputEnvelope
+export type stock_movementsUncheckedUpdateManyWithoutSupplierNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutSupplierInput, Prisma.stock_movementsUncheckedCreateWithoutSupplierInput> | Prisma.stock_movementsCreateWithoutSupplierInput[] | Prisma.stock_movementsUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutSupplierInput | Prisma.stock_movementsCreateOrConnectWithoutSupplierInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutSupplierInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutSupplierInput[]
+  createMany?: Prisma.stock_movementsCreateManySupplierInputEnvelope
   set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
-  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemsInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemsInput[]
-  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemsInput | Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemsInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutSupplierInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutSupplierInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutSupplierInput | Prisma.stock_movementsUpdateManyWithWhereWithoutSupplierInput[]
+  deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
+}
+
+export type stock_movementsCreateNestedManyWithoutStock_itemInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput> | Prisma.stock_movementsCreateWithoutStock_itemInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput[]
+  createMany?: Prisma.stock_movementsCreateManyStock_itemInputEnvelope
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+}
+
+export type stock_movementsUncheckedCreateNestedManyWithoutStock_itemInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput> | Prisma.stock_movementsCreateWithoutStock_itemInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput[]
+  createMany?: Prisma.stock_movementsCreateManyStock_itemInputEnvelope
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+}
+
+export type stock_movementsUpdateManyWithoutStock_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput> | Prisma.stock_movementsCreateWithoutStock_itemInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemInput[]
+  createMany?: Prisma.stock_movementsCreateManyStock_itemInputEnvelope
+  set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemInput | Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemInput[]
+  deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
+}
+
+export type stock_movementsUncheckedUpdateManyWithoutStock_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput> | Prisma.stock_movementsCreateWithoutStock_itemInput[] | Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput | Prisma.stock_movementsCreateOrConnectWithoutStock_itemInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutStock_itemInput[]
+  createMany?: Prisma.stock_movementsCreateManyStock_itemInputEnvelope
+  set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutStock_itemInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemInput | Prisma.stock_movementsUpdateManyWithWhereWithoutStock_itemInput[]
   deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
 }
 
@@ -541,91 +720,143 @@ export type Enumstock_movement_typeFieldUpdateOperationsInput = {
   set?: $Enums.stock_movement_type
 }
 
-export type stock_movementsCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUsersInput, Prisma.stock_movementsUncheckedCreateWithoutUsersInput> | Prisma.stock_movementsCreateWithoutUsersInput[] | Prisma.stock_movementsUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUsersInput | Prisma.stock_movementsCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.stock_movementsCreateManyUsersInputEnvelope
+export type stock_movementsCreateNestedManyWithoutOrderInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrderInput, Prisma.stock_movementsUncheckedCreateWithoutOrderInput> | Prisma.stock_movementsCreateWithoutOrderInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrderInput | Prisma.stock_movementsCreateOrConnectWithoutOrderInput[]
+  createMany?: Prisma.stock_movementsCreateManyOrderInputEnvelope
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
 }
 
-export type stock_movementsUncheckedCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUsersInput, Prisma.stock_movementsUncheckedCreateWithoutUsersInput> | Prisma.stock_movementsCreateWithoutUsersInput[] | Prisma.stock_movementsUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUsersInput | Prisma.stock_movementsCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.stock_movementsCreateManyUsersInputEnvelope
+export type stock_movementsUncheckedCreateNestedManyWithoutOrderInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrderInput, Prisma.stock_movementsUncheckedCreateWithoutOrderInput> | Prisma.stock_movementsCreateWithoutOrderInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrderInput | Prisma.stock_movementsCreateOrConnectWithoutOrderInput[]
+  createMany?: Prisma.stock_movementsCreateManyOrderInputEnvelope
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
 }
 
-export type stock_movementsUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUsersInput, Prisma.stock_movementsUncheckedCreateWithoutUsersInput> | Prisma.stock_movementsCreateWithoutUsersInput[] | Prisma.stock_movementsUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUsersInput | Prisma.stock_movementsCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutUsersInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.stock_movementsCreateManyUsersInputEnvelope
+export type stock_movementsUpdateManyWithoutOrderNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrderInput, Prisma.stock_movementsUncheckedCreateWithoutOrderInput> | Prisma.stock_movementsCreateWithoutOrderInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrderInput | Prisma.stock_movementsCreateOrConnectWithoutOrderInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrderInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrderInput[]
+  createMany?: Prisma.stock_movementsCreateManyOrderInputEnvelope
   set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
-  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutUsersInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutUsersInput | Prisma.stock_movementsUpdateManyWithWhereWithoutUsersInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrderInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrderInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutOrderInput | Prisma.stock_movementsUpdateManyWithWhereWithoutOrderInput[]
   deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
 }
 
-export type stock_movementsUncheckedUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutUsersInput, Prisma.stock_movementsUncheckedCreateWithoutUsersInput> | Prisma.stock_movementsCreateWithoutUsersInput[] | Prisma.stock_movementsUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutUsersInput | Prisma.stock_movementsCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutUsersInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.stock_movementsCreateManyUsersInputEnvelope
+export type stock_movementsUncheckedUpdateManyWithoutOrderNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrderInput, Prisma.stock_movementsUncheckedCreateWithoutOrderInput> | Prisma.stock_movementsCreateWithoutOrderInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrderInput | Prisma.stock_movementsCreateOrConnectWithoutOrderInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrderInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutOrderInput[]
+  createMany?: Prisma.stock_movementsCreateManyOrderInputEnvelope
   set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
   connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
-  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutUsersInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutUsersInput | Prisma.stock_movementsUpdateManyWithWhereWithoutUsersInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrderInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutOrderInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutOrderInput | Prisma.stock_movementsUpdateManyWithWhereWithoutOrderInput[]
   deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
 }
 
-export type stock_movementsCreateWithoutOrdersInput = {
+export type stock_movementsCreateNestedManyWithoutExpenseInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutExpenseInput, Prisma.stock_movementsUncheckedCreateWithoutExpenseInput> | Prisma.stock_movementsCreateWithoutExpenseInput[] | Prisma.stock_movementsUncheckedCreateWithoutExpenseInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutExpenseInput | Prisma.stock_movementsCreateOrConnectWithoutExpenseInput[]
+  createMany?: Prisma.stock_movementsCreateManyExpenseInputEnvelope
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+}
+
+export type stock_movementsUncheckedCreateNestedManyWithoutExpenseInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutExpenseInput, Prisma.stock_movementsUncheckedCreateWithoutExpenseInput> | Prisma.stock_movementsCreateWithoutExpenseInput[] | Prisma.stock_movementsUncheckedCreateWithoutExpenseInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutExpenseInput | Prisma.stock_movementsCreateOrConnectWithoutExpenseInput[]
+  createMany?: Prisma.stock_movementsCreateManyExpenseInputEnvelope
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+}
+
+export type stock_movementsUpdateManyWithoutExpenseNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutExpenseInput, Prisma.stock_movementsUncheckedCreateWithoutExpenseInput> | Prisma.stock_movementsCreateWithoutExpenseInput[] | Prisma.stock_movementsUncheckedCreateWithoutExpenseInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutExpenseInput | Prisma.stock_movementsCreateOrConnectWithoutExpenseInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutExpenseInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutExpenseInput[]
+  createMany?: Prisma.stock_movementsCreateManyExpenseInputEnvelope
+  set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutExpenseInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutExpenseInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutExpenseInput | Prisma.stock_movementsUpdateManyWithWhereWithoutExpenseInput[]
+  deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
+}
+
+export type stock_movementsUncheckedUpdateManyWithoutExpenseNestedInput = {
+  create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutExpenseInput, Prisma.stock_movementsUncheckedCreateWithoutExpenseInput> | Prisma.stock_movementsCreateWithoutExpenseInput[] | Prisma.stock_movementsUncheckedCreateWithoutExpenseInput[]
+  connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutExpenseInput | Prisma.stock_movementsCreateOrConnectWithoutExpenseInput[]
+  upsert?: Prisma.stock_movementsUpsertWithWhereUniqueWithoutExpenseInput | Prisma.stock_movementsUpsertWithWhereUniqueWithoutExpenseInput[]
+  createMany?: Prisma.stock_movementsCreateManyExpenseInputEnvelope
+  set?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  disconnect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  delete?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  connect?: Prisma.stock_movementsWhereUniqueInput | Prisma.stock_movementsWhereUniqueInput[]
+  update?: Prisma.stock_movementsUpdateWithWhereUniqueWithoutExpenseInput | Prisma.stock_movementsUpdateWithWhereUniqueWithoutExpenseInput[]
+  updateMany?: Prisma.stock_movementsUpdateManyWithWhereWithoutExpenseInput | Prisma.stock_movementsUpdateManyWithWhereWithoutExpenseInput[]
+  deleteMany?: Prisma.stock_movementsScalarWhereInput | Prisma.stock_movementsScalarWhereInput[]
+}
+
+export type stock_movementsCreateWithoutUserInput = {
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
-  created_at?: Date | string | null
-  users?: Prisma.usersCreateNestedOneWithoutStock_movementsInput
-  stock_items: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  movement_date?: Date | string
+  created_at?: Date | string
+  stock_item: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  order?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
+  expense?: Prisma.expensesCreateNestedOneWithoutStock_movementsInput
+  supplier?: Prisma.suppliersCreateNestedOneWithoutStock_movementsInput
 }
 
-export type stock_movementsUncheckedCreateWithoutOrdersInput = {
+export type stock_movementsUncheckedCreateWithoutUserInput = {
   id?: number
   stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: number | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
   notes?: string | null
-  created_at?: Date | string | null
-  created_by?: number | null
+  movement_date?: Date | string
+  created_at?: Date | string
 }
 
-export type stock_movementsCreateOrConnectWithoutOrdersInput = {
+export type stock_movementsCreateOrConnectWithoutUserInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrdersInput, Prisma.stock_movementsUncheckedCreateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutUserInput, Prisma.stock_movementsUncheckedCreateWithoutUserInput>
 }
 
-export type stock_movementsCreateManyOrdersInputEnvelope = {
-  data: Prisma.stock_movementsCreateManyOrdersInput | Prisma.stock_movementsCreateManyOrdersInput[]
+export type stock_movementsCreateManyUserInputEnvelope = {
+  data: Prisma.stock_movementsCreateManyUserInput | Prisma.stock_movementsCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
-export type stock_movementsUpsertWithWhereUniqueWithoutOrdersInput = {
+export type stock_movementsUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutOrdersInput, Prisma.stock_movementsUncheckedUpdateWithoutOrdersInput>
-  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrdersInput, Prisma.stock_movementsUncheckedCreateWithoutOrdersInput>
+  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutUserInput, Prisma.stock_movementsUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutUserInput, Prisma.stock_movementsUncheckedCreateWithoutUserInput>
 }
 
-export type stock_movementsUpdateWithWhereUniqueWithoutOrdersInput = {
+export type stock_movementsUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutOrdersInput, Prisma.stock_movementsUncheckedUpdateWithoutOrdersInput>
+  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutUserInput, Prisma.stock_movementsUncheckedUpdateWithoutUserInput>
 }
 
-export type stock_movementsUpdateManyWithWhereWithoutOrdersInput = {
+export type stock_movementsUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.stock_movementsScalarWhereInput
-  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutOrdersInput>
+  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutUserInput>
 }
 
 export type stock_movementsScalarWhereInput = {
@@ -636,217 +867,530 @@ export type stock_movementsScalarWhereInput = {
   stock_item_id?: Prisma.IntFilter<"stock_movements"> | number
   movement_type?: Prisma.Enumstock_movement_typeFilter<"stock_movements"> | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.DecimalNullableFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.DecimalNullableFilter<"stock_movements"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
+  related_expense_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
+  supplier_id?: Prisma.IntNullableFilter<"stock_movements"> | number | null
   notes?: Prisma.StringNullableFilter<"stock_movements"> | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"stock_movements"> | Date | string | null
-  created_by?: Prisma.IntNullableFilter<"stock_movements"> | number | null
+  movement_date?: Prisma.DateTimeFilter<"stock_movements"> | Date | string
+  created_by?: Prisma.IntFilter<"stock_movements"> | number
+  created_at?: Prisma.DateTimeFilter<"stock_movements"> | Date | string
 }
 
-export type stock_movementsCreateWithoutStock_itemsInput = {
+export type stock_movementsCreateWithoutSupplierInput = {
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
-  created_at?: Date | string | null
-  users?: Prisma.usersCreateNestedOneWithoutStock_movementsInput
-  orders?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
+  movement_date?: Date | string
+  created_at?: Date | string
+  stock_item: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  order?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
+  expense?: Prisma.expensesCreateNestedOneWithoutStock_movementsInput
+  user: Prisma.usersCreateNestedOneWithoutStock_movementsInput
 }
 
-export type stock_movementsUncheckedCreateWithoutStock_itemsInput = {
+export type stock_movementsUncheckedCreateWithoutSupplierInput = {
   id?: number
+  stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: number | null
+  related_expense_id?: number | null
   notes?: string | null
-  created_at?: Date | string | null
-  created_by?: number | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
 }
 
-export type stock_movementsCreateOrConnectWithoutStock_itemsInput = {
+export type stock_movementsCreateOrConnectWithoutSupplierInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutSupplierInput, Prisma.stock_movementsUncheckedCreateWithoutSupplierInput>
 }
 
-export type stock_movementsCreateManyStock_itemsInputEnvelope = {
-  data: Prisma.stock_movementsCreateManyStock_itemsInput | Prisma.stock_movementsCreateManyStock_itemsInput[]
+export type stock_movementsCreateManySupplierInputEnvelope = {
+  data: Prisma.stock_movementsCreateManySupplierInput | Prisma.stock_movementsCreateManySupplierInput[]
   skipDuplicates?: boolean
 }
 
-export type stock_movementsUpsertWithWhereUniqueWithoutStock_itemsInput = {
+export type stock_movementsUpsertWithWhereUniqueWithoutSupplierInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedUpdateWithoutStock_itemsInput>
-  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemsInput>
+  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutSupplierInput, Prisma.stock_movementsUncheckedUpdateWithoutSupplierInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutSupplierInput, Prisma.stock_movementsUncheckedCreateWithoutSupplierInput>
 }
 
-export type stock_movementsUpdateWithWhereUniqueWithoutStock_itemsInput = {
+export type stock_movementsUpdateWithWhereUniqueWithoutSupplierInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutStock_itemsInput, Prisma.stock_movementsUncheckedUpdateWithoutStock_itemsInput>
+  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutSupplierInput, Prisma.stock_movementsUncheckedUpdateWithoutSupplierInput>
 }
 
-export type stock_movementsUpdateManyWithWhereWithoutStock_itemsInput = {
+export type stock_movementsUpdateManyWithWhereWithoutSupplierInput = {
   where: Prisma.stock_movementsScalarWhereInput
-  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutStock_itemsInput>
+  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutSupplierInput>
 }
 
-export type stock_movementsCreateWithoutUsersInput = {
+export type stock_movementsCreateWithoutStock_itemInput = {
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
-  created_at?: Date | string | null
-  orders?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
-  stock_items: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  movement_date?: Date | string
+  created_at?: Date | string
+  order?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
+  expense?: Prisma.expensesCreateNestedOneWithoutStock_movementsInput
+  supplier?: Prisma.suppliersCreateNestedOneWithoutStock_movementsInput
+  user: Prisma.usersCreateNestedOneWithoutStock_movementsInput
 }
 
-export type stock_movementsUncheckedCreateWithoutUsersInput = {
+export type stock_movementsUncheckedCreateWithoutStock_itemInput = {
   id?: number
-  stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: number | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
   notes?: string | null
-  created_at?: Date | string | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
 }
 
-export type stock_movementsCreateOrConnectWithoutUsersInput = {
+export type stock_movementsCreateOrConnectWithoutStock_itemInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutUsersInput, Prisma.stock_movementsUncheckedCreateWithoutUsersInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput>
 }
 
-export type stock_movementsCreateManyUsersInputEnvelope = {
-  data: Prisma.stock_movementsCreateManyUsersInput | Prisma.stock_movementsCreateManyUsersInput[]
+export type stock_movementsCreateManyStock_itemInputEnvelope = {
+  data: Prisma.stock_movementsCreateManyStock_itemInput | Prisma.stock_movementsCreateManyStock_itemInput[]
   skipDuplicates?: boolean
 }
 
-export type stock_movementsUpsertWithWhereUniqueWithoutUsersInput = {
+export type stock_movementsUpsertWithWhereUniqueWithoutStock_itemInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutUsersInput, Prisma.stock_movementsUncheckedUpdateWithoutUsersInput>
-  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutUsersInput, Prisma.stock_movementsUncheckedCreateWithoutUsersInput>
+  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutStock_itemInput, Prisma.stock_movementsUncheckedUpdateWithoutStock_itemInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutStock_itemInput, Prisma.stock_movementsUncheckedCreateWithoutStock_itemInput>
 }
 
-export type stock_movementsUpdateWithWhereUniqueWithoutUsersInput = {
+export type stock_movementsUpdateWithWhereUniqueWithoutStock_itemInput = {
   where: Prisma.stock_movementsWhereUniqueInput
-  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutUsersInput, Prisma.stock_movementsUncheckedUpdateWithoutUsersInput>
+  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutStock_itemInput, Prisma.stock_movementsUncheckedUpdateWithoutStock_itemInput>
 }
 
-export type stock_movementsUpdateManyWithWhereWithoutUsersInput = {
+export type stock_movementsUpdateManyWithWhereWithoutStock_itemInput = {
   where: Prisma.stock_movementsScalarWhereInput
-  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutUsersInput>
+  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutStock_itemInput>
 }
 
-export type stock_movementsCreateManyOrdersInput = {
+export type stock_movementsCreateWithoutOrderInput = {
+  movement_type: $Enums.stock_movement_type
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: string | null
+  movement_date?: Date | string
+  created_at?: Date | string
+  stock_item: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  expense?: Prisma.expensesCreateNestedOneWithoutStock_movementsInput
+  supplier?: Prisma.suppliersCreateNestedOneWithoutStock_movementsInput
+  user: Prisma.usersCreateNestedOneWithoutStock_movementsInput
+}
+
+export type stock_movementsUncheckedCreateWithoutOrderInput = {
   id?: number
   stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
   notes?: string | null
-  created_at?: Date | string | null
-  created_by?: number | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
 }
 
-export type stock_movementsUpdateWithoutOrdersInput = {
-  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  users?: Prisma.usersUpdateOneWithoutStock_movementsNestedInput
-  stock_items?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+export type stock_movementsCreateOrConnectWithoutOrderInput = {
+  where: Prisma.stock_movementsWhereUniqueInput
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrderInput, Prisma.stock_movementsUncheckedCreateWithoutOrderInput>
 }
 
-export type stock_movementsUncheckedUpdateWithoutOrdersInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
-  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+export type stock_movementsCreateManyOrderInputEnvelope = {
+  data: Prisma.stock_movementsCreateManyOrderInput | Prisma.stock_movementsCreateManyOrderInput[]
+  skipDuplicates?: boolean
 }
 
-export type stock_movementsUncheckedUpdateManyWithoutOrdersInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
-  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+export type stock_movementsUpsertWithWhereUniqueWithoutOrderInput = {
+  where: Prisma.stock_movementsWhereUniqueInput
+  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutOrderInput, Prisma.stock_movementsUncheckedUpdateWithoutOrderInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrderInput, Prisma.stock_movementsUncheckedCreateWithoutOrderInput>
 }
 
-export type stock_movementsCreateManyStock_itemsInput = {
-  id?: number
+export type stock_movementsUpdateWithWhereUniqueWithoutOrderInput = {
+  where: Prisma.stock_movementsWhereUniqueInput
+  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutOrderInput, Prisma.stock_movementsUncheckedUpdateWithoutOrderInput>
+}
+
+export type stock_movementsUpdateManyWithWhereWithoutOrderInput = {
+  where: Prisma.stock_movementsScalarWhereInput
+  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutOrderInput>
+}
+
+export type stock_movementsCreateWithoutExpenseInput = {
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  related_order_id?: number | null
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
-  created_at?: Date | string | null
-  created_by?: number | null
+  movement_date?: Date | string
+  created_at?: Date | string
+  stock_item: Prisma.stock_itemsCreateNestedOneWithoutStock_movementsInput
+  order?: Prisma.ordersCreateNestedOneWithoutStock_movementsInput
+  supplier?: Prisma.suppliersCreateNestedOneWithoutStock_movementsInput
+  user: Prisma.usersCreateNestedOneWithoutStock_movementsInput
 }
 
-export type stock_movementsUpdateWithoutStock_itemsInput = {
-  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  users?: Prisma.usersUpdateOneWithoutStock_movementsNestedInput
-  orders?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
-}
-
-export type stock_movementsUncheckedUpdateWithoutStock_itemsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type stock_movementsUncheckedUpdateManyWithoutStock_itemsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type stock_movementsCreateManyUsersInput = {
+export type stock_movementsUncheckedCreateWithoutExpenseInput = {
   id?: number
   stock_item_id: number
   movement_type: $Enums.stock_movement_type
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: number | null
+  supplier_id?: number | null
   notes?: string | null
-  created_at?: Date | string | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
 }
 
-export type stock_movementsUpdateWithoutUsersInput = {
+export type stock_movementsCreateOrConnectWithoutExpenseInput = {
+  where: Prisma.stock_movementsWhereUniqueInput
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutExpenseInput, Prisma.stock_movementsUncheckedCreateWithoutExpenseInput>
+}
+
+export type stock_movementsCreateManyExpenseInputEnvelope = {
+  data: Prisma.stock_movementsCreateManyExpenseInput | Prisma.stock_movementsCreateManyExpenseInput[]
+  skipDuplicates?: boolean
+}
+
+export type stock_movementsUpsertWithWhereUniqueWithoutExpenseInput = {
+  where: Prisma.stock_movementsWhereUniqueInput
+  update: Prisma.XOR<Prisma.stock_movementsUpdateWithoutExpenseInput, Prisma.stock_movementsUncheckedUpdateWithoutExpenseInput>
+  create: Prisma.XOR<Prisma.stock_movementsCreateWithoutExpenseInput, Prisma.stock_movementsUncheckedCreateWithoutExpenseInput>
+}
+
+export type stock_movementsUpdateWithWhereUniqueWithoutExpenseInput = {
+  where: Prisma.stock_movementsWhereUniqueInput
+  data: Prisma.XOR<Prisma.stock_movementsUpdateWithoutExpenseInput, Prisma.stock_movementsUncheckedUpdateWithoutExpenseInput>
+}
+
+export type stock_movementsUpdateManyWithWhereWithoutExpenseInput = {
+  where: Prisma.stock_movementsScalarWhereInput
+  data: Prisma.XOR<Prisma.stock_movementsUpdateManyMutationInput, Prisma.stock_movementsUncheckedUpdateManyWithoutExpenseInput>
+}
+
+export type stock_movementsCreateManyUserInput = {
+  id?: number
+  stock_item_id: number
+  movement_type: $Enums.stock_movement_type
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: number | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
+  notes?: string | null
+  movement_date?: Date | string
+  created_at?: Date | string
+}
+
+export type stock_movementsUpdateWithoutUserInput = {
   movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  orders?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
-  stock_items?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_item?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+  order?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
+  expense?: Prisma.expensesUpdateOneWithoutStock_movementsNestedInput
+  supplier?: Prisma.suppliersUpdateOneWithoutStock_movementsNestedInput
 }
 
-export type stock_movementsUncheckedUpdateWithoutUsersInput = {
+export type stock_movementsUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type stock_movementsUncheckedUpdateManyWithoutUsersInput = {
+export type stock_movementsUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsCreateManySupplierInput = {
+  id?: number
+  stock_item_id: number
+  movement_type: $Enums.stock_movement_type
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: number | null
+  related_expense_id?: number | null
+  notes?: string | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+}
+
+export type stock_movementsUpdateWithoutSupplierInput = {
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_item?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+  order?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
+  expense?: Prisma.expensesUpdateOneWithoutStock_movementsNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutStock_movementsNestedInput
+}
+
+export type stock_movementsUncheckedUpdateWithoutSupplierInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsUncheckedUpdateManyWithoutSupplierInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsCreateManyStock_itemInput = {
+  id?: number
+  movement_type: $Enums.stock_movement_type
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: number | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
+  notes?: string | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+}
+
+export type stock_movementsUpdateWithoutStock_itemInput = {
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
+  expense?: Prisma.expensesUpdateOneWithoutStock_movementsNestedInput
+  supplier?: Prisma.suppliersUpdateOneWithoutStock_movementsNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutStock_movementsNestedInput
+}
+
+export type stock_movementsUncheckedUpdateWithoutStock_itemInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsUncheckedUpdateManyWithoutStock_itemInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsCreateManyOrderInput = {
+  id?: number
+  stock_item_id: number
+  movement_type: $Enums.stock_movement_type
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_expense_id?: number | null
+  supplier_id?: number | null
+  notes?: string | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+}
+
+export type stock_movementsUpdateWithoutOrderInput = {
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_item?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+  expense?: Prisma.expensesUpdateOneWithoutStock_movementsNestedInput
+  supplier?: Prisma.suppliersUpdateOneWithoutStock_movementsNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutStock_movementsNestedInput
+}
+
+export type stock_movementsUncheckedUpdateWithoutOrderInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsUncheckedUpdateManyWithoutOrderInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_expense_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsCreateManyExpenseInput = {
+  id?: number
+  stock_item_id: number
+  movement_type: $Enums.stock_movement_type
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: number | null
+  supplier_id?: number | null
+  notes?: string | null
+  movement_date?: Date | string
+  created_by: number
+  created_at?: Date | string
+}
+
+export type stock_movementsUpdateWithoutExpenseInput = {
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_item?: Prisma.stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput
+  order?: Prisma.ordersUpdateOneWithoutStock_movementsNestedInput
+  supplier?: Prisma.suppliersUpdateOneWithoutStock_movementsNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutStock_movementsNestedInput
+}
+
+export type stock_movementsUncheckedUpdateWithoutExpenseInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type stock_movementsUncheckedUpdateManyWithoutExpenseInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
+  movement_type?: Prisma.Enumstock_movement_typeFieldUpdateOperationsInput | $Enums.stock_movement_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  related_order_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplier_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  movement_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -856,13 +1400,20 @@ export type stock_movementsSelect<ExtArgs extends runtime.Types.Extensions.Inter
   stock_item_id?: boolean
   movement_type?: boolean
   quantity?: boolean
+  unit_cost?: boolean
+  total_cost?: boolean
   related_order_id?: boolean
+  related_expense_id?: boolean
+  supplier_id?: boolean
   notes?: boolean
-  created_at?: boolean
+  movement_date?: boolean
   created_by?: boolean
-  users?: boolean | Prisma.stock_movements$usersArgs<ExtArgs>
-  orders?: boolean | Prisma.stock_movements$ordersArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  created_at?: boolean
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.stock_movements$orderArgs<ExtArgs>
+  expense?: boolean | Prisma.stock_movements$expenseArgs<ExtArgs>
+  supplier?: boolean | Prisma.stock_movements$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stock_movements"]>
 
 export type stock_movementsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -870,13 +1421,20 @@ export type stock_movementsSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   stock_item_id?: boolean
   movement_type?: boolean
   quantity?: boolean
+  unit_cost?: boolean
+  total_cost?: boolean
   related_order_id?: boolean
+  related_expense_id?: boolean
+  supplier_id?: boolean
   notes?: boolean
-  created_at?: boolean
+  movement_date?: boolean
   created_by?: boolean
-  users?: boolean | Prisma.stock_movements$usersArgs<ExtArgs>
-  orders?: boolean | Prisma.stock_movements$ordersArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  created_at?: boolean
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.stock_movements$orderArgs<ExtArgs>
+  expense?: boolean | Prisma.stock_movements$expenseArgs<ExtArgs>
+  supplier?: boolean | Prisma.stock_movements$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stock_movements"]>
 
 export type stock_movementsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -884,13 +1442,20 @@ export type stock_movementsSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   stock_item_id?: boolean
   movement_type?: boolean
   quantity?: boolean
+  unit_cost?: boolean
+  total_cost?: boolean
   related_order_id?: boolean
+  related_expense_id?: boolean
+  supplier_id?: boolean
   notes?: boolean
-  created_at?: boolean
+  movement_date?: boolean
   created_by?: boolean
-  users?: boolean | Prisma.stock_movements$usersArgs<ExtArgs>
-  orders?: boolean | Prisma.stock_movements$ordersArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  created_at?: boolean
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.stock_movements$orderArgs<ExtArgs>
+  expense?: boolean | Prisma.stock_movements$expenseArgs<ExtArgs>
+  supplier?: boolean | Prisma.stock_movements$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stock_movements"]>
 
 export type stock_movementsSelectScalar = {
@@ -898,45 +1463,63 @@ export type stock_movementsSelectScalar = {
   stock_item_id?: boolean
   movement_type?: boolean
   quantity?: boolean
+  unit_cost?: boolean
+  total_cost?: boolean
   related_order_id?: boolean
+  related_expense_id?: boolean
+  supplier_id?: boolean
   notes?: boolean
-  created_at?: boolean
+  movement_date?: boolean
   created_by?: boolean
+  created_at?: boolean
 }
 
-export type stock_movementsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stock_item_id" | "movement_type" | "quantity" | "related_order_id" | "notes" | "created_at" | "created_by", ExtArgs["result"]["stock_movements"]>
+export type stock_movementsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stock_item_id" | "movement_type" | "quantity" | "unit_cost" | "total_cost" | "related_order_id" | "related_expense_id" | "supplier_id" | "notes" | "movement_date" | "created_by" | "created_at", ExtArgs["result"]["stock_movements"]>
 export type stock_movementsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.stock_movements$usersArgs<ExtArgs>
-  orders?: boolean | Prisma.stock_movements$ordersArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.stock_movements$orderArgs<ExtArgs>
+  expense?: boolean | Prisma.stock_movements$expenseArgs<ExtArgs>
+  supplier?: boolean | Prisma.stock_movements$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 export type stock_movementsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.stock_movements$usersArgs<ExtArgs>
-  orders?: boolean | Prisma.stock_movements$ordersArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.stock_movements$orderArgs<ExtArgs>
+  expense?: boolean | Prisma.stock_movements$expenseArgs<ExtArgs>
+  supplier?: boolean | Prisma.stock_movements$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 export type stock_movementsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.stock_movements$usersArgs<ExtArgs>
-  orders?: boolean | Prisma.stock_movements$ordersArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.stock_movements$orderArgs<ExtArgs>
+  expense?: boolean | Prisma.stock_movements$expenseArgs<ExtArgs>
+  supplier?: boolean | Prisma.stock_movements$supplierArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 
 export type $stock_movementsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "stock_movements"
   objects: {
-    users: Prisma.$usersPayload<ExtArgs> | null
-    orders: Prisma.$ordersPayload<ExtArgs> | null
-    stock_items: Prisma.$stock_itemsPayload<ExtArgs>
+    stock_item: Prisma.$stock_itemsPayload<ExtArgs>
+    order: Prisma.$ordersPayload<ExtArgs> | null
+    expense: Prisma.$expensesPayload<ExtArgs> | null
+    supplier: Prisma.$suppliersPayload<ExtArgs> | null
+    user: Prisma.$usersPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     stock_item_id: number
     movement_type: $Enums.stock_movement_type
     quantity: runtime.Decimal
+    unit_cost: runtime.Decimal | null
+    total_cost: runtime.Decimal | null
     related_order_id: number | null
+    related_expense_id: number | null
+    supplier_id: number | null
     notes: string | null
-    created_at: Date | null
-    created_by: number | null
+    movement_date: Date
+    created_by: number
+    created_at: Date
   }, ExtArgs["result"]["stock_movements"]>
   composites: {}
 }
@@ -1331,9 +1914,11 @@ readonly fields: stock_movementsFieldRefs;
  */
 export interface Prisma__stock_movementsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  users<T extends Prisma.stock_movements$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_movements$usersArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  orders<T extends Prisma.stock_movements$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_movements$ordersArgs<ExtArgs>>): Prisma.Prisma__ordersClient<runtime.Types.Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  stock_items<T extends Prisma.stock_itemsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_itemsDefaultArgs<ExtArgs>>): Prisma.Prisma__stock_itemsClient<runtime.Types.Result.GetResult<Prisma.$stock_itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  stock_item<T extends Prisma.stock_itemsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_itemsDefaultArgs<ExtArgs>>): Prisma.Prisma__stock_itemsClient<runtime.Types.Result.GetResult<Prisma.$stock_itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  order<T extends Prisma.stock_movements$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_movements$orderArgs<ExtArgs>>): Prisma.Prisma__ordersClient<runtime.Types.Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  expense<T extends Prisma.stock_movements$expenseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_movements$expenseArgs<ExtArgs>>): Prisma.Prisma__expensesClient<runtime.Types.Result.GetResult<Prisma.$expensesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  supplier<T extends Prisma.stock_movements$supplierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_movements$supplierArgs<ExtArgs>>): Prisma.Prisma__suppliersClient<runtime.Types.Result.GetResult<Prisma.$suppliersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.usersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usersDefaultArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1367,10 +1952,15 @@ export interface stock_movementsFieldRefs {
   readonly stock_item_id: Prisma.FieldRef<"stock_movements", 'Int'>
   readonly movement_type: Prisma.FieldRef<"stock_movements", 'stock_movement_type'>
   readonly quantity: Prisma.FieldRef<"stock_movements", 'Decimal'>
+  readonly unit_cost: Prisma.FieldRef<"stock_movements", 'Decimal'>
+  readonly total_cost: Prisma.FieldRef<"stock_movements", 'Decimal'>
   readonly related_order_id: Prisma.FieldRef<"stock_movements", 'Int'>
+  readonly related_expense_id: Prisma.FieldRef<"stock_movements", 'Int'>
+  readonly supplier_id: Prisma.FieldRef<"stock_movements", 'Int'>
   readonly notes: Prisma.FieldRef<"stock_movements", 'String'>
-  readonly created_at: Prisma.FieldRef<"stock_movements", 'DateTime'>
+  readonly movement_date: Prisma.FieldRef<"stock_movements", 'DateTime'>
   readonly created_by: Prisma.FieldRef<"stock_movements", 'Int'>
+  readonly created_at: Prisma.FieldRef<"stock_movements", 'DateTime'>
 }
     
 
@@ -1767,28 +2357,9 @@ export type stock_movementsDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
- * stock_movements.users
+ * stock_movements.order
  */
-export type stock_movements$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the users
-   */
-  select?: Prisma.usersSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the users
-   */
-  omit?: Prisma.usersOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.usersInclude<ExtArgs> | null
-  where?: Prisma.usersWhereInput
-}
-
-/**
- * stock_movements.orders
- */
-export type stock_movements$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type stock_movements$orderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the orders
    */
@@ -1802,6 +2373,44 @@ export type stock_movements$ordersArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.ordersInclude<ExtArgs> | null
   where?: Prisma.ordersWhereInput
+}
+
+/**
+ * stock_movements.expense
+ */
+export type stock_movements$expenseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the expenses
+   */
+  select?: Prisma.expensesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the expenses
+   */
+  omit?: Prisma.expensesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.expensesInclude<ExtArgs> | null
+  where?: Prisma.expensesWhereInput
+}
+
+/**
+ * stock_movements.supplier
+ */
+export type stock_movements$supplierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the suppliers
+   */
+  select?: Prisma.suppliersSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the suppliers
+   */
+  omit?: Prisma.suppliersOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.suppliersInclude<ExtArgs> | null
+  where?: Prisma.suppliersWhereInput
 }
 
 /**

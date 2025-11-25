@@ -12,6 +12,8 @@
 export const order_status = {
   draft: 'draft',
   placed: 'placed',
+  in_progress: 'in_progress',
+  ready: 'ready',
   completed: 'completed',
   cancelled: 'cancelled'
 } as const
@@ -22,7 +24,10 @@ export type order_status = (typeof order_status)[keyof typeof order_status]
 export const payment_method = {
   cash: 'cash',
   card: 'card',
-  transfer: 'transfer'
+  yape: 'yape',
+  plin: 'plin',
+  transfer: 'transfer',
+  multiple: 'multiple'
 } as const
 
 export type payment_method = (typeof payment_method)[keyof typeof payment_method]
@@ -31,7 +36,39 @@ export type payment_method = (typeof payment_method)[keyof typeof payment_method
 export const stock_movement_type = {
   in: 'in',
   out: 'out',
-  adjustment: 'adjustment'
+  adjustment: 'adjustment',
+  waste: 'waste'
 } as const
 
 export type stock_movement_type = (typeof stock_movement_type)[keyof typeof stock_movement_type]
+
+
+export const expense_category = {
+  supplies: 'supplies',
+  staff: 'staff',
+  services: 'services',
+  maintenance: 'maintenance',
+  transport: 'transport',
+  marketing: 'marketing',
+  taxes: 'taxes',
+  other: 'other'
+} as const
+
+export type expense_category = (typeof expense_category)[keyof typeof expense_category]
+
+
+export const voucher_type = {
+  ticket: 'ticket',
+  invoice: 'invoice',
+  note: 'note'
+} as const
+
+export type voucher_type = (typeof voucher_type)[keyof typeof voucher_type]
+
+
+export const cash_register_status = {
+  open: 'open',
+  closed: 'closed'
+} as const
+
+export type cash_register_status = (typeof cash_register_status)[keyof typeof cash_register_status]

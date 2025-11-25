@@ -1,8 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// ============================================
+// SCHEMA MEJORADO PARA POS CEVICHERÍA
+// ============================================
 
 generator client {
   provider = "prisma-client"
@@ -13,166 +11,15 @@ datasource db {
   provider = "postgresql"
 }
 
-model clients {
-  id         Int       @id @default(autoincrement())
-  name       String
-  phone      String?
-  email      String?
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  orders     orders[]
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model expenses {
-  id                Int       @id @default(autoincrement())
-  category          String
-  amount            Decimal   @db.Decimal(10, 2)
-  description       String
-  receipt_reference String?
-  incurred_at       DateTime? @default(now()) @db.Timestamp(6)
-  created_by        Int?
-  users             users?    @relation(fields: [created_by], references: [id], onUpdate: NoAction)
-
-  @@index([incurred_at], map: "idx_expenses_date")
-}
-
-model menu_categories {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique
-  description String?
-  created_at  DateTime?    @default(now()) @db.Timestamp(6)
-  menu_items  menu_items[]
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model menu_items {
-  id              Int              @id @default(autoincrement())
-  name            String
-  description     String?
-  category_id     Int?
-  price           Decimal          @db.Decimal(10, 2)
-  is_available    Boolean?         @default(true)
-  created_at      DateTime?        @default(now()) @db.Timestamp(6)
-  image_url       String?
-  menu_categories menu_categories? @relation(fields: [category_id], references: [id], onUpdate: NoAction)
-  order_lines     order_lines[]
-  recipe_items    recipe_items[]
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model order_lines {
-  id            Int        @id @default(autoincrement())
-  order_id      Int
-  menu_item_id  Int
-  quantity      Int
-  price_at_sale Decimal    @db.Decimal(10, 2)
-  line_total    Decimal    @db.Decimal(10, 2)
-  created_at    DateTime?  @default(now()) @db.Timestamp(6)
-  menu_items    menu_items @relation(fields: [menu_item_id], references: [id], onUpdate: NoAction)
-  orders        orders     @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  @@index([order_id], map: "idx_order_lines_order")
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model orders {
-  id              Int               @id @default(autoincrement())
-  client_id       Int?
-  table_number    String?
-  order_type      String?           @default("salon")
-  status          order_status?     @default(draft)
-  total           Decimal?          @default(0) @db.Decimal(10, 2)
-  notes           String?
-  created_at      DateTime?         @default(now()) @db.Timestamp(6)
-  created_by      Int?
-  order_lines     order_lines[]
-  clients         clients?          @relation(fields: [client_id], references: [id], onUpdate: NoAction)
-  users           users?            @relation(fields: [created_by], references: [id], onUpdate: NoAction)
-  payments        payments[]
-  stock_movements stock_movements[]
-
-  @@index([created_at], map: "idx_orders_date")
-  @@index([status], map: "idx_orders_status")
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model payments {
-  id         Int            @id @default(autoincrement())
-  order_id   Int
-  method     payment_method
-  amount     Decimal        @db.Decimal(10, 2)
-  reference  String?
-  paid_at    DateTime?      @default(now()) @db.Timestamp(6)
-  created_by Int?
-  users      users?         @relation(fields: [created_by], references: [id], onUpdate: NoAction)
-  orders     orders         @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model recipe_items {
-  id            Int         @id @default(autoincrement())
-  menu_item_id  Int
-  stock_item_id Int
-  quantity      Decimal     @db.Decimal(10, 2)
-  menu_items    menu_items  @relation(fields: [menu_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  stock_items   stock_items @relation(fields: [stock_item_id], references: [id], onUpdate: NoAction)
-
-  @@unique([menu_item_id, stock_item_id])
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model stock_items {
-  id              Int               @id @default(autoincrement())
-  name            String
-  unit            String
-  quantity        Decimal?          @default(0) @db.Decimal(10, 2)
-  min_alert_level Decimal?          @db.Decimal(10, 2)
-  created_at      DateTime?         @default(now()) @db.Timestamp(6)
-  recipe_items    recipe_items[]
-  stock_movements stock_movements[]
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model stock_movements {
-  id               Int                 @id @default(autoincrement())
-  stock_item_id    Int
-  movement_type    stock_movement_type
-  quantity         Decimal             @db.Decimal(10, 2)
-  related_order_id Int?
-  notes            String?
-  created_at       DateTime?           @default(now()) @db.Timestamp(6)
-  created_by       Int?
-  users            users?              @relation(fields: [created_by], references: [id], onUpdate: NoAction)
-  orders           orders?             @relation(fields: [related_order_id], references: [id], onUpdate: NoAction)
-  stock_items      stock_items         @relation(fields: [stock_item_id], references: [id], onUpdate: NoAction)
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model users {
-  id              Int               @id @default(autoincrement())
-  username        String            @unique
-  email           String?           @unique
-  full_name       String?
-  password_hash   String
-  role            String            @default("cashier")
-  is_active       Boolean?          @default(true)
-  created_at      DateTime?         @default(now()) @db.Timestamp(6)
-  expenses        expenses[]
-  orders          orders[]
-  payments        payments[]
-  stock_movements stock_movements[]
-}
+// ============================================
+// ENUMS
+// ============================================
 
 enum order_status {
   draft
   placed
+  in_progress
+  ready
   completed
   cancelled
 }
@@ -180,11 +27,351 @@ enum order_status {
 enum payment_method {
   cash
   card
+  yape
+  plin
   transfer
+  multiple // Para pagos combinados
 }
 
 enum stock_movement_type {
-  in
-  out
-  adjustment
+  in          // Entrada por compra
+  out         // Salida por venta/consumo
+  adjustment  // Ajuste de inventario
+  waste       // Merma/desperdicio
+}
+
+enum expense_category {
+  supplies      // Insumos/ingredientes
+  staff         // Personal/planilla
+  services      // Luz, agua, internet, alquiler
+  maintenance   // Reparaciones
+  transport     // Delivery, transporte
+  marketing     // Publicidad
+  taxes         // Impuestos
+  other         // Otros gastos
+}
+
+enum voucher_type {
+  ticket        // Boleta
+  invoice       // Factura
+  note          // Nota de venta
+}
+
+enum cash_register_status {
+  open
+  closed
+}
+
+// ============================================
+// USUARIOS Y ROLES
+// ============================================
+
+model users {
+  id              Int       @id @default(autoincrement())
+  username        String    @unique
+  email           String?   @unique
+  full_name       String?
+  password_hash   String
+  role            String    @default("cashier") // admin, manager, cashier, kitchen
+  is_active       Boolean   @default(true)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  // Relaciones
+  orders          orders[]
+  expenses        expenses[]
+  payments        payments[]
+  stock_movements stock_movements[]
+  cash_registers  cash_registers[]
+
+  @@index([username])
+  @@index([role])
+}
+
+// ============================================
+// CLIENTES
+// ============================================
+
+model clients {
+  id              Int       @id @default(autoincrement())
+  name            String
+  phone           String?
+  email           String?
+  document_type   String?   // DNI, RUC
+  document_number String?   @unique
+  address         String?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  // Relaciones
+  orders          orders[]
+
+  @@index([document_number])
+  @@index([phone])
+}
+
+// ============================================
+// PROVEEDORES (NUEVO)
+// ============================================
+
+model suppliers {
+  id              Int       @id @default(autoincrement())
+  name            String
+  contact_name    String?
+  phone           String?
+  email           String?
+  ruc             String?   @unique
+  address         String?
+  is_active       Boolean   @default(true)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  // Relaciones
+  expenses        expenses[]
+  stock_movements stock_movements[]
+
+  @@index([ruc])
+}
+
+// ============================================
+// MENÚ Y PRODUCTOS
+// ============================================
+
+model menu_categories {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
+  sort_order  Int?         @default(0)
+  is_active   Boolean      @default(true)
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+
+  // Relaciones
+  menu_items  menu_items[]
+}
+
+model menu_items {
+  id              Int              @id @default(autoincrement())
+  name            String
+  description     String?
+  category_id     Int
+  price           Decimal          @db.Decimal(10, 2)
+  cost            Decimal?         @db.Decimal(10, 2) // Costo de producción
+  is_available    Boolean          @default(true)
+  image_url       String?
+  preparation_time Int?            // Minutos
+  created_at      DateTime         @default(now())
+  updated_at      DateTime         @updatedAt
+
+  // Relaciones
+  category        menu_categories  @relation(fields: [category_id], references: [id], onDelete: Restrict)
+  order_lines     order_lines[]
+  recipe_items    recipe_items[]
+
+  @@index([category_id])
+  @@index([is_available])
+}
+
+// ============================================
+// RECETAS (RELACIÓN MENÚ-INVENTARIO)
+// ============================================
+
+model recipe_items {
+  id            Int         @id @default(autoincrement())
+  menu_item_id  Int
+  stock_item_id Int
+  quantity      Decimal     @db.Decimal(10, 3) // Cantidad necesaria por unidad vendida
+  created_at    DateTime    @default(now())
+  updated_at    DateTime    @updatedAt
+
+  // Relaciones
+  menu_item     menu_items  @relation(fields: [menu_item_id], references: [id], onDelete: Cascade)
+  stock_item    stock_items @relation(fields: [stock_item_id], references: [id], onDelete: Restrict)
+
+  @@unique([menu_item_id, stock_item_id])
+  @@index([menu_item_id])
+  @@index([stock_item_id])
+}
+
+// ============================================
+// INVENTARIO
+// ============================================
+
+model stock_items {
+  id              Int               @id @default(autoincrement())
+  name            String
+  unit            String            // kg, unidad, litro, etc.
+  quantity        Decimal           @default(0) @db.Decimal(10, 3)
+  min_alert_level Decimal?          @db.Decimal(10, 3)
+  unit_cost       Decimal?          @db.Decimal(10, 2) // Costo promedio por unidad
+  is_active       Boolean           @default(true)
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+
+  // Relaciones
+  recipe_items    recipe_items[]
+  stock_movements stock_movements[]
+
+  @@index([quantity])
+}
+
+model stock_movements {
+  id               Int                 @id @default(autoincrement())
+  stock_item_id    Int
+  movement_type    stock_movement_type
+  quantity         Decimal             @db.Decimal(10, 3)
+  unit_cost        Decimal?            @db.Decimal(10, 2)
+  total_cost       Decimal?            @db.Decimal(10, 2)
+  related_order_id Int?
+  related_expense_id Int?              // NUEVO: vincular con compra de insumos
+  supplier_id      Int?                // NUEVO: proveedor de la compra
+  notes            String?
+  movement_date    DateTime            @default(now()) // CONSISTENCIA
+  created_by       Int
+  created_at       DateTime            @default(now())
+
+  // Relaciones
+  stock_item       stock_items         @relation(fields: [stock_item_id], references: [id], onDelete: Restrict)
+  order            orders?             @relation(fields: [related_order_id], references: [id], onDelete: SetNull)
+  expense          expenses?           @relation(fields: [related_expense_id], references: [id], onDelete: SetNull)
+  supplier         suppliers?          @relation(fields: [supplier_id], references: [id], onDelete: SetNull)
+  user             users               @relation(fields: [created_by], references: [id], onDelete: Restrict)
+
+  @@index([stock_item_id])
+  @@index([movement_date])
+  @@index([movement_type])
+}
+
+// ============================================
+// ÓRDENES Y VENTAS
+// ============================================
+
+model orders {
+  id              Int           @id @default(autoincrement())
+  order_number    String        @unique @default(cuid()) // Número único de orden
+  client_id       Int?
+  table_number    String?
+  order_type      String        @default("salon") // salon, delivery, takeaway
+  status          order_status  @default(draft)
+  subtotal        Decimal       @default(0) @db.Decimal(10, 2)
+  tax             Decimal       @default(0) @db.Decimal(10, 2) // IGV
+  discount        Decimal       @default(0) @db.Decimal(10, 2)
+  total           Decimal       @default(0) @db.Decimal(10, 2)
+  voucher_type    voucher_type? // Tipo de comprobante
+  voucher_number  String?       // Número de boleta/factura
+  notes           String?
+  order_date      DateTime      @default(now()) // CONSISTENCIA
+  created_by      Int
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+
+  // Relaciones
+  client          clients?          @relation(fields: [client_id], references: [id], onDelete: SetNull)
+  user            users             @relation(fields: [created_by], references: [id], onDelete: Restrict)
+  order_lines     order_lines[]
+  payments        payments[]
+  stock_movements stock_movements[]
+
+  @@index([order_date])
+  @@index([status])
+  @@index([order_number])
+}
+
+model order_lines {
+  id            Int        @id @default(autoincrement())
+  order_id      Int
+  menu_item_id  Int
+  quantity      Int
+  price_at_sale Decimal    @db.Decimal(10, 2)
+  discount      Decimal    @default(0) @db.Decimal(10, 2)
+  line_total    Decimal    @db.Decimal(10, 2)
+  notes         String?    // Extras, sin cebolla, etc.
+  created_at    DateTime   @default(now())
+
+  // Relaciones
+  order         orders     @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  menu_item     menu_items @relation(fields: [menu_item_id], references: [id], onDelete: Restrict)
+
+  @@index([order_id])
+  @@index([menu_item_id])
+}
+
+// ============================================
+// PAGOS
+// ============================================
+
+model payments {
+  id            Int            @id @default(autoincrement())
+  order_id      Int?           // MODIFICADO: ahora opcional
+  expense_id    Int?           // NUEVO: para pagos de gastos
+  method        payment_method
+  amount        Decimal        @db.Decimal(10, 2)
+  reference     String?        // Número de operación, voucher
+  notes         String?
+  payment_date  DateTime       @default(now()) // CONSISTENCIA
+  created_by    Int
+  created_at    DateTime       @default(now())
+
+  // Relaciones
+  order         orders?        @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  expense       expenses?      @relation(fields: [expense_id], references: [id], onDelete: Cascade)
+  user          users          @relation(fields: [created_by], references: [id], onDelete: Restrict)
+
+  @@index([payment_date])
+  @@index([method])
+}
+
+// ============================================
+// GASTOS OPERATIVOS
+// ============================================
+
+model expenses {
+  id                Int               @id @default(autoincrement())
+  category          expense_category  // AHORA ES ENUM
+  supplier_id       Int?              // NUEVO: relacionar con proveedor
+  amount            Decimal           @db.Decimal(10, 2)
+  tax               Decimal           @default(0) @db.Decimal(10, 2)
+  total             Decimal           @db.Decimal(10, 2)
+  description       String
+  receipt_reference String?           // Número de factura/boleta
+  is_paid           Boolean           @default(false) // NUEVO: estado de pago
+  expense_date      DateTime          @default(now()) // CONSISTENCIA
+  created_by        Int
+  created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
+
+  // Relaciones
+  supplier          suppliers?        @relation(fields: [supplier_id], references: [id], onDelete: SetNull)
+  user              users             @relation(fields: [created_by], references: [id], onDelete: Restrict)
+  payments          payments[]
+  stock_movements   stock_movements[]
+
+  @@index([expense_date])
+  @@index([category])
+  @@index([is_paid])
+}
+
+// ============================================
+// CAJA REGISTRADORA (NUEVO)
+// ============================================
+
+model cash_registers {
+  id              Int                   @id @default(autoincrement())
+  user_id         Int
+  status          cash_register_status
+  opening_amount  Decimal               @db.Decimal(10, 2)
+  closing_amount  Decimal?              @db.Decimal(10, 2)
+  expected_amount Decimal?              @db.Decimal(10, 2)
+  difference      Decimal?              @db.Decimal(10, 2)
+  notes           String?
+  opened_at       DateTime              @default(now())
+  closed_at       DateTime?
+  created_at      DateTime              @default(now())
+
+  // Relaciones
+  user            users                 @relation(fields: [user_id], references: [id], onDelete: Restrict)
+
+  @@index([user_id])
+  @@index([opened_at])
+  @@index([status])
 }

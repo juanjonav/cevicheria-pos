@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model users
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type usersModel = runtime.Types.Result.DefaultSelection<Prisma.$usersPayload>
 
@@ -43,6 +43,7 @@ export type UsersMinAggregateOutputType = {
   role: string | null
   is_active: boolean | null
   created_at: Date | null
+  updated_at: Date | null
 }
 
 export type UsersMaxAggregateOutputType = {
@@ -54,6 +55,7 @@ export type UsersMaxAggregateOutputType = {
   role: string | null
   is_active: boolean | null
   created_at: Date | null
+  updated_at: Date | null
 }
 
 export type UsersCountAggregateOutputType = {
@@ -65,6 +67,7 @@ export type UsersCountAggregateOutputType = {
   role: number
   is_active: number
   created_at: number
+  updated_at: number
   _all: number
 }
 
@@ -86,6 +89,7 @@ export type UsersMinAggregateInputType = {
   role?: true
   is_active?: true
   created_at?: true
+  updated_at?: true
 }
 
 export type UsersMaxAggregateInputType = {
@@ -97,6 +101,7 @@ export type UsersMaxAggregateInputType = {
   role?: true
   is_active?: true
   created_at?: true
+  updated_at?: true
 }
 
 export type UsersCountAggregateInputType = {
@@ -108,6 +113,7 @@ export type UsersCountAggregateInputType = {
   role?: true
   is_active?: true
   created_at?: true
+  updated_at?: true
   _all?: true
 }
 
@@ -204,8 +210,9 @@ export type UsersGroupByOutputType = {
   full_name: string | null
   password_hash: string
   role: string
-  is_active: boolean | null
-  created_at: Date | null
+  is_active: boolean
+  created_at: Date
+  updated_at: Date
   _count: UsersCountAggregateOutputType | null
   _avg: UsersAvgAggregateOutputType | null
   _sum: UsersSumAggregateOutputType | null
@@ -238,12 +245,14 @@ export type usersWhereInput = {
   full_name?: Prisma.StringNullableFilter<"users"> | string | null
   password_hash?: Prisma.StringFilter<"users"> | string
   role?: Prisma.StringFilter<"users"> | string
-  is_active?: Prisma.BoolNullableFilter<"users"> | boolean | null
-  created_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
-  expenses?: Prisma.ExpensesListRelationFilter
+  is_active?: Prisma.BoolFilter<"users"> | boolean
+  created_at?: Prisma.DateTimeFilter<"users"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"users"> | Date | string
   orders?: Prisma.OrdersListRelationFilter
+  expenses?: Prisma.ExpensesListRelationFilter
   payments?: Prisma.PaymentsListRelationFilter
   stock_movements?: Prisma.Stock_movementsListRelationFilter
+  cash_registers?: Prisma.Cash_registersListRelationFilter
 }
 
 export type usersOrderByWithRelationInput = {
@@ -253,12 +262,14 @@ export type usersOrderByWithRelationInput = {
   full_name?: Prisma.SortOrderInput | Prisma.SortOrder
   password_hash?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  is_active?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  expenses?: Prisma.expensesOrderByRelationAggregateInput
+  is_active?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   orders?: Prisma.ordersOrderByRelationAggregateInput
+  expenses?: Prisma.expensesOrderByRelationAggregateInput
   payments?: Prisma.paymentsOrderByRelationAggregateInput
   stock_movements?: Prisma.stock_movementsOrderByRelationAggregateInput
+  cash_registers?: Prisma.cash_registersOrderByRelationAggregateInput
 }
 
 export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -271,12 +282,14 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   full_name?: Prisma.StringNullableFilter<"users"> | string | null
   password_hash?: Prisma.StringFilter<"users"> | string
   role?: Prisma.StringFilter<"users"> | string
-  is_active?: Prisma.BoolNullableFilter<"users"> | boolean | null
-  created_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
-  expenses?: Prisma.ExpensesListRelationFilter
+  is_active?: Prisma.BoolFilter<"users"> | boolean
+  created_at?: Prisma.DateTimeFilter<"users"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"users"> | Date | string
   orders?: Prisma.OrdersListRelationFilter
+  expenses?: Prisma.ExpensesListRelationFilter
   payments?: Prisma.PaymentsListRelationFilter
   stock_movements?: Prisma.Stock_movementsListRelationFilter
+  cash_registers?: Prisma.Cash_registersListRelationFilter
 }, "id" | "username" | "email">
 
 export type usersOrderByWithAggregationInput = {
@@ -286,8 +299,9 @@ export type usersOrderByWithAggregationInput = {
   full_name?: Prisma.SortOrderInput | Prisma.SortOrder
   password_hash?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  is_active?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_active?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   _count?: Prisma.usersCountOrderByAggregateInput
   _avg?: Prisma.usersAvgOrderByAggregateInput
   _max?: Prisma.usersMaxOrderByAggregateInput
@@ -305,8 +319,9 @@ export type usersScalarWhereWithAggregatesInput = {
   full_name?: Prisma.StringNullableWithAggregatesFilter<"users"> | string | null
   password_hash?: Prisma.StringWithAggregatesFilter<"users"> | string
   role?: Prisma.StringWithAggregatesFilter<"users"> | string
-  is_active?: Prisma.BoolNullableWithAggregatesFilter<"users"> | boolean | null
-  created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
+  is_active?: Prisma.BoolWithAggregatesFilter<"users"> | boolean
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"users"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"users"> | Date | string
 }
 
 export type usersCreateInput = {
@@ -315,12 +330,14 @@ export type usersCreateInput = {
   full_name?: string | null
   password_hash: string
   role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesCreateNestedManyWithoutUsersInput
-  orders?: Prisma.ordersCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUsersInput
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersCreateNestedManyWithoutUserInput
 }
 
 export type usersUncheckedCreateInput = {
@@ -330,12 +347,14 @@ export type usersUncheckedCreateInput = {
   full_name?: string | null
   password_hash: string
   role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUsersInput
-  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUsersInput
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type usersUpdateInput = {
@@ -344,12 +363,14 @@ export type usersUpdateInput = {
   full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUpdateManyWithoutUsersNestedInput
-  orders?: Prisma.ordersUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUsersNestedInput
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUpdateManyWithoutUserNestedInput
 }
 
 export type usersUncheckedUpdateInput = {
@@ -359,12 +380,14 @@ export type usersUncheckedUpdateInput = {
   full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUsersNestedInput
-  orders?: Prisma.ordersUncheckedUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUsersNestedInput
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type usersCreateManyInput = {
@@ -374,8 +397,9 @@ export type usersCreateManyInput = {
   full_name?: string | null
   password_hash: string
   role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type usersUpdateManyMutationInput = {
@@ -384,8 +408,9 @@ export type usersUpdateManyMutationInput = {
   full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type usersUncheckedUpdateManyInput = {
@@ -395,13 +420,9 @@ export type usersUncheckedUpdateManyInput = {
   full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-export type UsersNullableScalarRelationFilter = {
-  is?: Prisma.usersWhereInput | null
-  isNot?: Prisma.usersWhereInput | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type usersCountOrderByAggregateInput = {
@@ -413,6 +434,7 @@ export type usersCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type usersAvgOrderByAggregateInput = {
@@ -428,6 +450,7 @@ export type usersMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type usersMinOrderByAggregateInput = {
@@ -439,26 +462,54 @@ export type usersMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type usersSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type usersCreateNestedOneWithoutExpensesInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutExpensesInput
+export type UsersScalarRelationFilter = {
+  is?: Prisma.usersWhereInput
+  isNot?: Prisma.usersWhereInput
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type usersCreateNestedOneWithoutStock_movementsInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutStock_movementsInput, Prisma.usersUncheckedCreateWithoutStock_movementsInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutStock_movementsInput
   connect?: Prisma.usersWhereUniqueInput
 }
 
-export type usersUpdateOneWithoutExpensesNestedInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutExpensesInput
-  upsert?: Prisma.usersUpsertWithoutExpensesInput
-  disconnect?: Prisma.usersWhereInput | boolean
-  delete?: Prisma.usersWhereInput | boolean
+export type usersUpdateOneRequiredWithoutStock_movementsNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutStock_movementsInput, Prisma.usersUncheckedCreateWithoutStock_movementsInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutStock_movementsInput
+  upsert?: Prisma.usersUpsertWithoutStock_movementsInput
   connect?: Prisma.usersWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutExpensesInput, Prisma.usersUpdateWithoutExpensesInput>, Prisma.usersUncheckedUpdateWithoutExpensesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutStock_movementsInput, Prisma.usersUpdateWithoutStock_movementsInput>, Prisma.usersUncheckedUpdateWithoutStock_movementsInput>
 }
 
 export type usersCreateNestedOneWithoutOrdersInput = {
@@ -467,12 +518,10 @@ export type usersCreateNestedOneWithoutOrdersInput = {
   connect?: Prisma.usersWhereUniqueInput
 }
 
-export type usersUpdateOneWithoutOrdersNestedInput = {
+export type usersUpdateOneRequiredWithoutOrdersNestedInput = {
   create?: Prisma.XOR<Prisma.usersCreateWithoutOrdersInput, Prisma.usersUncheckedCreateWithoutOrdersInput>
   connectOrCreate?: Prisma.usersCreateOrConnectWithoutOrdersInput
   upsert?: Prisma.usersUpsertWithoutOrdersInput
-  disconnect?: Prisma.usersWhereInput | boolean
-  delete?: Prisma.usersWhereInput | boolean
   connect?: Prisma.usersWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutOrdersInput, Prisma.usersUpdateWithoutOrdersInput>, Prisma.usersUncheckedUpdateWithoutOrdersInput>
 }
@@ -483,240 +532,40 @@ export type usersCreateNestedOneWithoutPaymentsInput = {
   connect?: Prisma.usersWhereUniqueInput
 }
 
-export type usersUpdateOneWithoutPaymentsNestedInput = {
+export type usersUpdateOneRequiredWithoutPaymentsNestedInput = {
   create?: Prisma.XOR<Prisma.usersCreateWithoutPaymentsInput, Prisma.usersUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.usersCreateOrConnectWithoutPaymentsInput
   upsert?: Prisma.usersUpsertWithoutPaymentsInput
-  disconnect?: Prisma.usersWhereInput | boolean
-  delete?: Prisma.usersWhereInput | boolean
   connect?: Prisma.usersWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutPaymentsInput, Prisma.usersUpdateWithoutPaymentsInput>, Prisma.usersUncheckedUpdateWithoutPaymentsInput>
 }
 
-export type usersCreateNestedOneWithoutStock_movementsInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutStock_movementsInput, Prisma.usersUncheckedCreateWithoutStock_movementsInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutStock_movementsInput
+export type usersCreateNestedOneWithoutExpensesInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutExpensesInput
   connect?: Prisma.usersWhereUniqueInput
 }
 
-export type usersUpdateOneWithoutStock_movementsNestedInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutStock_movementsInput, Prisma.usersUncheckedCreateWithoutStock_movementsInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutStock_movementsInput
-  upsert?: Prisma.usersUpsertWithoutStock_movementsInput
-  disconnect?: Prisma.usersWhereInput | boolean
-  delete?: Prisma.usersWhereInput | boolean
+export type usersUpdateOneRequiredWithoutExpensesNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutExpensesInput
+  upsert?: Prisma.usersUpsertWithoutExpensesInput
   connect?: Prisma.usersWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutStock_movementsInput, Prisma.usersUpdateWithoutStock_movementsInput>, Prisma.usersUncheckedUpdateWithoutStock_movementsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutExpensesInput, Prisma.usersUpdateWithoutExpensesInput>, Prisma.usersUncheckedUpdateWithoutExpensesInput>
 }
 
-export type usersCreateWithoutExpensesInput = {
-  username: string
-  email?: string | null
-  full_name?: string | null
-  password_hash: string
-  role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  orders?: Prisma.ordersCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUsersInput
+export type usersCreateNestedOneWithoutCash_registersInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutCash_registersInput, Prisma.usersUncheckedCreateWithoutCash_registersInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutCash_registersInput
+  connect?: Prisma.usersWhereUniqueInput
 }
 
-export type usersUncheckedCreateWithoutExpensesInput = {
-  id?: number
-  username: string
-  email?: string | null
-  full_name?: string | null
-  password_hash: string
-  role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUsersInput
-}
-
-export type usersCreateOrConnectWithoutExpensesInput = {
-  where: Prisma.usersWhereUniqueInput
-  create: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
-}
-
-export type usersUpsertWithoutExpensesInput = {
-  update: Prisma.XOR<Prisma.usersUpdateWithoutExpensesInput, Prisma.usersUncheckedUpdateWithoutExpensesInput>
-  create: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
-  where?: Prisma.usersWhereInput
-}
-
-export type usersUpdateToOneWithWhereWithoutExpensesInput = {
-  where?: Prisma.usersWhereInput
-  data: Prisma.XOR<Prisma.usersUpdateWithoutExpensesInput, Prisma.usersUncheckedUpdateWithoutExpensesInput>
-}
-
-export type usersUpdateWithoutExpensesInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  orders?: Prisma.ordersUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUsersNestedInput
-}
-
-export type usersUncheckedUpdateWithoutExpensesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  orders?: Prisma.ordersUncheckedUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUsersNestedInput
-}
-
-export type usersCreateWithoutOrdersInput = {
-  username: string
-  email?: string | null
-  full_name?: string | null
-  password_hash: string
-  role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUsersInput
-}
-
-export type usersUncheckedCreateWithoutOrdersInput = {
-  id?: number
-  username: string
-  email?: string | null
-  full_name?: string | null
-  password_hash: string
-  role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUsersInput
-}
-
-export type usersCreateOrConnectWithoutOrdersInput = {
-  where: Prisma.usersWhereUniqueInput
-  create: Prisma.XOR<Prisma.usersCreateWithoutOrdersInput, Prisma.usersUncheckedCreateWithoutOrdersInput>
-}
-
-export type usersUpsertWithoutOrdersInput = {
-  update: Prisma.XOR<Prisma.usersUpdateWithoutOrdersInput, Prisma.usersUncheckedUpdateWithoutOrdersInput>
-  create: Prisma.XOR<Prisma.usersCreateWithoutOrdersInput, Prisma.usersUncheckedCreateWithoutOrdersInput>
-  where?: Prisma.usersWhereInput
-}
-
-export type usersUpdateToOneWithWhereWithoutOrdersInput = {
-  where?: Prisma.usersWhereInput
-  data: Prisma.XOR<Prisma.usersUpdateWithoutOrdersInput, Prisma.usersUncheckedUpdateWithoutOrdersInput>
-}
-
-export type usersUpdateWithoutOrdersInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUsersNestedInput
-}
-
-export type usersUncheckedUpdateWithoutOrdersInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUsersNestedInput
-}
-
-export type usersCreateWithoutPaymentsInput = {
-  username: string
-  email?: string | null
-  full_name?: string | null
-  password_hash: string
-  role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesCreateNestedManyWithoutUsersInput
-  orders?: Prisma.ordersCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUsersInput
-}
-
-export type usersUncheckedCreateWithoutPaymentsInput = {
-  id?: number
-  username: string
-  email?: string | null
-  full_name?: string | null
-  password_hash: string
-  role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUsersInput
-  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUsersInput
-  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUsersInput
-}
-
-export type usersCreateOrConnectWithoutPaymentsInput = {
-  where: Prisma.usersWhereUniqueInput
-  create: Prisma.XOR<Prisma.usersCreateWithoutPaymentsInput, Prisma.usersUncheckedCreateWithoutPaymentsInput>
-}
-
-export type usersUpsertWithoutPaymentsInput = {
-  update: Prisma.XOR<Prisma.usersUpdateWithoutPaymentsInput, Prisma.usersUncheckedUpdateWithoutPaymentsInput>
-  create: Prisma.XOR<Prisma.usersCreateWithoutPaymentsInput, Prisma.usersUncheckedCreateWithoutPaymentsInput>
-  where?: Prisma.usersWhereInput
-}
-
-export type usersUpdateToOneWithWhereWithoutPaymentsInput = {
-  where?: Prisma.usersWhereInput
-  data: Prisma.XOR<Prisma.usersUpdateWithoutPaymentsInput, Prisma.usersUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type usersUpdateWithoutPaymentsInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUpdateManyWithoutUsersNestedInput
-  orders?: Prisma.ordersUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUsersNestedInput
-}
-
-export type usersUncheckedUpdateWithoutPaymentsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUsersNestedInput
-  orders?: Prisma.ordersUncheckedUpdateManyWithoutUsersNestedInput
-  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUsersNestedInput
+export type usersUpdateOneRequiredWithoutCash_registersNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutCash_registersInput, Prisma.usersUncheckedCreateWithoutCash_registersInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutCash_registersInput
+  upsert?: Prisma.usersUpsertWithoutCash_registersInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutCash_registersInput, Prisma.usersUpdateWithoutCash_registersInput>, Prisma.usersUncheckedUpdateWithoutCash_registersInput>
 }
 
 export type usersCreateWithoutStock_movementsInput = {
@@ -725,11 +574,13 @@ export type usersCreateWithoutStock_movementsInput = {
   full_name?: string | null
   password_hash: string
   role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesCreateNestedManyWithoutUsersInput
-  orders?: Prisma.ordersCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsCreateNestedManyWithoutUsersInput
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersCreateNestedManyWithoutUserInput
 }
 
 export type usersUncheckedCreateWithoutStock_movementsInput = {
@@ -739,11 +590,13 @@ export type usersUncheckedCreateWithoutStock_movementsInput = {
   full_name?: string | null
   password_hash: string
   role?: string
-  is_active?: boolean | null
-  created_at?: Date | string | null
-  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUsersInput
-  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUsersInput
-  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUsersInput
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type usersCreateOrConnectWithoutStock_movementsInput = {
@@ -768,11 +621,13 @@ export type usersUpdateWithoutStock_movementsInput = {
   full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUpdateManyWithoutUsersNestedInput
-  orders?: Prisma.ordersUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUpdateManyWithoutUsersNestedInput
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUpdateManyWithoutUserNestedInput
 }
 
 export type usersUncheckedUpdateWithoutStock_movementsInput = {
@@ -782,11 +637,325 @@ export type usersUncheckedUpdateWithoutStock_movementsInput = {
   full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
-  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUsersNestedInput
-  orders?: Prisma.ordersUncheckedUpdateManyWithoutUsersNestedInput
-  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUsersNestedInput
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type usersCreateWithoutOrdersInput = {
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  expenses?: Prisma.expensesCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersCreateNestedManyWithoutUserInput
+}
+
+export type usersUncheckedCreateWithoutOrdersInput = {
+  id?: number
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type usersCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutOrdersInput, Prisma.usersUncheckedCreateWithoutOrdersInput>
+}
+
+export type usersUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutOrdersInput, Prisma.usersUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutOrdersInput, Prisma.usersUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutOrdersInput, Prisma.usersUncheckedUpdateWithoutOrdersInput>
+}
+
+export type usersUpdateWithoutOrdersInput = {
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenses?: Prisma.expensesUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUpdateManyWithoutUserNestedInput
+}
+
+export type usersUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type usersCreateWithoutPaymentsInput = {
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersCreateNestedManyWithoutUserInput
+}
+
+export type usersUncheckedCreateWithoutPaymentsInput = {
+  id?: number
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type usersCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutPaymentsInput, Prisma.usersUncheckedCreateWithoutPaymentsInput>
+}
+
+export type usersUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutPaymentsInput, Prisma.usersUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutPaymentsInput, Prisma.usersUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutPaymentsInput, Prisma.usersUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type usersUpdateWithoutPaymentsInput = {
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUpdateManyWithoutUserNestedInput
+}
+
+export type usersUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type usersCreateWithoutExpensesInput = {
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersCreateNestedManyWithoutUserInput
+}
+
+export type usersUncheckedCreateWithoutExpensesInput = {
+  id?: number
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUserInput
+  cash_registers?: Prisma.cash_registersUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type usersCreateOrConnectWithoutExpensesInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
+}
+
+export type usersUpsertWithoutExpensesInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutExpensesInput, Prisma.usersUncheckedUpdateWithoutExpensesInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutExpensesInput, Prisma.usersUncheckedCreateWithoutExpensesInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutExpensesInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutExpensesInput, Prisma.usersUncheckedUpdateWithoutExpensesInput>
+}
+
+export type usersUpdateWithoutExpensesInput = {
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUpdateManyWithoutUserNestedInput
+}
+
+export type usersUncheckedUpdateWithoutExpensesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUserNestedInput
+  cash_registers?: Prisma.cash_registersUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type usersCreateWithoutCash_registersInput = {
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutUserInput
+}
+
+export type usersUncheckedCreateWithoutCash_registersInput = {
+  id?: number
+  username: string
+  email?: string | null
+  full_name?: string | null
+  password_hash: string
+  role?: string
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
+  expenses?: Prisma.expensesUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutUserInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type usersCreateOrConnectWithoutCash_registersInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutCash_registersInput, Prisma.usersUncheckedCreateWithoutCash_registersInput>
+}
+
+export type usersUpsertWithoutCash_registersInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutCash_registersInput, Prisma.usersUncheckedUpdateWithoutCash_registersInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutCash_registersInput, Prisma.usersUncheckedCreateWithoutCash_registersInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutCash_registersInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutCash_registersInput, Prisma.usersUncheckedUpdateWithoutCash_registersInput>
+}
+
+export type usersUpdateWithoutCash_registersInput = {
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutUserNestedInput
+}
+
+export type usersUncheckedUpdateWithoutCash_registersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  full_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.expensesUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutUserNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -795,17 +964,19 @@ export type usersUncheckedUpdateWithoutStock_movementsInput = {
  */
 
 export type UsersCountOutputType = {
-  expenses: number
   orders: number
+  expenses: number
   payments: number
   stock_movements: number
+  cash_registers: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  expenses?: boolean | UsersCountOutputTypeCountExpensesArgs
   orders?: boolean | UsersCountOutputTypeCountOrdersArgs
+  expenses?: boolean | UsersCountOutputTypeCountExpensesArgs
   payments?: boolean | UsersCountOutputTypeCountPaymentsArgs
   stock_movements?: boolean | UsersCountOutputTypeCountStock_movementsArgs
+  cash_registers?: boolean | UsersCountOutputTypeCountCash_registersArgs
 }
 
 /**
@@ -821,15 +992,15 @@ export type UsersCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * UsersCountOutputType without action
  */
-export type UsersCountOutputTypeCountExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.expensesWhereInput
+export type UsersCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ordersWhereInput
 }
 
 /**
  * UsersCountOutputType without action
  */
-export type UsersCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ordersWhereInput
+export type UsersCountOutputTypeCountExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.expensesWhereInput
 }
 
 /**
@@ -846,6 +1017,13 @@ export type UsersCountOutputTypeCountStock_movementsArgs<ExtArgs extends runtime
   where?: Prisma.stock_movementsWhereInput
 }
 
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountCash_registersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.cash_registersWhereInput
+}
+
 
 export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -856,10 +1034,12 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   role?: boolean
   is_active?: boolean
   created_at?: boolean
-  expenses?: boolean | Prisma.users$expensesArgs<ExtArgs>
+  updated_at?: boolean
   orders?: boolean | Prisma.users$ordersArgs<ExtArgs>
+  expenses?: boolean | Prisma.users$expensesArgs<ExtArgs>
   payments?: boolean | Prisma.users$paymentsArgs<ExtArgs>
   stock_movements?: boolean | Prisma.users$stock_movementsArgs<ExtArgs>
+  cash_registers?: boolean | Prisma.users$cash_registersArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
 
@@ -872,6 +1052,7 @@ export type usersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   role?: boolean
   is_active?: boolean
   created_at?: boolean
+  updated_at?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -883,6 +1064,7 @@ export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   role?: boolean
   is_active?: boolean
   created_at?: boolean
+  updated_at?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectScalar = {
@@ -894,14 +1076,16 @@ export type usersSelectScalar = {
   role?: boolean
   is_active?: boolean
   created_at?: boolean
+  updated_at?: boolean
 }
 
-export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "full_name" | "password_hash" | "role" | "is_active" | "created_at", ExtArgs["result"]["users"]>
+export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "full_name" | "password_hash" | "role" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
 export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  expenses?: boolean | Prisma.users$expensesArgs<ExtArgs>
   orders?: boolean | Prisma.users$ordersArgs<ExtArgs>
+  expenses?: boolean | Prisma.users$expensesArgs<ExtArgs>
   payments?: boolean | Prisma.users$paymentsArgs<ExtArgs>
   stock_movements?: boolean | Prisma.users$stock_movementsArgs<ExtArgs>
+  cash_registers?: boolean | Prisma.users$cash_registersArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type usersIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -910,10 +1094,11 @@ export type usersIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "users"
   objects: {
-    expenses: Prisma.$expensesPayload<ExtArgs>[]
     orders: Prisma.$ordersPayload<ExtArgs>[]
+    expenses: Prisma.$expensesPayload<ExtArgs>[]
     payments: Prisma.$paymentsPayload<ExtArgs>[]
     stock_movements: Prisma.$stock_movementsPayload<ExtArgs>[]
+    cash_registers: Prisma.$cash_registersPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -922,8 +1107,9 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     full_name: string | null
     password_hash: string
     role: string
-    is_active: boolean | null
-    created_at: Date | null
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
   }, ExtArgs["result"]["users"]>
   composites: {}
 }
@@ -1318,10 +1504,11 @@ readonly fields: usersFieldRefs;
  */
 export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  expenses<T extends Prisma.users$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$expensesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orders<T extends Prisma.users$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  expenses<T extends Prisma.users$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$expensesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.users$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stock_movements<T extends Prisma.users$stock_movementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$stock_movementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$stock_movementsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cash_registers<T extends Prisma.users$cash_registersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$cash_registersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$cash_registersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1359,6 +1546,7 @@ export interface usersFieldRefs {
   readonly role: Prisma.FieldRef<"users", 'String'>
   readonly is_active: Prisma.FieldRef<"users", 'Boolean'>
   readonly created_at: Prisma.FieldRef<"users", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"users", 'DateTime'>
 }
     
 
@@ -1747,30 +1935,6 @@ export type usersDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * users.expenses
- */
-export type users$expensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the expenses
-   */
-  select?: Prisma.expensesSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the expenses
-   */
-  omit?: Prisma.expensesOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.expensesInclude<ExtArgs> | null
-  where?: Prisma.expensesWhereInput
-  orderBy?: Prisma.expensesOrderByWithRelationInput | Prisma.expensesOrderByWithRelationInput[]
-  cursor?: Prisma.expensesWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ExpensesScalarFieldEnum | Prisma.ExpensesScalarFieldEnum[]
-}
-
-/**
  * users.orders
  */
 export type users$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1792,6 +1956,30 @@ export type users$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.OrdersScalarFieldEnum | Prisma.OrdersScalarFieldEnum[]
+}
+
+/**
+ * users.expenses
+ */
+export type users$expensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the expenses
+   */
+  select?: Prisma.expensesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the expenses
+   */
+  omit?: Prisma.expensesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.expensesInclude<ExtArgs> | null
+  where?: Prisma.expensesWhereInput
+  orderBy?: Prisma.expensesOrderByWithRelationInput | Prisma.expensesOrderByWithRelationInput[]
+  cursor?: Prisma.expensesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExpensesScalarFieldEnum | Prisma.ExpensesScalarFieldEnum[]
 }
 
 /**
@@ -1840,6 +2028,30 @@ export type users$stock_movementsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.Stock_movementsScalarFieldEnum | Prisma.Stock_movementsScalarFieldEnum[]
+}
+
+/**
+ * users.cash_registers
+ */
+export type users$cash_registersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the cash_registers
+   */
+  select?: Prisma.cash_registersSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the cash_registers
+   */
+  omit?: Prisma.cash_registersOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.cash_registersInclude<ExtArgs> | null
+  where?: Prisma.cash_registersWhereInput
+  orderBy?: Prisma.cash_registersOrderByWithRelationInput | Prisma.cash_registersOrderByWithRelationInput[]
+  cursor?: Prisma.cash_registersWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Cash_registersScalarFieldEnum | Prisma.Cash_registersScalarFieldEnum[]
 }
 
 /**

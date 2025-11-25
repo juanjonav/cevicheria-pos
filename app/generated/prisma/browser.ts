@@ -18,16 +18,20 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model users
+ * 
+ */
+export type users = Prisma.usersModel
+/**
  * Model clients
  * 
  */
 export type clients = Prisma.clientsModel
 /**
- * Model expenses
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * Model suppliers
+ * 
  */
-export type expenses = Prisma.expensesModel
+export type suppliers = Prisma.suppliersModel
 /**
  * Model menu_categories
  * 
@@ -35,47 +39,46 @@ export type expenses = Prisma.expensesModel
 export type menu_categories = Prisma.menu_categoriesModel
 /**
  * Model menu_items
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type menu_items = Prisma.menu_itemsModel
 /**
- * Model order_lines
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
- */
-export type order_lines = Prisma.order_linesModel
-/**
- * Model orders
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
- */
-export type orders = Prisma.ordersModel
-/**
- * Model payments
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- */
-export type payments = Prisma.paymentsModel
-/**
  * Model recipe_items
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type recipe_items = Prisma.recipe_itemsModel
 /**
  * Model stock_items
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type stock_items = Prisma.stock_itemsModel
 /**
  * Model stock_movements
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type stock_movements = Prisma.stock_movementsModel
 /**
- * Model users
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * Model orders
+ * 
  */
-export type users = Prisma.usersModel
+export type orders = Prisma.ordersModel
+/**
+ * Model order_lines
+ * 
+ */
+export type order_lines = Prisma.order_linesModel
+/**
+ * Model payments
+ * 
+ */
+export type payments = Prisma.paymentsModel
+/**
+ * Model expenses
+ * 
+ */
+export type expenses = Prisma.expensesModel
+/**
+ * Model cash_registers
+ * 
+ */
+export type cash_registers = Prisma.cash_registersModel

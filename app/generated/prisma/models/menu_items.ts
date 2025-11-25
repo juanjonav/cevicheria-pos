@@ -14,8 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model menu_items
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type menu_itemsModel = runtime.Types.Result.DefaultSelection<Prisma.$menu_itemsPayload>
 
@@ -31,12 +30,16 @@ export type Menu_itemsAvgAggregateOutputType = {
   id: number | null
   category_id: number | null
   price: runtime.Decimal | null
+  cost: runtime.Decimal | null
+  preparation_time: number | null
 }
 
 export type Menu_itemsSumAggregateOutputType = {
   id: number | null
   category_id: number | null
   price: runtime.Decimal | null
+  cost: runtime.Decimal | null
+  preparation_time: number | null
 }
 
 export type Menu_itemsMinAggregateOutputType = {
@@ -45,9 +48,12 @@ export type Menu_itemsMinAggregateOutputType = {
   description: string | null
   category_id: number | null
   price: runtime.Decimal | null
+  cost: runtime.Decimal | null
   is_available: boolean | null
-  created_at: Date | null
   image_url: string | null
+  preparation_time: number | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type Menu_itemsMaxAggregateOutputType = {
@@ -56,9 +62,12 @@ export type Menu_itemsMaxAggregateOutputType = {
   description: string | null
   category_id: number | null
   price: runtime.Decimal | null
+  cost: runtime.Decimal | null
   is_available: boolean | null
-  created_at: Date | null
   image_url: string | null
+  preparation_time: number | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type Menu_itemsCountAggregateOutputType = {
@@ -67,9 +76,12 @@ export type Menu_itemsCountAggregateOutputType = {
   description: number
   category_id: number
   price: number
+  cost: number
   is_available: number
-  created_at: number
   image_url: number
+  preparation_time: number
+  created_at: number
+  updated_at: number
   _all: number
 }
 
@@ -78,12 +90,16 @@ export type Menu_itemsAvgAggregateInputType = {
   id?: true
   category_id?: true
   price?: true
+  cost?: true
+  preparation_time?: true
 }
 
 export type Menu_itemsSumAggregateInputType = {
   id?: true
   category_id?: true
   price?: true
+  cost?: true
+  preparation_time?: true
 }
 
 export type Menu_itemsMinAggregateInputType = {
@@ -92,9 +108,12 @@ export type Menu_itemsMinAggregateInputType = {
   description?: true
   category_id?: true
   price?: true
+  cost?: true
   is_available?: true
-  created_at?: true
   image_url?: true
+  preparation_time?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type Menu_itemsMaxAggregateInputType = {
@@ -103,9 +122,12 @@ export type Menu_itemsMaxAggregateInputType = {
   description?: true
   category_id?: true
   price?: true
+  cost?: true
   is_available?: true
-  created_at?: true
   image_url?: true
+  preparation_time?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type Menu_itemsCountAggregateInputType = {
@@ -114,9 +136,12 @@ export type Menu_itemsCountAggregateInputType = {
   description?: true
   category_id?: true
   price?: true
+  cost?: true
   is_available?: true
-  created_at?: true
   image_url?: true
+  preparation_time?: true
+  created_at?: true
+  updated_at?: true
   _all?: true
 }
 
@@ -210,11 +235,14 @@ export type Menu_itemsGroupByOutputType = {
   id: number
   name: string
   description: string | null
-  category_id: number | null
+  category_id: number
   price: runtime.Decimal
-  is_available: boolean | null
-  created_at: Date | null
+  cost: runtime.Decimal | null
+  is_available: boolean
   image_url: string | null
+  preparation_time: number | null
+  created_at: Date
+  updated_at: Date
   _count: Menu_itemsCountAggregateOutputType | null
   _avg: Menu_itemsAvgAggregateOutputType | null
   _sum: Menu_itemsSumAggregateOutputType | null
@@ -244,12 +272,15 @@ export type menu_itemsWhereInput = {
   id?: Prisma.IntFilter<"menu_items"> | number
   name?: Prisma.StringFilter<"menu_items"> | string
   description?: Prisma.StringNullableFilter<"menu_items"> | string | null
-  category_id?: Prisma.IntNullableFilter<"menu_items"> | number | null
+  category_id?: Prisma.IntFilter<"menu_items"> | number
   price?: Prisma.DecimalFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.BoolNullableFilter<"menu_items"> | boolean | null
-  created_at?: Prisma.DateTimeNullableFilter<"menu_items"> | Date | string | null
+  cost?: Prisma.DecimalNullableFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFilter<"menu_items"> | boolean
   image_url?: Prisma.StringNullableFilter<"menu_items"> | string | null
-  menu_categories?: Prisma.XOR<Prisma.Menu_categoriesNullableScalarRelationFilter, Prisma.menu_categoriesWhereInput> | null
+  preparation_time?: Prisma.IntNullableFilter<"menu_items"> | number | null
+  created_at?: Prisma.DateTimeFilter<"menu_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"menu_items"> | Date | string
+  category?: Prisma.XOR<Prisma.Menu_categoriesScalarRelationFilter, Prisma.menu_categoriesWhereInput>
   order_lines?: Prisma.Order_linesListRelationFilter
   recipe_items?: Prisma.Recipe_itemsListRelationFilter
 }
@@ -258,12 +289,15 @@ export type menu_itemsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  category_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  category_id?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  is_available?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  cost?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_available?: Prisma.SortOrder
   image_url?: Prisma.SortOrderInput | Prisma.SortOrder
-  menu_categories?: Prisma.menu_categoriesOrderByWithRelationInput
+  preparation_time?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  category?: Prisma.menu_categoriesOrderByWithRelationInput
   order_lines?: Prisma.order_linesOrderByRelationAggregateInput
   recipe_items?: Prisma.recipe_itemsOrderByRelationAggregateInput
 }
@@ -275,12 +309,15 @@ export type menu_itemsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.menu_itemsWhereInput | Prisma.menu_itemsWhereInput[]
   name?: Prisma.StringFilter<"menu_items"> | string
   description?: Prisma.StringNullableFilter<"menu_items"> | string | null
-  category_id?: Prisma.IntNullableFilter<"menu_items"> | number | null
+  category_id?: Prisma.IntFilter<"menu_items"> | number
   price?: Prisma.DecimalFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.BoolNullableFilter<"menu_items"> | boolean | null
-  created_at?: Prisma.DateTimeNullableFilter<"menu_items"> | Date | string | null
+  cost?: Prisma.DecimalNullableFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFilter<"menu_items"> | boolean
   image_url?: Prisma.StringNullableFilter<"menu_items"> | string | null
-  menu_categories?: Prisma.XOR<Prisma.Menu_categoriesNullableScalarRelationFilter, Prisma.menu_categoriesWhereInput> | null
+  preparation_time?: Prisma.IntNullableFilter<"menu_items"> | number | null
+  created_at?: Prisma.DateTimeFilter<"menu_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"menu_items"> | Date | string
+  category?: Prisma.XOR<Prisma.Menu_categoriesScalarRelationFilter, Prisma.menu_categoriesWhereInput>
   order_lines?: Prisma.Order_linesListRelationFilter
   recipe_items?: Prisma.Recipe_itemsListRelationFilter
 }, "id">
@@ -289,11 +326,14 @@ export type menu_itemsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  category_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  category_id?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  is_available?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  cost?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_available?: Prisma.SortOrder
   image_url?: Prisma.SortOrderInput | Prisma.SortOrder
+  preparation_time?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   _count?: Prisma.menu_itemsCountOrderByAggregateInput
   _avg?: Prisma.menu_itemsAvgOrderByAggregateInput
   _max?: Prisma.menu_itemsMaxOrderByAggregateInput
@@ -308,92 +348,116 @@ export type menu_itemsScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"menu_items"> | number
   name?: Prisma.StringWithAggregatesFilter<"menu_items"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"menu_items"> | string | null
-  category_id?: Prisma.IntNullableWithAggregatesFilter<"menu_items"> | number | null
+  category_id?: Prisma.IntWithAggregatesFilter<"menu_items"> | number
   price?: Prisma.DecimalWithAggregatesFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.BoolNullableWithAggregatesFilter<"menu_items"> | boolean | null
-  created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"menu_items"> | Date | string | null
+  cost?: Prisma.DecimalNullableWithAggregatesFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolWithAggregatesFilter<"menu_items"> | boolean
   image_url?: Prisma.StringNullableWithAggregatesFilter<"menu_items"> | string | null
+  preparation_time?: Prisma.IntNullableWithAggregatesFilter<"menu_items"> | number | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"menu_items"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"menu_items"> | Date | string
 }
 
 export type menu_itemsCreateInput = {
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
-  menu_categories?: Prisma.menu_categoriesCreateNestedOneWithoutMenu_itemsInput
-  order_lines?: Prisma.order_linesCreateNestedManyWithoutMenu_itemsInput
-  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutMenu_itemsInput
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  category: Prisma.menu_categoriesCreateNestedOneWithoutMenu_itemsInput
+  order_lines?: Prisma.order_linesCreateNestedManyWithoutMenu_itemInput
+  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutMenu_itemInput
 }
 
 export type menu_itemsUncheckedCreateInput = {
   id?: number
   name: string
   description?: string | null
-  category_id?: number | null
+  category_id: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
-  order_lines?: Prisma.order_linesUncheckedCreateNestedManyWithoutMenu_itemsInput
-  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemsInput
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  order_lines?: Prisma.order_linesUncheckedCreateNestedManyWithoutMenu_itemInput
+  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemInput
 }
 
 export type menu_itemsUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  menu_categories?: Prisma.menu_categoriesUpdateOneWithoutMenu_itemsNestedInput
-  order_lines?: Prisma.order_linesUpdateManyWithoutMenu_itemsNestedInput
-  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutMenu_itemsNestedInput
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.menu_categoriesUpdateOneRequiredWithoutMenu_itemsNestedInput
+  order_lines?: Prisma.order_linesUpdateManyWithoutMenu_itemNestedInput
+  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutMenu_itemNestedInput
 }
 
 export type menu_itemsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  category_id?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  order_lines?: Prisma.order_linesUncheckedUpdateManyWithoutMenu_itemsNestedInput
-  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemsNestedInput
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order_lines?: Prisma.order_linesUncheckedUpdateManyWithoutMenu_itemNestedInput
+  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemNestedInput
 }
 
 export type menu_itemsCreateManyInput = {
   id?: number
   name: string
   description?: string | null
-  category_id?: number | null
+  category_id: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type menu_itemsUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type menu_itemsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  category_id?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type Menu_itemsListRelationFilter = {
@@ -412,15 +476,20 @@ export type menu_itemsCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   category_id?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  cost?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
+  preparation_time?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type menu_itemsAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   category_id?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  cost?: Prisma.SortOrder
+  preparation_time?: Prisma.SortOrder
 }
 
 export type menu_itemsMaxOrderByAggregateInput = {
@@ -429,9 +498,12 @@ export type menu_itemsMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   category_id?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  cost?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
+  preparation_time?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type menu_itemsMinOrderByAggregateInput = {
@@ -440,15 +512,20 @@ export type menu_itemsMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   category_id?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  cost?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
+  preparation_time?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type menu_itemsSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   category_id?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  cost?: Prisma.SortOrder
+  preparation_time?: Prisma.SortOrder
 }
 
 export type Menu_itemsScalarRelationFilter = {
@@ -456,64 +533,62 @@ export type Menu_itemsScalarRelationFilter = {
   isNot?: Prisma.menu_itemsWhereInput
 }
 
-export type menu_itemsCreateNestedManyWithoutMenu_categoriesInput = {
-  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput> | Prisma.menu_itemsCreateWithoutMenu_categoriesInput[] | Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput[]
-  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput | Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput[]
-  createMany?: Prisma.menu_itemsCreateManyMenu_categoriesInputEnvelope
+export type menu_itemsCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutCategoryInput, Prisma.menu_itemsUncheckedCreateWithoutCategoryInput> | Prisma.menu_itemsCreateWithoutCategoryInput[] | Prisma.menu_itemsUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutCategoryInput | Prisma.menu_itemsCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.menu_itemsCreateManyCategoryInputEnvelope
   connect?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
 }
 
-export type menu_itemsUncheckedCreateNestedManyWithoutMenu_categoriesInput = {
-  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput> | Prisma.menu_itemsCreateWithoutMenu_categoriesInput[] | Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput[]
-  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput | Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput[]
-  createMany?: Prisma.menu_itemsCreateManyMenu_categoriesInputEnvelope
+export type menu_itemsUncheckedCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutCategoryInput, Prisma.menu_itemsUncheckedCreateWithoutCategoryInput> | Prisma.menu_itemsCreateWithoutCategoryInput[] | Prisma.menu_itemsUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutCategoryInput | Prisma.menu_itemsCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.menu_itemsCreateManyCategoryInputEnvelope
   connect?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
 }
 
-export type menu_itemsUpdateManyWithoutMenu_categoriesNestedInput = {
-  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput> | Prisma.menu_itemsCreateWithoutMenu_categoriesInput[] | Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput[]
-  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput | Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput[]
-  upsert?: Prisma.menu_itemsUpsertWithWhereUniqueWithoutMenu_categoriesInput | Prisma.menu_itemsUpsertWithWhereUniqueWithoutMenu_categoriesInput[]
-  createMany?: Prisma.menu_itemsCreateManyMenu_categoriesInputEnvelope
+export type menu_itemsUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutCategoryInput, Prisma.menu_itemsUncheckedCreateWithoutCategoryInput> | Prisma.menu_itemsCreateWithoutCategoryInput[] | Prisma.menu_itemsUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutCategoryInput | Prisma.menu_itemsCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.menu_itemsUpsertWithWhereUniqueWithoutCategoryInput | Prisma.menu_itemsUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.menu_itemsCreateManyCategoryInputEnvelope
   set?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
   disconnect?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
   delete?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
   connect?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
-  update?: Prisma.menu_itemsUpdateWithWhereUniqueWithoutMenu_categoriesInput | Prisma.menu_itemsUpdateWithWhereUniqueWithoutMenu_categoriesInput[]
-  updateMany?: Prisma.menu_itemsUpdateManyWithWhereWithoutMenu_categoriesInput | Prisma.menu_itemsUpdateManyWithWhereWithoutMenu_categoriesInput[]
+  update?: Prisma.menu_itemsUpdateWithWhereUniqueWithoutCategoryInput | Prisma.menu_itemsUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.menu_itemsUpdateManyWithWhereWithoutCategoryInput | Prisma.menu_itemsUpdateManyWithWhereWithoutCategoryInput[]
   deleteMany?: Prisma.menu_itemsScalarWhereInput | Prisma.menu_itemsScalarWhereInput[]
 }
 
-export type menu_itemsUncheckedUpdateManyWithoutMenu_categoriesNestedInput = {
-  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput> | Prisma.menu_itemsCreateWithoutMenu_categoriesInput[] | Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput[]
-  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput | Prisma.menu_itemsCreateOrConnectWithoutMenu_categoriesInput[]
-  upsert?: Prisma.menu_itemsUpsertWithWhereUniqueWithoutMenu_categoriesInput | Prisma.menu_itemsUpsertWithWhereUniqueWithoutMenu_categoriesInput[]
-  createMany?: Prisma.menu_itemsCreateManyMenu_categoriesInputEnvelope
+export type menu_itemsUncheckedUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutCategoryInput, Prisma.menu_itemsUncheckedCreateWithoutCategoryInput> | Prisma.menu_itemsCreateWithoutCategoryInput[] | Prisma.menu_itemsUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutCategoryInput | Prisma.menu_itemsCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.menu_itemsUpsertWithWhereUniqueWithoutCategoryInput | Prisma.menu_itemsUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.menu_itemsCreateManyCategoryInputEnvelope
   set?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
   disconnect?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
   delete?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
   connect?: Prisma.menu_itemsWhereUniqueInput | Prisma.menu_itemsWhereUniqueInput[]
-  update?: Prisma.menu_itemsUpdateWithWhereUniqueWithoutMenu_categoriesInput | Prisma.menu_itemsUpdateWithWhereUniqueWithoutMenu_categoriesInput[]
-  updateMany?: Prisma.menu_itemsUpdateManyWithWhereWithoutMenu_categoriesInput | Prisma.menu_itemsUpdateManyWithWhereWithoutMenu_categoriesInput[]
+  update?: Prisma.menu_itemsUpdateWithWhereUniqueWithoutCategoryInput | Prisma.menu_itemsUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.menu_itemsUpdateManyWithWhereWithoutCategoryInput | Prisma.menu_itemsUpdateManyWithWhereWithoutCategoryInput[]
   deleteMany?: Prisma.menu_itemsScalarWhereInput | Prisma.menu_itemsScalarWhereInput[]
 }
 
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type menu_itemsCreateNestedOneWithoutOrder_linesInput = {
-  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
-  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutOrder_linesInput
-  connect?: Prisma.menu_itemsWhereUniqueInput
-}
-
-export type menu_itemsUpdateOneRequiredWithoutOrder_linesNestedInput = {
-  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
-  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutOrder_linesInput
-  upsert?: Prisma.menu_itemsUpsertWithoutOrder_linesInput
-  connect?: Prisma.menu_itemsWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.menu_itemsUpdateToOneWithWhereWithoutOrder_linesInput, Prisma.menu_itemsUpdateWithoutOrder_linesInput>, Prisma.menu_itemsUncheckedUpdateWithoutOrder_linesInput>
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type menu_itemsCreateNestedOneWithoutRecipe_itemsInput = {
@@ -530,53 +605,73 @@ export type menu_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.menu_itemsUpdateToOneWithWhereWithoutRecipe_itemsInput, Prisma.menu_itemsUpdateWithoutRecipe_itemsInput>, Prisma.menu_itemsUncheckedUpdateWithoutRecipe_itemsInput>
 }
 
-export type menu_itemsCreateWithoutMenu_categoriesInput = {
+export type menu_itemsCreateNestedOneWithoutOrder_linesInput = {
+  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
+  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutOrder_linesInput
+  connect?: Prisma.menu_itemsWhereUniqueInput
+}
+
+export type menu_itemsUpdateOneRequiredWithoutOrder_linesNestedInput = {
+  create?: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
+  connectOrCreate?: Prisma.menu_itemsCreateOrConnectWithoutOrder_linesInput
+  upsert?: Prisma.menu_itemsUpsertWithoutOrder_linesInput
+  connect?: Prisma.menu_itemsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.menu_itemsUpdateToOneWithWhereWithoutOrder_linesInput, Prisma.menu_itemsUpdateWithoutOrder_linesInput>, Prisma.menu_itemsUncheckedUpdateWithoutOrder_linesInput>
+}
+
+export type menu_itemsCreateWithoutCategoryInput = {
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
-  order_lines?: Prisma.order_linesCreateNestedManyWithoutMenu_itemsInput
-  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutMenu_itemsInput
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  order_lines?: Prisma.order_linesCreateNestedManyWithoutMenu_itemInput
+  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutMenu_itemInput
 }
 
-export type menu_itemsUncheckedCreateWithoutMenu_categoriesInput = {
+export type menu_itemsUncheckedCreateWithoutCategoryInput = {
   id?: number
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
-  order_lines?: Prisma.order_linesUncheckedCreateNestedManyWithoutMenu_itemsInput
-  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemsInput
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  order_lines?: Prisma.order_linesUncheckedCreateNestedManyWithoutMenu_itemInput
+  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemInput
 }
 
-export type menu_itemsCreateOrConnectWithoutMenu_categoriesInput = {
+export type menu_itemsCreateOrConnectWithoutCategoryInput = {
   where: Prisma.menu_itemsWhereUniqueInput
-  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput>
+  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutCategoryInput, Prisma.menu_itemsUncheckedCreateWithoutCategoryInput>
 }
 
-export type menu_itemsCreateManyMenu_categoriesInputEnvelope = {
-  data: Prisma.menu_itemsCreateManyMenu_categoriesInput | Prisma.menu_itemsCreateManyMenu_categoriesInput[]
+export type menu_itemsCreateManyCategoryInputEnvelope = {
+  data: Prisma.menu_itemsCreateManyCategoryInput | Prisma.menu_itemsCreateManyCategoryInput[]
   skipDuplicates?: boolean
 }
 
-export type menu_itemsUpsertWithWhereUniqueWithoutMenu_categoriesInput = {
+export type menu_itemsUpsertWithWhereUniqueWithoutCategoryInput = {
   where: Prisma.menu_itemsWhereUniqueInput
-  update: Prisma.XOR<Prisma.menu_itemsUpdateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedUpdateWithoutMenu_categoriesInput>
-  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedCreateWithoutMenu_categoriesInput>
+  update: Prisma.XOR<Prisma.menu_itemsUpdateWithoutCategoryInput, Prisma.menu_itemsUncheckedUpdateWithoutCategoryInput>
+  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutCategoryInput, Prisma.menu_itemsUncheckedCreateWithoutCategoryInput>
 }
 
-export type menu_itemsUpdateWithWhereUniqueWithoutMenu_categoriesInput = {
+export type menu_itemsUpdateWithWhereUniqueWithoutCategoryInput = {
   where: Prisma.menu_itemsWhereUniqueInput
-  data: Prisma.XOR<Prisma.menu_itemsUpdateWithoutMenu_categoriesInput, Prisma.menu_itemsUncheckedUpdateWithoutMenu_categoriesInput>
+  data: Prisma.XOR<Prisma.menu_itemsUpdateWithoutCategoryInput, Prisma.menu_itemsUncheckedUpdateWithoutCategoryInput>
 }
 
-export type menu_itemsUpdateManyWithWhereWithoutMenu_categoriesInput = {
+export type menu_itemsUpdateManyWithWhereWithoutCategoryInput = {
   where: Prisma.menu_itemsScalarWhereInput
-  data: Prisma.XOR<Prisma.menu_itemsUpdateManyMutationInput, Prisma.menu_itemsUncheckedUpdateManyWithoutMenu_categoriesInput>
+  data: Prisma.XOR<Prisma.menu_itemsUpdateManyMutationInput, Prisma.menu_itemsUncheckedUpdateManyWithoutCategoryInput>
 }
 
 export type menu_itemsScalarWhereInput = {
@@ -586,96 +681,43 @@ export type menu_itemsScalarWhereInput = {
   id?: Prisma.IntFilter<"menu_items"> | number
   name?: Prisma.StringFilter<"menu_items"> | string
   description?: Prisma.StringNullableFilter<"menu_items"> | string | null
-  category_id?: Prisma.IntNullableFilter<"menu_items"> | number | null
+  category_id?: Prisma.IntFilter<"menu_items"> | number
   price?: Prisma.DecimalFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.BoolNullableFilter<"menu_items"> | boolean | null
-  created_at?: Prisma.DateTimeNullableFilter<"menu_items"> | Date | string | null
+  cost?: Prisma.DecimalNullableFilter<"menu_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFilter<"menu_items"> | boolean
   image_url?: Prisma.StringNullableFilter<"menu_items"> | string | null
-}
-
-export type menu_itemsCreateWithoutOrder_linesInput = {
-  name: string
-  description?: string | null
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
-  image_url?: string | null
-  menu_categories?: Prisma.menu_categoriesCreateNestedOneWithoutMenu_itemsInput
-  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutMenu_itemsInput
-}
-
-export type menu_itemsUncheckedCreateWithoutOrder_linesInput = {
-  id?: number
-  name: string
-  description?: string | null
-  category_id?: number | null
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
-  image_url?: string | null
-  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemsInput
-}
-
-export type menu_itemsCreateOrConnectWithoutOrder_linesInput = {
-  where: Prisma.menu_itemsWhereUniqueInput
-  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
-}
-
-export type menu_itemsUpsertWithoutOrder_linesInput = {
-  update: Prisma.XOR<Prisma.menu_itemsUpdateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedUpdateWithoutOrder_linesInput>
-  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
-  where?: Prisma.menu_itemsWhereInput
-}
-
-export type menu_itemsUpdateToOneWithWhereWithoutOrder_linesInput = {
-  where?: Prisma.menu_itemsWhereInput
-  data: Prisma.XOR<Prisma.menu_itemsUpdateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedUpdateWithoutOrder_linesInput>
-}
-
-export type menu_itemsUpdateWithoutOrder_linesInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  menu_categories?: Prisma.menu_categoriesUpdateOneWithoutMenu_itemsNestedInput
-  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutMenu_itemsNestedInput
-}
-
-export type menu_itemsUncheckedUpdateWithoutOrder_linesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemsNestedInput
+  preparation_time?: Prisma.IntNullableFilter<"menu_items"> | number | null
+  created_at?: Prisma.DateTimeFilter<"menu_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"menu_items"> | Date | string
 }
 
 export type menu_itemsCreateWithoutRecipe_itemsInput = {
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
-  menu_categories?: Prisma.menu_categoriesCreateNestedOneWithoutMenu_itemsInput
-  order_lines?: Prisma.order_linesCreateNestedManyWithoutMenu_itemsInput
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  category: Prisma.menu_categoriesCreateNestedOneWithoutMenu_itemsInput
+  order_lines?: Prisma.order_linesCreateNestedManyWithoutMenu_itemInput
 }
 
 export type menu_itemsUncheckedCreateWithoutRecipe_itemsInput = {
   id?: number
   name: string
   description?: string | null
-  category_id?: number | null
+  category_id: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
-  order_lines?: Prisma.order_linesUncheckedCreateNestedManyWithoutMenu_itemsInput
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  order_lines?: Prisma.order_linesUncheckedCreateNestedManyWithoutMenu_itemInput
 }
 
 export type menu_itemsCreateOrConnectWithoutRecipe_itemsInput = {
@@ -698,66 +740,158 @@ export type menu_itemsUpdateWithoutRecipe_itemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  menu_categories?: Prisma.menu_categoriesUpdateOneWithoutMenu_itemsNestedInput
-  order_lines?: Prisma.order_linesUpdateManyWithoutMenu_itemsNestedInput
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.menu_categoriesUpdateOneRequiredWithoutMenu_itemsNestedInput
+  order_lines?: Prisma.order_linesUpdateManyWithoutMenu_itemNestedInput
 }
 
 export type menu_itemsUncheckedUpdateWithoutRecipe_itemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  category_id?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  order_lines?: Prisma.order_linesUncheckedUpdateManyWithoutMenu_itemsNestedInput
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order_lines?: Prisma.order_linesUncheckedUpdateManyWithoutMenu_itemNestedInput
 }
 
-export type menu_itemsCreateManyMenu_categoriesInput = {
+export type menu_itemsCreateWithoutOrder_linesInput = {
+  name: string
+  description?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
+  image_url?: string | null
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  category: Prisma.menu_categoriesCreateNestedOneWithoutMenu_itemsInput
+  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutMenu_itemInput
+}
+
+export type menu_itemsUncheckedCreateWithoutOrder_linesInput = {
+  id?: number
+  name: string
+  description?: string | null
+  category_id: number
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
+  image_url?: string | null
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemInput
+}
+
+export type menu_itemsCreateOrConnectWithoutOrder_linesInput = {
+  where: Prisma.menu_itemsWhereUniqueInput
+  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
+}
+
+export type menu_itemsUpsertWithoutOrder_linesInput = {
+  update: Prisma.XOR<Prisma.menu_itemsUpdateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedUpdateWithoutOrder_linesInput>
+  create: Prisma.XOR<Prisma.menu_itemsCreateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedCreateWithoutOrder_linesInput>
+  where?: Prisma.menu_itemsWhereInput
+}
+
+export type menu_itemsUpdateToOneWithWhereWithoutOrder_linesInput = {
+  where?: Prisma.menu_itemsWhereInput
+  data: Prisma.XOR<Prisma.menu_itemsUpdateWithoutOrder_linesInput, Prisma.menu_itemsUncheckedUpdateWithoutOrder_linesInput>
+}
+
+export type menu_itemsUpdateWithoutOrder_linesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.menu_categoriesUpdateOneRequiredWithoutMenu_itemsNestedInput
+  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutMenu_itemNestedInput
+}
+
+export type menu_itemsUncheckedUpdateWithoutOrder_linesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category_id?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemNestedInput
+}
+
+export type menu_itemsCreateManyCategoryInput = {
   id?: number
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: boolean | null
-  created_at?: Date | string | null
+  cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: boolean
   image_url?: string | null
+  preparation_time?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
-export type menu_itemsUpdateWithoutMenu_categoriesInput = {
+export type menu_itemsUpdateWithoutCategoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  order_lines?: Prisma.order_linesUpdateManyWithoutMenu_itemsNestedInput
-  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutMenu_itemsNestedInput
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order_lines?: Prisma.order_linesUpdateManyWithoutMenu_itemNestedInput
+  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutMenu_itemNestedInput
 }
 
-export type menu_itemsUncheckedUpdateWithoutMenu_categoriesInput = {
+export type menu_itemsUncheckedUpdateWithoutCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  order_lines?: Prisma.order_linesUncheckedUpdateManyWithoutMenu_itemsNestedInput
-  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemsNestedInput
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order_lines?: Prisma.order_linesUncheckedUpdateManyWithoutMenu_itemNestedInput
+  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemNestedInput
 }
 
-export type menu_itemsUncheckedUpdateManyWithoutMenu_categoriesInput = {
+export type menu_itemsUncheckedUpdateManyWithoutCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_available?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preparation_time?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -806,10 +940,13 @@ export type menu_itemsSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   description?: boolean
   category_id?: boolean
   price?: boolean
+  cost?: boolean
   is_available?: boolean
-  created_at?: boolean
   image_url?: boolean
-  menu_categories?: boolean | Prisma.menu_items$menu_categoriesArgs<ExtArgs>
+  preparation_time?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  category?: boolean | Prisma.menu_categoriesDefaultArgs<ExtArgs>
   order_lines?: boolean | Prisma.menu_items$order_linesArgs<ExtArgs>
   recipe_items?: boolean | Prisma.menu_items$recipe_itemsArgs<ExtArgs>
   _count?: boolean | Prisma.Menu_itemsCountOutputTypeDefaultArgs<ExtArgs>
@@ -821,10 +958,13 @@ export type menu_itemsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   description?: boolean
   category_id?: boolean
   price?: boolean
+  cost?: boolean
   is_available?: boolean
-  created_at?: boolean
   image_url?: boolean
-  menu_categories?: boolean | Prisma.menu_items$menu_categoriesArgs<ExtArgs>
+  preparation_time?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  category?: boolean | Prisma.menu_categoriesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menu_items"]>
 
 export type menu_itemsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -833,10 +973,13 @@ export type menu_itemsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   description?: boolean
   category_id?: boolean
   price?: boolean
+  cost?: boolean
   is_available?: boolean
-  created_at?: boolean
   image_url?: boolean
-  menu_categories?: boolean | Prisma.menu_items$menu_categoriesArgs<ExtArgs>
+  preparation_time?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  category?: boolean | Prisma.menu_categoriesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menu_items"]>
 
 export type menu_itemsSelectScalar = {
@@ -845,29 +988,32 @@ export type menu_itemsSelectScalar = {
   description?: boolean
   category_id?: boolean
   price?: boolean
+  cost?: boolean
   is_available?: boolean
-  created_at?: boolean
   image_url?: boolean
+  preparation_time?: boolean
+  created_at?: boolean
+  updated_at?: boolean
 }
 
-export type menu_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "category_id" | "price" | "is_available" | "created_at" | "image_url", ExtArgs["result"]["menu_items"]>
+export type menu_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "category_id" | "price" | "cost" | "is_available" | "image_url" | "preparation_time" | "created_at" | "updated_at", ExtArgs["result"]["menu_items"]>
 export type menu_itemsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  menu_categories?: boolean | Prisma.menu_items$menu_categoriesArgs<ExtArgs>
+  category?: boolean | Prisma.menu_categoriesDefaultArgs<ExtArgs>
   order_lines?: boolean | Prisma.menu_items$order_linesArgs<ExtArgs>
   recipe_items?: boolean | Prisma.menu_items$recipe_itemsArgs<ExtArgs>
   _count?: boolean | Prisma.Menu_itemsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type menu_itemsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  menu_categories?: boolean | Prisma.menu_items$menu_categoriesArgs<ExtArgs>
+  category?: boolean | Prisma.menu_categoriesDefaultArgs<ExtArgs>
 }
 export type menu_itemsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  menu_categories?: boolean | Prisma.menu_items$menu_categoriesArgs<ExtArgs>
+  category?: boolean | Prisma.menu_categoriesDefaultArgs<ExtArgs>
 }
 
 export type $menu_itemsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "menu_items"
   objects: {
-    menu_categories: Prisma.$menu_categoriesPayload<ExtArgs> | null
+    category: Prisma.$menu_categoriesPayload<ExtArgs>
     order_lines: Prisma.$order_linesPayload<ExtArgs>[]
     recipe_items: Prisma.$recipe_itemsPayload<ExtArgs>[]
   }
@@ -875,11 +1021,14 @@ export type $menu_itemsPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: number
     name: string
     description: string | null
-    category_id: number | null
+    category_id: number
     price: runtime.Decimal
-    is_available: boolean | null
-    created_at: Date | null
+    cost: runtime.Decimal | null
+    is_available: boolean
     image_url: string | null
+    preparation_time: number | null
+    created_at: Date
+    updated_at: Date
   }, ExtArgs["result"]["menu_items"]>
   composites: {}
 }
@@ -1274,7 +1423,7 @@ readonly fields: menu_itemsFieldRefs;
  */
 export interface Prisma__menu_itemsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  menu_categories<T extends Prisma.menu_items$menu_categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.menu_items$menu_categoriesArgs<ExtArgs>>): Prisma.Prisma__menu_categoriesClient<runtime.Types.Result.GetResult<Prisma.$menu_categoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  category<T extends Prisma.menu_categoriesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.menu_categoriesDefaultArgs<ExtArgs>>): Prisma.Prisma__menu_categoriesClient<runtime.Types.Result.GetResult<Prisma.$menu_categoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   order_lines<T extends Prisma.menu_items$order_linesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.menu_items$order_linesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$order_linesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recipe_items<T extends Prisma.menu_items$recipe_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.menu_items$recipe_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$recipe_itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1311,9 +1460,12 @@ export interface menu_itemsFieldRefs {
   readonly description: Prisma.FieldRef<"menu_items", 'String'>
   readonly category_id: Prisma.FieldRef<"menu_items", 'Int'>
   readonly price: Prisma.FieldRef<"menu_items", 'Decimal'>
+  readonly cost: Prisma.FieldRef<"menu_items", 'Decimal'>
   readonly is_available: Prisma.FieldRef<"menu_items", 'Boolean'>
-  readonly created_at: Prisma.FieldRef<"menu_items", 'DateTime'>
   readonly image_url: Prisma.FieldRef<"menu_items", 'String'>
+  readonly preparation_time: Prisma.FieldRef<"menu_items", 'Int'>
+  readonly created_at: Prisma.FieldRef<"menu_items", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"menu_items", 'DateTime'>
 }
     
 
@@ -1707,25 +1859,6 @@ export type menu_itemsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many menu_items to delete.
    */
   limit?: number
-}
-
-/**
- * menu_items.menu_categories
- */
-export type menu_items$menu_categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the menu_categories
-   */
-  select?: Prisma.menu_categoriesSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the menu_categories
-   */
-  omit?: Prisma.menu_categoriesOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.menu_categoriesInclude<ExtArgs> | null
-  where?: Prisma.menu_categoriesWhereInput
 }
 
 /**

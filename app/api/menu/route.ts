@@ -8,7 +8,7 @@ export async function GET() {
     try {
         const menuItems = await prisma.menu_items.findMany({
             include: {
-                menu_categories: true,
+                category: true,
             },
             orderBy: {
                 name: 'asc',
@@ -35,9 +35,9 @@ export async function POST(req: Request) {
         const { name, description, category_id, price, image_url } = body;
 
         // Validación mínima
-        if (!name || !price) {
+        if (!name || !price || !category_id) {
             return NextResponse.json(
-                { error: 'Name and price are required' },
+                { error: 'Name, price and category_id are required' },
                 { status: 400 }
             );
         }
@@ -45,10 +45,13 @@ export async function POST(req: Request) {
         const newItem = await prisma.menu_items.create({
             data: {
                 name,
-                description,
-                category_id: category_id ? Number(category_id) : null,
+                description: description ?? null,
+                category_id: Number(category_id),
                 price,
                 image_url: image_url ?? null,
+            },
+            include: {
+                category: true,
             },
         });
 

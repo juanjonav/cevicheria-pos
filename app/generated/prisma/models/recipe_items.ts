@@ -14,8 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model recipe_items
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type recipe_itemsModel = runtime.Types.Result.DefaultSelection<Prisma.$recipe_itemsPayload>
 
@@ -46,6 +45,8 @@ export type Recipe_itemsMinAggregateOutputType = {
   menu_item_id: number | null
   stock_item_id: number | null
   quantity: runtime.Decimal | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type Recipe_itemsMaxAggregateOutputType = {
@@ -53,6 +54,8 @@ export type Recipe_itemsMaxAggregateOutputType = {
   menu_item_id: number | null
   stock_item_id: number | null
   quantity: runtime.Decimal | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type Recipe_itemsCountAggregateOutputType = {
@@ -60,6 +63,8 @@ export type Recipe_itemsCountAggregateOutputType = {
   menu_item_id: number
   stock_item_id: number
   quantity: number
+  created_at: number
+  updated_at: number
   _all: number
 }
 
@@ -83,6 +88,8 @@ export type Recipe_itemsMinAggregateInputType = {
   menu_item_id?: true
   stock_item_id?: true
   quantity?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type Recipe_itemsMaxAggregateInputType = {
@@ -90,6 +97,8 @@ export type Recipe_itemsMaxAggregateInputType = {
   menu_item_id?: true
   stock_item_id?: true
   quantity?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type Recipe_itemsCountAggregateInputType = {
@@ -97,6 +106,8 @@ export type Recipe_itemsCountAggregateInputType = {
   menu_item_id?: true
   stock_item_id?: true
   quantity?: true
+  created_at?: true
+  updated_at?: true
   _all?: true
 }
 
@@ -191,6 +202,8 @@ export type Recipe_itemsGroupByOutputType = {
   menu_item_id: number
   stock_item_id: number
   quantity: runtime.Decimal
+  created_at: Date
+  updated_at: Date
   _count: Recipe_itemsCountAggregateOutputType | null
   _avg: Recipe_itemsAvgAggregateOutputType | null
   _sum: Recipe_itemsSumAggregateOutputType | null
@@ -221,8 +234,10 @@ export type recipe_itemsWhereInput = {
   menu_item_id?: Prisma.IntFilter<"recipe_items"> | number
   stock_item_id?: Prisma.IntFilter<"recipe_items"> | number
   quantity?: Prisma.DecimalFilter<"recipe_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  menu_items?: Prisma.XOR<Prisma.Menu_itemsScalarRelationFilter, Prisma.menu_itemsWhereInput>
-  stock_items?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
+  created_at?: Prisma.DateTimeFilter<"recipe_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"recipe_items"> | Date | string
+  menu_item?: Prisma.XOR<Prisma.Menu_itemsScalarRelationFilter, Prisma.menu_itemsWhereInput>
+  stock_item?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
 }
 
 export type recipe_itemsOrderByWithRelationInput = {
@@ -230,8 +245,10 @@ export type recipe_itemsOrderByWithRelationInput = {
   menu_item_id?: Prisma.SortOrder
   stock_item_id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  menu_items?: Prisma.menu_itemsOrderByWithRelationInput
-  stock_items?: Prisma.stock_itemsOrderByWithRelationInput
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  menu_item?: Prisma.menu_itemsOrderByWithRelationInput
+  stock_item?: Prisma.stock_itemsOrderByWithRelationInput
 }
 
 export type recipe_itemsWhereUniqueInput = Prisma.AtLeast<{
@@ -243,8 +260,10 @@ export type recipe_itemsWhereUniqueInput = Prisma.AtLeast<{
   menu_item_id?: Prisma.IntFilter<"recipe_items"> | number
   stock_item_id?: Prisma.IntFilter<"recipe_items"> | number
   quantity?: Prisma.DecimalFilter<"recipe_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  menu_items?: Prisma.XOR<Prisma.Menu_itemsScalarRelationFilter, Prisma.menu_itemsWhereInput>
-  stock_items?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
+  created_at?: Prisma.DateTimeFilter<"recipe_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"recipe_items"> | Date | string
+  menu_item?: Prisma.XOR<Prisma.Menu_itemsScalarRelationFilter, Prisma.menu_itemsWhereInput>
+  stock_item?: Prisma.XOR<Prisma.Stock_itemsScalarRelationFilter, Prisma.stock_itemsWhereInput>
 }, "id" | "menu_item_id_stock_item_id">
 
 export type recipe_itemsOrderByWithAggregationInput = {
@@ -252,6 +271,8 @@ export type recipe_itemsOrderByWithAggregationInput = {
   menu_item_id?: Prisma.SortOrder
   stock_item_id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   _count?: Prisma.recipe_itemsCountOrderByAggregateInput
   _avg?: Prisma.recipe_itemsAvgOrderByAggregateInput
   _max?: Prisma.recipe_itemsMaxOrderByAggregateInput
@@ -267,12 +288,16 @@ export type recipe_itemsScalarWhereWithAggregatesInput = {
   menu_item_id?: Prisma.IntWithAggregatesFilter<"recipe_items"> | number
   stock_item_id?: Prisma.IntWithAggregatesFilter<"recipe_items"> | number
   quantity?: Prisma.DecimalWithAggregatesFilter<"recipe_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"recipe_items"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"recipe_items"> | Date | string
 }
 
 export type recipe_itemsCreateInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  menu_items: Prisma.menu_itemsCreateNestedOneWithoutRecipe_itemsInput
-  stock_items: Prisma.stock_itemsCreateNestedOneWithoutRecipe_itemsInput
+  created_at?: Date | string
+  updated_at?: Date | string
+  menu_item: Prisma.menu_itemsCreateNestedOneWithoutRecipe_itemsInput
+  stock_item: Prisma.stock_itemsCreateNestedOneWithoutRecipe_itemsInput
 }
 
 export type recipe_itemsUncheckedCreateInput = {
@@ -280,12 +305,16 @@ export type recipe_itemsUncheckedCreateInput = {
   menu_item_id: number
   stock_item_id: number
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type recipe_itemsUpdateInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  menu_items?: Prisma.menu_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
-  stock_items?: Prisma.stock_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  menu_item?: Prisma.menu_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
+  stock_item?: Prisma.stock_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
 }
 
 export type recipe_itemsUncheckedUpdateInput = {
@@ -293,6 +322,8 @@ export type recipe_itemsUncheckedUpdateInput = {
   menu_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type recipe_itemsCreateManyInput = {
@@ -300,10 +331,14 @@ export type recipe_itemsCreateManyInput = {
   menu_item_id: number
   stock_item_id: number
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type recipe_itemsUpdateManyMutationInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type recipe_itemsUncheckedUpdateManyInput = {
@@ -311,6 +346,8 @@ export type recipe_itemsUncheckedUpdateManyInput = {
   menu_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type Recipe_itemsListRelationFilter = {
@@ -333,6 +370,8 @@ export type recipe_itemsCountOrderByAggregateInput = {
   menu_item_id?: Prisma.SortOrder
   stock_item_id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type recipe_itemsAvgOrderByAggregateInput = {
@@ -347,6 +386,8 @@ export type recipe_itemsMaxOrderByAggregateInput = {
   menu_item_id?: Prisma.SortOrder
   stock_item_id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type recipe_itemsMinOrderByAggregateInput = {
@@ -354,6 +395,8 @@ export type recipe_itemsMinOrderByAggregateInput = {
   menu_item_id?: Prisma.SortOrder
   stock_item_id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type recipe_itemsSumOrderByAggregateInput = {
@@ -363,125 +406,129 @@ export type recipe_itemsSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
 }
 
-export type recipe_itemsCreateNestedManyWithoutMenu_itemsInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput> | Prisma.recipe_itemsCreateWithoutMenu_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyMenu_itemsInputEnvelope
+export type recipe_itemsCreateNestedManyWithoutMenu_itemInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput> | Prisma.recipe_itemsCreateWithoutMenu_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyMenu_itemInputEnvelope
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
 }
 
-export type recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemsInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput> | Prisma.recipe_itemsCreateWithoutMenu_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyMenu_itemsInputEnvelope
+export type recipe_itemsUncheckedCreateNestedManyWithoutMenu_itemInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput> | Prisma.recipe_itemsCreateWithoutMenu_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyMenu_itemInputEnvelope
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
 }
 
-export type recipe_itemsUpdateManyWithoutMenu_itemsNestedInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput> | Prisma.recipe_itemsCreateWithoutMenu_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput[]
-  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemsInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyMenu_itemsInputEnvelope
+export type recipe_itemsUpdateManyWithoutMenu_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput> | Prisma.recipe_itemsCreateWithoutMenu_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput[]
+  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyMenu_itemInputEnvelope
   set?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   disconnect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   delete?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
-  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemsInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemsInput[]
-  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemsInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemsInput[]
+  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemInput[]
+  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemInput[]
   deleteMany?: Prisma.recipe_itemsScalarWhereInput | Prisma.recipe_itemsScalarWhereInput[]
 }
 
-export type recipe_itemsUncheckedUpdateManyWithoutMenu_itemsNestedInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput> | Prisma.recipe_itemsCreateWithoutMenu_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemsInput[]
-  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemsInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyMenu_itemsInputEnvelope
+export type recipe_itemsUncheckedUpdateManyWithoutMenu_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput> | Prisma.recipe_itemsCreateWithoutMenu_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutMenu_itemInput[]
+  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyMenu_itemInputEnvelope
   set?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   disconnect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   delete?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
-  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemsInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemsInput[]
-  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemsInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemsInput[]
+  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemInput[]
+  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutMenu_itemInput[]
   deleteMany?: Prisma.recipe_itemsScalarWhereInput | Prisma.recipe_itemsScalarWhereInput[]
 }
 
-export type recipe_itemsCreateNestedManyWithoutStock_itemsInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput> | Prisma.recipe_itemsCreateWithoutStock_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyStock_itemsInputEnvelope
+export type recipe_itemsCreateNestedManyWithoutStock_itemInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput> | Prisma.recipe_itemsCreateWithoutStock_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyStock_itemInputEnvelope
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
 }
 
-export type recipe_itemsUncheckedCreateNestedManyWithoutStock_itemsInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput> | Prisma.recipe_itemsCreateWithoutStock_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyStock_itemsInputEnvelope
+export type recipe_itemsUncheckedCreateNestedManyWithoutStock_itemInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput> | Prisma.recipe_itemsCreateWithoutStock_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyStock_itemInputEnvelope
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
 }
 
-export type recipe_itemsUpdateManyWithoutStock_itemsNestedInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput> | Prisma.recipe_itemsCreateWithoutStock_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput[]
-  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemsInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyStock_itemsInputEnvelope
+export type recipe_itemsUpdateManyWithoutStock_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput> | Prisma.recipe_itemsCreateWithoutStock_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput[]
+  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyStock_itemInputEnvelope
   set?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   disconnect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   delete?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
-  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemsInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemsInput[]
-  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemsInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemsInput[]
+  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemInput[]
+  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemInput[]
   deleteMany?: Prisma.recipe_itemsScalarWhereInput | Prisma.recipe_itemsScalarWhereInput[]
 }
 
-export type recipe_itemsUncheckedUpdateManyWithoutStock_itemsNestedInput = {
-  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput> | Prisma.recipe_itemsCreateWithoutStock_itemsInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput[]
-  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemsInput[]
-  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemsInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemsInput[]
-  createMany?: Prisma.recipe_itemsCreateManyStock_itemsInputEnvelope
+export type recipe_itemsUncheckedUpdateManyWithoutStock_itemNestedInput = {
+  create?: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput> | Prisma.recipe_itemsCreateWithoutStock_itemInput[] | Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput[]
+  connectOrCreate?: Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput | Prisma.recipe_itemsCreateOrConnectWithoutStock_itemInput[]
+  upsert?: Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemInput | Prisma.recipe_itemsUpsertWithWhereUniqueWithoutStock_itemInput[]
+  createMany?: Prisma.recipe_itemsCreateManyStock_itemInputEnvelope
   set?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   disconnect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   delete?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
   connect?: Prisma.recipe_itemsWhereUniqueInput | Prisma.recipe_itemsWhereUniqueInput[]
-  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemsInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemsInput[]
-  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemsInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemsInput[]
+  update?: Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemInput | Prisma.recipe_itemsUpdateWithWhereUniqueWithoutStock_itemInput[]
+  updateMany?: Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemInput | Prisma.recipe_itemsUpdateManyWithWhereWithoutStock_itemInput[]
   deleteMany?: Prisma.recipe_itemsScalarWhereInput | Prisma.recipe_itemsScalarWhereInput[]
 }
 
-export type recipe_itemsCreateWithoutMenu_itemsInput = {
+export type recipe_itemsCreateWithoutMenu_itemInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  stock_items: Prisma.stock_itemsCreateNestedOneWithoutRecipe_itemsInput
+  created_at?: Date | string
+  updated_at?: Date | string
+  stock_item: Prisma.stock_itemsCreateNestedOneWithoutRecipe_itemsInput
 }
 
-export type recipe_itemsUncheckedCreateWithoutMenu_itemsInput = {
+export type recipe_itemsUncheckedCreateWithoutMenu_itemInput = {
   id?: number
   stock_item_id: number
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
-export type recipe_itemsCreateOrConnectWithoutMenu_itemsInput = {
+export type recipe_itemsCreateOrConnectWithoutMenu_itemInput = {
   where: Prisma.recipe_itemsWhereUniqueInput
-  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput>
+  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput>
 }
 
-export type recipe_itemsCreateManyMenu_itemsInputEnvelope = {
-  data: Prisma.recipe_itemsCreateManyMenu_itemsInput | Prisma.recipe_itemsCreateManyMenu_itemsInput[]
+export type recipe_itemsCreateManyMenu_itemInputEnvelope = {
+  data: Prisma.recipe_itemsCreateManyMenu_itemInput | Prisma.recipe_itemsCreateManyMenu_itemInput[]
   skipDuplicates?: boolean
 }
 
-export type recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemsInput = {
+export type recipe_itemsUpsertWithWhereUniqueWithoutMenu_itemInput = {
   where: Prisma.recipe_itemsWhereUniqueInput
-  update: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedUpdateWithoutMenu_itemsInput>
-  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemsInput>
+  update: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedUpdateWithoutMenu_itemInput>
+  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutMenu_itemInput>
 }
 
-export type recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemsInput = {
+export type recipe_itemsUpdateWithWhereUniqueWithoutMenu_itemInput = {
   where: Prisma.recipe_itemsWhereUniqueInput
-  data: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutMenu_itemsInput, Prisma.recipe_itemsUncheckedUpdateWithoutMenu_itemsInput>
+  data: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutMenu_itemInput, Prisma.recipe_itemsUncheckedUpdateWithoutMenu_itemInput>
 }
 
-export type recipe_itemsUpdateManyWithWhereWithoutMenu_itemsInput = {
+export type recipe_itemsUpdateManyWithWhereWithoutMenu_itemInput = {
   where: Prisma.recipe_itemsScalarWhereInput
-  data: Prisma.XOR<Prisma.recipe_itemsUpdateManyMutationInput, Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemsInput>
+  data: Prisma.XOR<Prisma.recipe_itemsUpdateManyMutationInput, Prisma.recipe_itemsUncheckedUpdateManyWithoutMenu_itemInput>
 }
 
 export type recipe_itemsScalarWhereInput = {
@@ -492,89 +539,111 @@ export type recipe_itemsScalarWhereInput = {
   menu_item_id?: Prisma.IntFilter<"recipe_items"> | number
   stock_item_id?: Prisma.IntFilter<"recipe_items"> | number
   quantity?: Prisma.DecimalFilter<"recipe_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFilter<"recipe_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"recipe_items"> | Date | string
 }
 
-export type recipe_itemsCreateWithoutStock_itemsInput = {
+export type recipe_itemsCreateWithoutStock_itemInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  menu_items: Prisma.menu_itemsCreateNestedOneWithoutRecipe_itemsInput
+  created_at?: Date | string
+  updated_at?: Date | string
+  menu_item: Prisma.menu_itemsCreateNestedOneWithoutRecipe_itemsInput
 }
 
-export type recipe_itemsUncheckedCreateWithoutStock_itemsInput = {
+export type recipe_itemsUncheckedCreateWithoutStock_itemInput = {
   id?: number
   menu_item_id: number
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
-export type recipe_itemsCreateOrConnectWithoutStock_itemsInput = {
+export type recipe_itemsCreateOrConnectWithoutStock_itemInput = {
   where: Prisma.recipe_itemsWhereUniqueInput
-  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput>
+  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput>
 }
 
-export type recipe_itemsCreateManyStock_itemsInputEnvelope = {
-  data: Prisma.recipe_itemsCreateManyStock_itemsInput | Prisma.recipe_itemsCreateManyStock_itemsInput[]
+export type recipe_itemsCreateManyStock_itemInputEnvelope = {
+  data: Prisma.recipe_itemsCreateManyStock_itemInput | Prisma.recipe_itemsCreateManyStock_itemInput[]
   skipDuplicates?: boolean
 }
 
-export type recipe_itemsUpsertWithWhereUniqueWithoutStock_itemsInput = {
+export type recipe_itemsUpsertWithWhereUniqueWithoutStock_itemInput = {
   where: Prisma.recipe_itemsWhereUniqueInput
-  update: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedUpdateWithoutStock_itemsInput>
-  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemsInput>
+  update: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedUpdateWithoutStock_itemInput>
+  create: Prisma.XOR<Prisma.recipe_itemsCreateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedCreateWithoutStock_itemInput>
 }
 
-export type recipe_itemsUpdateWithWhereUniqueWithoutStock_itemsInput = {
+export type recipe_itemsUpdateWithWhereUniqueWithoutStock_itemInput = {
   where: Prisma.recipe_itemsWhereUniqueInput
-  data: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutStock_itemsInput, Prisma.recipe_itemsUncheckedUpdateWithoutStock_itemsInput>
+  data: Prisma.XOR<Prisma.recipe_itemsUpdateWithoutStock_itemInput, Prisma.recipe_itemsUncheckedUpdateWithoutStock_itemInput>
 }
 
-export type recipe_itemsUpdateManyWithWhereWithoutStock_itemsInput = {
+export type recipe_itemsUpdateManyWithWhereWithoutStock_itemInput = {
   where: Prisma.recipe_itemsScalarWhereInput
-  data: Prisma.XOR<Prisma.recipe_itemsUpdateManyMutationInput, Prisma.recipe_itemsUncheckedUpdateManyWithoutStock_itemsInput>
+  data: Prisma.XOR<Prisma.recipe_itemsUpdateManyMutationInput, Prisma.recipe_itemsUncheckedUpdateManyWithoutStock_itemInput>
 }
 
-export type recipe_itemsCreateManyMenu_itemsInput = {
+export type recipe_itemsCreateManyMenu_itemInput = {
   id?: number
   stock_item_id: number
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
-export type recipe_itemsUpdateWithoutMenu_itemsInput = {
+export type recipe_itemsUpdateWithoutMenu_itemInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  stock_items?: Prisma.stock_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_item?: Prisma.stock_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
 }
 
-export type recipe_itemsUncheckedUpdateWithoutMenu_itemsInput = {
+export type recipe_itemsUncheckedUpdateWithoutMenu_itemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type recipe_itemsUncheckedUpdateManyWithoutMenu_itemsInput = {
+export type recipe_itemsUncheckedUpdateManyWithoutMenu_itemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   stock_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type recipe_itemsCreateManyStock_itemsInput = {
+export type recipe_itemsCreateManyStock_itemInput = {
   id?: number
   menu_item_id: number
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
-export type recipe_itemsUpdateWithoutStock_itemsInput = {
+export type recipe_itemsUpdateWithoutStock_itemInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  menu_items?: Prisma.menu_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  menu_item?: Prisma.menu_itemsUpdateOneRequiredWithoutRecipe_itemsNestedInput
 }
 
-export type recipe_itemsUncheckedUpdateWithoutStock_itemsInput = {
+export type recipe_itemsUncheckedUpdateWithoutStock_itemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   menu_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type recipe_itemsUncheckedUpdateManyWithoutStock_itemsInput = {
+export type recipe_itemsUncheckedUpdateManyWithoutStock_itemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   menu_item_id?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -584,8 +653,10 @@ export type recipe_itemsSelect<ExtArgs extends runtime.Types.Extensions.Internal
   menu_item_id?: boolean
   stock_item_id?: boolean
   quantity?: boolean
-  menu_items?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  created_at?: boolean
+  updated_at?: boolean
+  menu_item?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["recipe_items"]>
 
 export type recipe_itemsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -593,8 +664,10 @@ export type recipe_itemsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   menu_item_id?: boolean
   stock_item_id?: boolean
   quantity?: boolean
-  menu_items?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  created_at?: boolean
+  updated_at?: boolean
+  menu_item?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["recipe_items"]>
 
 export type recipe_itemsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -602,8 +675,10 @@ export type recipe_itemsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   menu_item_id?: boolean
   stock_item_id?: boolean
   quantity?: boolean
-  menu_items?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  created_at?: boolean
+  updated_at?: boolean
+  menu_item?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["recipe_items"]>
 
 export type recipe_itemsSelectScalar = {
@@ -611,33 +686,37 @@ export type recipe_itemsSelectScalar = {
   menu_item_id?: boolean
   stock_item_id?: boolean
   quantity?: boolean
+  created_at?: boolean
+  updated_at?: boolean
 }
 
-export type recipe_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menu_item_id" | "stock_item_id" | "quantity", ExtArgs["result"]["recipe_items"]>
+export type recipe_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menu_item_id" | "stock_item_id" | "quantity" | "created_at" | "updated_at", ExtArgs["result"]["recipe_items"]>
 export type recipe_itemsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  menu_items?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  menu_item?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
 }
 export type recipe_itemsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  menu_items?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  menu_item?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
 }
 export type recipe_itemsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  menu_items?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
-  stock_items?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
+  menu_item?: boolean | Prisma.menu_itemsDefaultArgs<ExtArgs>
+  stock_item?: boolean | Prisma.stock_itemsDefaultArgs<ExtArgs>
 }
 
 export type $recipe_itemsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "recipe_items"
   objects: {
-    menu_items: Prisma.$menu_itemsPayload<ExtArgs>
-    stock_items: Prisma.$stock_itemsPayload<ExtArgs>
+    menu_item: Prisma.$menu_itemsPayload<ExtArgs>
+    stock_item: Prisma.$stock_itemsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     menu_item_id: number
     stock_item_id: number
     quantity: runtime.Decimal
+    created_at: Date
+    updated_at: Date
   }, ExtArgs["result"]["recipe_items"]>
   composites: {}
 }
@@ -1032,8 +1111,8 @@ readonly fields: recipe_itemsFieldRefs;
  */
 export interface Prisma__recipe_itemsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  menu_items<T extends Prisma.menu_itemsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.menu_itemsDefaultArgs<ExtArgs>>): Prisma.Prisma__menu_itemsClient<runtime.Types.Result.GetResult<Prisma.$menu_itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  stock_items<T extends Prisma.stock_itemsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_itemsDefaultArgs<ExtArgs>>): Prisma.Prisma__stock_itemsClient<runtime.Types.Result.GetResult<Prisma.$stock_itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  menu_item<T extends Prisma.menu_itemsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.menu_itemsDefaultArgs<ExtArgs>>): Prisma.Prisma__menu_itemsClient<runtime.Types.Result.GetResult<Prisma.$menu_itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  stock_item<T extends Prisma.stock_itemsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stock_itemsDefaultArgs<ExtArgs>>): Prisma.Prisma__stock_itemsClient<runtime.Types.Result.GetResult<Prisma.$stock_itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1067,6 +1146,8 @@ export interface recipe_itemsFieldRefs {
   readonly menu_item_id: Prisma.FieldRef<"recipe_items", 'Int'>
   readonly stock_item_id: Prisma.FieldRef<"recipe_items", 'Int'>
   readonly quantity: Prisma.FieldRef<"recipe_items", 'Decimal'>
+  readonly created_at: Prisma.FieldRef<"recipe_items", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"recipe_items", 'DateTime'>
 }
     
 

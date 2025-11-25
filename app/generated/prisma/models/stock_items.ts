@@ -14,8 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model stock_items
- * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type stock_itemsModel = runtime.Types.Result.DefaultSelection<Prisma.$stock_itemsPayload>
 
@@ -31,12 +30,14 @@ export type Stock_itemsAvgAggregateOutputType = {
   id: number | null
   quantity: runtime.Decimal | null
   min_alert_level: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
 }
 
 export type Stock_itemsSumAggregateOutputType = {
   id: number | null
   quantity: runtime.Decimal | null
   min_alert_level: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
 }
 
 export type Stock_itemsMinAggregateOutputType = {
@@ -45,7 +46,10 @@ export type Stock_itemsMinAggregateOutputType = {
   unit: string | null
   quantity: runtime.Decimal | null
   min_alert_level: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
+  is_active: boolean | null
   created_at: Date | null
+  updated_at: Date | null
 }
 
 export type Stock_itemsMaxAggregateOutputType = {
@@ -54,7 +58,10 @@ export type Stock_itemsMaxAggregateOutputType = {
   unit: string | null
   quantity: runtime.Decimal | null
   min_alert_level: runtime.Decimal | null
+  unit_cost: runtime.Decimal | null
+  is_active: boolean | null
   created_at: Date | null
+  updated_at: Date | null
 }
 
 export type Stock_itemsCountAggregateOutputType = {
@@ -63,7 +70,10 @@ export type Stock_itemsCountAggregateOutputType = {
   unit: number
   quantity: number
   min_alert_level: number
+  unit_cost: number
+  is_active: number
   created_at: number
+  updated_at: number
   _all: number
 }
 
@@ -72,12 +82,14 @@ export type Stock_itemsAvgAggregateInputType = {
   id?: true
   quantity?: true
   min_alert_level?: true
+  unit_cost?: true
 }
 
 export type Stock_itemsSumAggregateInputType = {
   id?: true
   quantity?: true
   min_alert_level?: true
+  unit_cost?: true
 }
 
 export type Stock_itemsMinAggregateInputType = {
@@ -86,7 +98,10 @@ export type Stock_itemsMinAggregateInputType = {
   unit?: true
   quantity?: true
   min_alert_level?: true
+  unit_cost?: true
+  is_active?: true
   created_at?: true
+  updated_at?: true
 }
 
 export type Stock_itemsMaxAggregateInputType = {
@@ -95,7 +110,10 @@ export type Stock_itemsMaxAggregateInputType = {
   unit?: true
   quantity?: true
   min_alert_level?: true
+  unit_cost?: true
+  is_active?: true
   created_at?: true
+  updated_at?: true
 }
 
 export type Stock_itemsCountAggregateInputType = {
@@ -104,7 +122,10 @@ export type Stock_itemsCountAggregateInputType = {
   unit?: true
   quantity?: true
   min_alert_level?: true
+  unit_cost?: true
+  is_active?: true
   created_at?: true
+  updated_at?: true
   _all?: true
 }
 
@@ -198,9 +219,12 @@ export type Stock_itemsGroupByOutputType = {
   id: number
   name: string
   unit: string
-  quantity: runtime.Decimal | null
+  quantity: runtime.Decimal
   min_alert_level: runtime.Decimal | null
-  created_at: Date | null
+  unit_cost: runtime.Decimal | null
+  is_active: boolean
+  created_at: Date
+  updated_at: Date
   _count: Stock_itemsCountAggregateOutputType | null
   _avg: Stock_itemsAvgAggregateOutputType | null
   _sum: Stock_itemsSumAggregateOutputType | null
@@ -230,9 +254,12 @@ export type stock_itemsWhereInput = {
   id?: Prisma.IntFilter<"stock_items"> | number
   name?: Prisma.StringFilter<"stock_items"> | string
   unit?: Prisma.StringFilter<"stock_items"> | string
-  quantity?: Prisma.DecimalNullableFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.DecimalNullableFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"stock_items"> | Date | string | null
+  unit_cost?: Prisma.DecimalNullableFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFilter<"stock_items"> | boolean
+  created_at?: Prisma.DateTimeFilter<"stock_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"stock_items"> | Date | string
   recipe_items?: Prisma.Recipe_itemsListRelationFilter
   stock_movements?: Prisma.Stock_movementsListRelationFilter
 }
@@ -241,9 +268,12 @@ export type stock_itemsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   unit?: Prisma.SortOrder
-  quantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantity?: Prisma.SortOrder
   min_alert_level?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  unit_cost?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_active?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   recipe_items?: Prisma.recipe_itemsOrderByRelationAggregateInput
   stock_movements?: Prisma.stock_movementsOrderByRelationAggregateInput
 }
@@ -255,9 +285,12 @@ export type stock_itemsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.stock_itemsWhereInput | Prisma.stock_itemsWhereInput[]
   name?: Prisma.StringFilter<"stock_items"> | string
   unit?: Prisma.StringFilter<"stock_items"> | string
-  quantity?: Prisma.DecimalNullableFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.DecimalNullableFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"stock_items"> | Date | string | null
+  unit_cost?: Prisma.DecimalNullableFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFilter<"stock_items"> | boolean
+  created_at?: Prisma.DateTimeFilter<"stock_items"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"stock_items"> | Date | string
   recipe_items?: Prisma.Recipe_itemsListRelationFilter
   stock_movements?: Prisma.Stock_movementsListRelationFilter
 }, "id">
@@ -266,9 +299,12 @@ export type stock_itemsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   unit?: Prisma.SortOrder
-  quantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantity?: Prisma.SortOrder
   min_alert_level?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  unit_cost?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_active?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   _count?: Prisma.stock_itemsCountOrderByAggregateInput
   _avg?: Prisma.stock_itemsAvgOrderByAggregateInput
   _max?: Prisma.stock_itemsMaxOrderByAggregateInput
@@ -283,77 +319,101 @@ export type stock_itemsScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"stock_items"> | number
   name?: Prisma.StringWithAggregatesFilter<"stock_items"> | string
   unit?: Prisma.StringWithAggregatesFilter<"stock_items"> | string
-  quantity?: Prisma.DecimalNullableWithAggregatesFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalWithAggregatesFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.DecimalNullableWithAggregatesFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"stock_items"> | Date | string | null
+  unit_cost?: Prisma.DecimalNullableWithAggregatesFilter<"stock_items"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolWithAggregatesFilter<"stock_items"> | boolean
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"stock_items"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"stock_items"> | Date | string
 }
 
 export type stock_itemsCreateInput = {
   name: string
   unit: string
-  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Date | string | null
-  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutStock_itemsInput
-  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutStock_itemsInput
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutStock_itemInput
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutStock_itemInput
 }
 
 export type stock_itemsUncheckedCreateInput = {
   id?: number
   name: string
   unit: string
-  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Date | string | null
-  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutStock_itemsInput
-  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutStock_itemsInput
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutStock_itemInput
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutStock_itemInput
 }
 
 export type stock_itemsUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutStock_itemsNestedInput
-  stock_movements?: Prisma.stock_movementsUpdateManyWithoutStock_itemsNestedInput
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutStock_itemNestedInput
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutStock_itemNestedInput
 }
 
 export type stock_itemsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutStock_itemsNestedInput
-  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutStock_itemsNestedInput
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutStock_itemNestedInput
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutStock_itemNestedInput
 }
 
 export type stock_itemsCreateManyInput = {
   id?: number
   name: string
   unit: string
-  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Date | string | null
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type stock_itemsUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type stock_itemsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type Stock_itemsScalarRelationFilter = {
@@ -367,13 +427,17 @@ export type stock_itemsCountOrderByAggregateInput = {
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   min_alert_level?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type stock_itemsAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   min_alert_level?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
 }
 
 export type stock_itemsMaxOrderByAggregateInput = {
@@ -382,7 +446,10 @@ export type stock_itemsMaxOrderByAggregateInput = {
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   min_alert_level?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type stock_itemsMinOrderByAggregateInput = {
@@ -391,13 +458,17 @@ export type stock_itemsMinOrderByAggregateInput = {
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   min_alert_level?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
+  is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type stock_itemsSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   min_alert_level?: Prisma.SortOrder
+  unit_cost?: Prisma.SortOrder
 }
 
 export type stock_itemsCreateNestedOneWithoutRecipe_itemsInput = {
@@ -431,20 +502,26 @@ export type stock_itemsUpdateOneRequiredWithoutStock_movementsNestedInput = {
 export type stock_itemsCreateWithoutRecipe_itemsInput = {
   name: string
   unit: string
-  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Date | string | null
-  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutStock_itemsInput
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  stock_movements?: Prisma.stock_movementsCreateNestedManyWithoutStock_itemInput
 }
 
 export type stock_itemsUncheckedCreateWithoutRecipe_itemsInput = {
   id?: number
   name: string
   unit: string
-  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Date | string | null
-  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutStock_itemsInput
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  stock_movements?: Prisma.stock_movementsUncheckedCreateNestedManyWithoutStock_itemInput
 }
 
 export type stock_itemsCreateOrConnectWithoutRecipe_itemsInput = {
@@ -466,39 +543,51 @@ export type stock_itemsUpdateToOneWithWhereWithoutRecipe_itemsInput = {
 export type stock_itemsUpdateWithoutRecipe_itemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stock_movements?: Prisma.stock_movementsUpdateManyWithoutStock_itemsNestedInput
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_movements?: Prisma.stock_movementsUpdateManyWithoutStock_itemNestedInput
 }
 
 export type stock_itemsUncheckedUpdateWithoutRecipe_itemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutStock_itemsNestedInput
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock_movements?: Prisma.stock_movementsUncheckedUpdateManyWithoutStock_itemNestedInput
 }
 
 export type stock_itemsCreateWithoutStock_movementsInput = {
   name: string
   unit: string
-  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Date | string | null
-  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutStock_itemsInput
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  recipe_items?: Prisma.recipe_itemsCreateNestedManyWithoutStock_itemInput
 }
 
 export type stock_itemsUncheckedCreateWithoutStock_movementsInput = {
   id?: number
   name: string
   unit: string
-  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Date | string | null
-  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutStock_itemsInput
+  unit_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+  recipe_items?: Prisma.recipe_itemsUncheckedCreateNestedManyWithoutStock_itemInput
 }
 
 export type stock_itemsCreateOrConnectWithoutStock_movementsInput = {
@@ -520,20 +609,26 @@ export type stock_itemsUpdateToOneWithWhereWithoutStock_movementsInput = {
 export type stock_itemsUpdateWithoutStock_movementsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutStock_itemsNestedInput
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipe_items?: Prisma.recipe_itemsUpdateManyWithoutStock_itemNestedInput
 }
 
 export type stock_itemsUncheckedUpdateWithoutStock_movementsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   min_alert_level?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutStock_itemsNestedInput
+  unit_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipe_items?: Prisma.recipe_itemsUncheckedUpdateManyWithoutStock_itemNestedInput
 }
 
 
@@ -582,7 +677,10 @@ export type stock_itemsSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   unit?: boolean
   quantity?: boolean
   min_alert_level?: boolean
+  unit_cost?: boolean
+  is_active?: boolean
   created_at?: boolean
+  updated_at?: boolean
   recipe_items?: boolean | Prisma.stock_items$recipe_itemsArgs<ExtArgs>
   stock_movements?: boolean | Prisma.stock_items$stock_movementsArgs<ExtArgs>
   _count?: boolean | Prisma.Stock_itemsCountOutputTypeDefaultArgs<ExtArgs>
@@ -594,7 +692,10 @@ export type stock_itemsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   unit?: boolean
   quantity?: boolean
   min_alert_level?: boolean
+  unit_cost?: boolean
+  is_active?: boolean
   created_at?: boolean
+  updated_at?: boolean
 }, ExtArgs["result"]["stock_items"]>
 
 export type stock_itemsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -603,7 +704,10 @@ export type stock_itemsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   unit?: boolean
   quantity?: boolean
   min_alert_level?: boolean
+  unit_cost?: boolean
+  is_active?: boolean
   created_at?: boolean
+  updated_at?: boolean
 }, ExtArgs["result"]["stock_items"]>
 
 export type stock_itemsSelectScalar = {
@@ -612,10 +716,13 @@ export type stock_itemsSelectScalar = {
   unit?: boolean
   quantity?: boolean
   min_alert_level?: boolean
+  unit_cost?: boolean
+  is_active?: boolean
   created_at?: boolean
+  updated_at?: boolean
 }
 
-export type stock_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "unit" | "quantity" | "min_alert_level" | "created_at", ExtArgs["result"]["stock_items"]>
+export type stock_itemsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "unit" | "quantity" | "min_alert_level" | "unit_cost" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["stock_items"]>
 export type stock_itemsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   recipe_items?: boolean | Prisma.stock_items$recipe_itemsArgs<ExtArgs>
   stock_movements?: boolean | Prisma.stock_items$stock_movementsArgs<ExtArgs>
@@ -634,9 +741,12 @@ export type $stock_itemsPayload<ExtArgs extends runtime.Types.Extensions.Interna
     id: number
     name: string
     unit: string
-    quantity: runtime.Decimal | null
+    quantity: runtime.Decimal
     min_alert_level: runtime.Decimal | null
-    created_at: Date | null
+    unit_cost: runtime.Decimal | null
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
   }, ExtArgs["result"]["stock_items"]>
   composites: {}
 }
@@ -1067,7 +1177,10 @@ export interface stock_itemsFieldRefs {
   readonly unit: Prisma.FieldRef<"stock_items", 'String'>
   readonly quantity: Prisma.FieldRef<"stock_items", 'Decimal'>
   readonly min_alert_level: Prisma.FieldRef<"stock_items", 'Decimal'>
+  readonly unit_cost: Prisma.FieldRef<"stock_items", 'Decimal'>
+  readonly is_active: Prisma.FieldRef<"stock_items", 'Boolean'>
   readonly created_at: Prisma.FieldRef<"stock_items", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"stock_items", 'DateTime'>
 }
     
 

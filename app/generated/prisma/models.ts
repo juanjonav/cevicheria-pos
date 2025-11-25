@@ -8,15 +8,17 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/users'
 export type * from './models/clients'
-export type * from './models/expenses'
+export type * from './models/suppliers'
 export type * from './models/menu_categories'
 export type * from './models/menu_items'
-export type * from './models/order_lines'
-export type * from './models/orders'
-export type * from './models/payments'
 export type * from './models/recipe_items'
 export type * from './models/stock_items'
 export type * from './models/stock_movements'
-export type * from './models/users'
+export type * from './models/orders'
+export type * from './models/order_lines'
+export type * from './models/payments'
+export type * from './models/expenses'
+export type * from './models/cash_registers'
 export type * from './commonInputTypes'
