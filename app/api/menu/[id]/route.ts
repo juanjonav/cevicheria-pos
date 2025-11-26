@@ -7,10 +7,10 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     try {
-        const { id } = params;
+        const { id: idParam } = await params
 
         const menuItem = await prisma.menu_items.findUnique({
-            where: { id: Number(id) },
+            where: { id: Number(idParam) },
             include: {
                 category: true,
             },

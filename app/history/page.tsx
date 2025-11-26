@@ -1,19 +1,45 @@
-"use client"
-
 import { SidebarNav } from "@/components/layout/sidebar-nav"
-import { recentSales, type Sale } from "@/lib/data"
+import { getSalesHistory, getTodayStats } from "@/lib/db/history"
+import type { order_status, voucher_type } from "@/app/generated/prisma/client"
 import { ArrowUpRight, Calendar, CreditCard, Download, Filter, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ReceiptModal } from "@/components/history/receipt-modal"
 
-export default function HistoryPage() {
-  const getStatusColor = (status: Sale["status"]) => {
+export default async function HistoryPage() {
+  // Fetch real data from database
+  const [salesHistory, todayStats] = await Promise.all([
+    getSalesHistory(50),
+    getTodayStats()
+  ])
+
+  // Map order status enum to Spanish labels
+  const statusLabels: Record<order_status, string> = {
+    draft: "Borrador",
+    placed: "Colocada",
+    in_progress: "En Proceso",
+    ready: "Lista",
+    completed: "Completado",
+    cancelled: "Cancelado"
+  }
+
+  // Map voucher type enum to Spanish labels
+  const voucherLabels: Record<voucher_type, string> = {
+    ticket: "Boleta",
+    invoice: "Factura",
+    note: "Nota"
+  }
+
+  const getStatusColor = (status: order_status) => {
     switch (status) {
-      case "Completado":
+      case "completed":
         return "bg-emerald-100 text-emerald-700 border-emerald-200"
-      case "En Proceso":
+      case "in_progress":
+      case "ready":
         return "bg-amber-100 text-amber-700 border-amber-200"
-      case "Cancelado":
+      case "cancelled":
         return "bg-red-100 text-red-700 border-red-200"
+      case "placed":
+        return "bg-blue-100 text-blue-700 border-blue-200"
       default:
         return "bg-slate-100 text-slate-700"
     }
@@ -50,17 +76,14 @@ export default function HistoryPage() {
                 <div className="p-2 bg-white/10 rounded-lg">
                   <CreditCard className="h-6 w-6 text-white" />
                 </div>
-                <span className="flex items-center text-xs font-bold bg-white/20 px-2 py-1 rounded-full text-white">
-                  +12.5% <ArrowUpRight className="h-3 w-3 ml-1" />
-                </span>
               </div>
-              <p className="text-primary-foreground/70 text-sm font-medium mb-1">Ventas Totales</p>
-              <h3 className="text-3xl font-bold">S/ 2,450.00</h3>
+              <p className="text-primary-foreground/70 text-sm font-medium mb-1">Ventas Totales Hoy</p>
+              <h3 className="text-3xl font-bold">S/ {todayStats.totalSales.toFixed(2)}</h3>
             </div>
 
             <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-              <p className="text-slate-500 text-sm font-medium mb-1">Tickets Promedio</p>
-              <h3 className="text-3xl font-bold text-slate-900 mb-4">S/ 45.20</h3>
+              <p className="text-slate-500 text-sm font-medium mb-1">Ticket Promedio</p>
+              <h3 className="text-3xl font-bold text-slate-900 mb-4">S/ {todayStats.averageTicket.toFixed(2)}</h3>
               <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                 <div className="bg-orange-500 h-full w-[70%]" />
               </div>
@@ -68,9 +91,9 @@ export default function HistoryPage() {
 
             <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
               <p className="text-slate-500 text-sm font-medium mb-1">Órdenes Hoy</p>
-              <h3 className="text-3xl font-bold text-slate-900 mb-4">54</h3>
+              <h3 className="text-3xl font-bold text-slate-900 mb-4">{todayStats.totalOrders}</h3>
               <div className="flex items-center gap-2 text-sm text-slate-500">
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span> 50 Completadas
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span> {todayStats.completedCount} Completadas
               </div>
             </div>
           </div>
@@ -95,34 +118,48 @@ export default function HistoryPage() {
             </div>
 
             {/* Table Header */}
-            <div className="grid grid-cols-6 gap-4 p-4 bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <div className="grid grid-cols-7 gap-4 p-4 bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
               <div className="col-span-1">ID Orden</div>
               <div className="col-span-1">Fecha & Hora</div>
               <div className="col-span-1">Items</div>
-              <div className="col-span-1">Método</div>
+              <div className="col-span-1">Comprobante</div>
               <div className="col-span-1">Estado</div>
               <div className="col-span-1 text-right">Total</div>
+              <div className="col-span-1 text-center">Acciones</div>
             </div>
 
             {/* Table Body */}
             <div className="overflow-y-auto flex-1 p-2">
-              {recentSales.map((sale) => (
+              {salesHistory.map((sale) => (
                 <div
                   key={sale.id}
-                  className="grid grid-cols-6 gap-4 p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors items-center text-sm rounded-lg group"
+                  className="grid grid-cols-7 gap-4 p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors items-center text-sm rounded-lg group"
                 >
-                  <div className="col-span-1 font-bold text-slate-900">{sale.id}</div>
-                  <div className="col-span-1 text-slate-500">{sale.date}</div>
-                  <div className="col-span-1 text-slate-700">{sale.items} productos</div>
-                  <div className="col-span-1 text-slate-700">{sale.paymentMethod}</div>
+                  <div className="col-span-1 font-bold text-slate-900">{sale.order_number.slice(-8)}</div>
+                  <div className="col-span-1 text-slate-500">
+                    {new Date(sale.order_date).toLocaleString('es-PE', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </div>
+                  <div className="col-span-1 text-slate-700">{sale.items_count} productos</div>
+                  <div className="col-span-1 text-slate-700">
+                    {sale.voucher_type ? voucherLabels[sale.voucher_type] : 'Sin comprobante'}
+                  </div>
                   <div className="col-span-1">
                     <span
                       className={cn("px-2.5 py-1 rounded-full text-xs font-bold border", getStatusColor(sale.status))}
                     >
-                      {sale.status}
+                      {statusLabels[sale.status]}
                     </span>
                   </div>
                   <div className="col-span-1 text-right font-bold text-slate-900">S/ {sale.total.toFixed(2)}</div>
+                  <div className="col-span-1 flex justify-center">
+                    <ReceiptModal orderId={sale.id} />
+                  </div>
                 </div>
               ))}
             </div>
