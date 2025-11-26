@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutGrid, History, Settings, ChefHat, LogOut, BarChart3 } from "lucide-react"
+import { LayoutGrid, History, Settings, ChefHat, LogOut, BarChart3, Receipt } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export function SidebarNav() {
@@ -12,6 +12,7 @@ export function SidebarNav() {
     { href: "/", icon: LayoutGrid, label: "Menú" },
     { href: "/history", icon: History, label: "Historial" },
     { href: "/dashboard", icon: BarChart3, label: "Dashboard" },
+    { href: "/expenses", icon: Receipt, label: "Gastos" },
     { href: "/kitchen", icon: ChefHat, label: "Cocina" },
     { href: "/settings", icon: Settings, label: "Ajustes" },
   ]

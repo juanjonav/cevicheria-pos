@@ -4,6 +4,9 @@ import { Trash2, Minus, Plus, ShoppingBag, CreditCard, Banknote, Smartphone } fr
 import type { Product } from "@/lib/data"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
+import { createOrder } from "@/app/actions/create-order"
+import { useToast } from "@/hooks/use-toast"
+import { Toaster } from "@/components/ui/toaster"
 
 interface CartItem extends Product {
   quantity: number
@@ -21,7 +24,59 @@ export function CartSidebar({ items, onUpdateQuantity, onRemove, onClear }: Cart
   const tax = subtotal * 0.18 // IGV Peru 18% included usually, but lets show breakdown
   const total = subtotal // Assuming prices include tax for simplicity in POS
 
-  const [selectedPayment, setSelectedPayment] = useState<"card" | "cash" | "app">("card")
+  const [selectedPayment, setSelectedPayment] = useState<"card" | "cash" | "app">("cash")
+  const [isProcessing, setIsProcessing] = useState(false)
+  const { toast, toasts } = useToast()
+
+  const handlePayment = async () => {
+    if (items.length === 0) return
+
+    setIsProcessing(true)
+
+    try {
+      // Map payment method to schema enum
+      const paymentMethodMap = {
+        card: "card" as const,
+        cash: "cash" as const,
+        app: "yape" as const,
+      }
+
+      const result = await createOrder({
+        items: items.map((item) => ({
+          id: parseInt(item.id),
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        paymentMethod: paymentMethodMap[selectedPayment],
+        total,
+        userId: 1, // TODO: Get from session
+      })
+
+      if (result.success) {
+        toast({
+          title: "¡Venta registrada!",
+          description: `Orden completada por S/ ${total.toFixed(2)}`,
+          type: "success",
+        })
+        onClear()
+      } else {
+        toast({
+          title: "Error",
+          description: result.error || "No se pudo procesar la venta",
+          type: "error",
+        })
+      }
+    } catch (error) {
+      console.error("Payment error:", error)
+      toast({
+        title: "Error",
+        description: "Ocurrió un error al procesar el pago",
+        type: "error",
+      })
+    } finally {
+      setIsProcessing(false)
+    }
+  }
 
   return (
     <div className="flex flex-col h-full bg-white border-l border-slate-200 shadow-xl w-96">
@@ -160,13 +215,15 @@ export function CartSidebar({ items, onUpdateQuantity, onRemove, onClear }: Cart
             <Trash2 className="h-5 w-5" />
           </button>
           <button
+            onClick={handlePayment}
             className="flex-1 bg-primary text-white py-3 rounded-xl font-bold shadow-lg shadow-primary/25 hover:bg-primary/90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:shadow-none"
-            disabled={items.length === 0}
+            disabled={items.length === 0 || isProcessing}
           >
-            Pagar S/ {total.toFixed(2)}
+            {isProcessing ? "Procesando..." : `Pagar S/ ${total.toFixed(2)}`}
           </button>
         </div>
       </div>
+      <Toaster toasts={toasts} />
     </div>
   )
 }
