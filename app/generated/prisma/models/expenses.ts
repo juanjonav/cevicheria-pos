@@ -54,6 +54,7 @@ export type ExpensesMinAggregateOutputType = {
   description: string | null
   receipt_reference: string | null
   is_paid: boolean | null
+  is_fixed: boolean | null
   expense_date: Date | null
   created_by: number | null
   created_at: Date | null
@@ -70,6 +71,7 @@ export type ExpensesMaxAggregateOutputType = {
   description: string | null
   receipt_reference: string | null
   is_paid: boolean | null
+  is_fixed: boolean | null
   expense_date: Date | null
   created_by: number | null
   created_at: Date | null
@@ -86,6 +88,7 @@ export type ExpensesCountAggregateOutputType = {
   description: number
   receipt_reference: number
   is_paid: number
+  is_fixed: number
   expense_date: number
   created_by: number
   created_at: number
@@ -122,6 +125,7 @@ export type ExpensesMinAggregateInputType = {
   description?: true
   receipt_reference?: true
   is_paid?: true
+  is_fixed?: true
   expense_date?: true
   created_by?: true
   created_at?: true
@@ -138,6 +142,7 @@ export type ExpensesMaxAggregateInputType = {
   description?: true
   receipt_reference?: true
   is_paid?: true
+  is_fixed?: true
   expense_date?: true
   created_by?: true
   created_at?: true
@@ -154,6 +159,7 @@ export type ExpensesCountAggregateInputType = {
   description?: true
   receipt_reference?: true
   is_paid?: true
+  is_fixed?: true
   expense_date?: true
   created_by?: true
   created_at?: true
@@ -257,6 +263,7 @@ export type ExpensesGroupByOutputType = {
   description: string
   receipt_reference: string | null
   is_paid: boolean
+  is_fixed: boolean
   expense_date: Date
   created_by: number
   created_at: Date
@@ -296,6 +303,7 @@ export type expensesWhereInput = {
   description?: Prisma.StringFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableFilter<"expenses"> | string | null
   is_paid?: Prisma.BoolFilter<"expenses"> | boolean
+  is_fixed?: Prisma.BoolFilter<"expenses"> | boolean
   expense_date?: Prisma.DateTimeFilter<"expenses"> | Date | string
   created_by?: Prisma.IntFilter<"expenses"> | number
   created_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
@@ -316,6 +324,7 @@ export type expensesOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   receipt_reference?: Prisma.SortOrderInput | Prisma.SortOrder
   is_paid?: Prisma.SortOrder
+  is_fixed?: Prisma.SortOrder
   expense_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -339,6 +348,7 @@ export type expensesWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableFilter<"expenses"> | string | null
   is_paid?: Prisma.BoolFilter<"expenses"> | boolean
+  is_fixed?: Prisma.BoolFilter<"expenses"> | boolean
   expense_date?: Prisma.DateTimeFilter<"expenses"> | Date | string
   created_by?: Prisma.IntFilter<"expenses"> | number
   created_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
@@ -359,6 +369,7 @@ export type expensesOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   receipt_reference?: Prisma.SortOrderInput | Prisma.SortOrder
   is_paid?: Prisma.SortOrder
+  is_fixed?: Prisma.SortOrder
   expense_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -383,6 +394,7 @@ export type expensesScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableWithAggregatesFilter<"expenses"> | string | null
   is_paid?: Prisma.BoolWithAggregatesFilter<"expenses"> | boolean
+  is_fixed?: Prisma.BoolWithAggregatesFilter<"expenses"> | boolean
   expense_date?: Prisma.DateTimeWithAggregatesFilter<"expenses"> | Date | string
   created_by?: Prisma.IntWithAggregatesFilter<"expenses"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"expenses"> | Date | string
@@ -397,6 +409,7 @@ export type expensesCreateInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_at?: Date | string
   updated_at?: Date | string
@@ -416,6 +429,7 @@ export type expensesUncheckedCreateInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_by: number
   created_at?: Date | string
@@ -432,6 +446,7 @@ export type expensesUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -451,6 +466,7 @@ export type expensesUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -469,6 +485,7 @@ export type expensesCreateManyInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_by: number
   created_at?: Date | string
@@ -483,6 +500,7 @@ export type expensesUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -498,6 +516,7 @@ export type expensesUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -529,6 +548,7 @@ export type expensesCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   receipt_reference?: Prisma.SortOrder
   is_paid?: Prisma.SortOrder
+  is_fixed?: Prisma.SortOrder
   expense_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -554,6 +574,7 @@ export type expensesMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   receipt_reference?: Prisma.SortOrder
   is_paid?: Prisma.SortOrder
+  is_fixed?: Prisma.SortOrder
   expense_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -570,6 +591,7 @@ export type expensesMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   receipt_reference?: Prisma.SortOrder
   is_paid?: Prisma.SortOrder
+  is_fixed?: Prisma.SortOrder
   expense_date?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -713,6 +735,7 @@ export type expensesCreateWithoutUserInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_at?: Date | string
   updated_at?: Date | string
@@ -731,6 +754,7 @@ export type expensesUncheckedCreateWithoutUserInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_at?: Date | string
   updated_at?: Date | string
@@ -777,6 +801,7 @@ export type expensesScalarWhereInput = {
   description?: Prisma.StringFilter<"expenses"> | string
   receipt_reference?: Prisma.StringNullableFilter<"expenses"> | string | null
   is_paid?: Prisma.BoolFilter<"expenses"> | boolean
+  is_fixed?: Prisma.BoolFilter<"expenses"> | boolean
   expense_date?: Prisma.DateTimeFilter<"expenses"> | Date | string
   created_by?: Prisma.IntFilter<"expenses"> | number
   created_at?: Prisma.DateTimeFilter<"expenses"> | Date | string
@@ -791,6 +816,7 @@ export type expensesCreateWithoutSupplierInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_at?: Date | string
   updated_at?: Date | string
@@ -808,6 +834,7 @@ export type expensesUncheckedCreateWithoutSupplierInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_by: number
   created_at?: Date | string
@@ -850,6 +877,7 @@ export type expensesCreateWithoutStock_movementsInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_at?: Date | string
   updated_at?: Date | string
@@ -868,6 +896,7 @@ export type expensesUncheckedCreateWithoutStock_movementsInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_by: number
   created_at?: Date | string
@@ -899,6 +928,7 @@ export type expensesUpdateWithoutStock_movementsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -917,6 +947,7 @@ export type expensesUncheckedUpdateWithoutStock_movementsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -932,6 +963,7 @@ export type expensesCreateWithoutPaymentsInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_at?: Date | string
   updated_at?: Date | string
@@ -950,6 +982,7 @@ export type expensesUncheckedCreateWithoutPaymentsInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_by: number
   created_at?: Date | string
@@ -981,6 +1014,7 @@ export type expensesUpdateWithoutPaymentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -999,6 +1033,7 @@ export type expensesUncheckedUpdateWithoutPaymentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1016,6 +1051,7 @@ export type expensesCreateManyUserInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_at?: Date | string
   updated_at?: Date | string
@@ -1029,6 +1065,7 @@ export type expensesUpdateWithoutUserInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1047,6 +1084,7 @@ export type expensesUncheckedUpdateWithoutUserInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1064,6 +1102,7 @@ export type expensesUncheckedUpdateManyWithoutUserInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1078,6 +1117,7 @@ export type expensesCreateManySupplierInput = {
   description: string
   receipt_reference?: string | null
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: Date | string
   created_by: number
   created_at?: Date | string
@@ -1092,6 +1132,7 @@ export type expensesUpdateWithoutSupplierInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1109,6 +1150,7 @@ export type expensesUncheckedUpdateWithoutSupplierInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1126,6 +1168,7 @@ export type expensesUncheckedUpdateManyWithoutSupplierInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   receipt_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_fixed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   expense_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1182,6 +1225,7 @@ export type expensesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   description?: boolean
   receipt_reference?: boolean
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: boolean
   created_by?: boolean
   created_at?: boolean
@@ -1203,6 +1247,7 @@ export type expensesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   receipt_reference?: boolean
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: boolean
   created_by?: boolean
   created_at?: boolean
@@ -1221,6 +1266,7 @@ export type expensesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   receipt_reference?: boolean
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: boolean
   created_by?: boolean
   created_at?: boolean
@@ -1239,13 +1285,14 @@ export type expensesSelectScalar = {
   description?: boolean
   receipt_reference?: boolean
   is_paid?: boolean
+  is_fixed?: boolean
   expense_date?: boolean
   created_by?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type expensesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category" | "supplier_id" | "amount" | "tax" | "total" | "description" | "receipt_reference" | "is_paid" | "expense_date" | "created_by" | "created_at" | "updated_at", ExtArgs["result"]["expenses"]>
+export type expensesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category" | "supplier_id" | "amount" | "tax" | "total" | "description" | "receipt_reference" | "is_paid" | "is_fixed" | "expense_date" | "created_by" | "created_at" | "updated_at", ExtArgs["result"]["expenses"]>
 export type expensesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   supplier?: boolean | Prisma.expenses$supplierArgs<ExtArgs>
   user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
@@ -1280,6 +1327,7 @@ export type $expensesPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     description: string
     receipt_reference: string | null
     is_paid: boolean
+    is_fixed: boolean
     expense_date: Date
     created_by: number
     created_at: Date
@@ -1720,6 +1768,7 @@ export interface expensesFieldRefs {
   readonly description: Prisma.FieldRef<"expenses", 'String'>
   readonly receipt_reference: Prisma.FieldRef<"expenses", 'String'>
   readonly is_paid: Prisma.FieldRef<"expenses", 'Boolean'>
+  readonly is_fixed: Prisma.FieldRef<"expenses", 'Boolean'>
   readonly expense_date: Prisma.FieldRef<"expenses", 'DateTime'>
   readonly created_by: Prisma.FieldRef<"expenses", 'Int'>
   readonly created_at: Prisma.FieldRef<"expenses", 'DateTime'>

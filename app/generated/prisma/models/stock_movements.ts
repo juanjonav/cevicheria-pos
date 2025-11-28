@@ -720,6 +720,14 @@ export type Enumstock_movement_typeFieldUpdateOperationsInput = {
   set?: $Enums.stock_movement_type
 }
 
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type stock_movementsCreateNestedManyWithoutOrderInput = {
   create?: Prisma.XOR<Prisma.stock_movementsCreateWithoutOrderInput, Prisma.stock_movementsUncheckedCreateWithoutOrderInput> | Prisma.stock_movementsCreateWithoutOrderInput[] | Prisma.stock_movementsUncheckedCreateWithoutOrderInput[]
   connectOrCreate?: Prisma.stock_movementsCreateOrConnectWithoutOrderInput | Prisma.stock_movementsCreateOrConnectWithoutOrderInput[]

@@ -268,6 +268,7 @@ export const ExpensesScalarFieldEnum = {
   description: 'description',
   receipt_reference: 'receipt_reference',
   is_paid: 'is_paid',
+  is_fixed: 'is_fixed',
   expense_date: 'expense_date',
   created_by: 'created_by',
   created_at: 'created_at',

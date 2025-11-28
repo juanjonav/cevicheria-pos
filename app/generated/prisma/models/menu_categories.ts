@@ -199,7 +199,7 @@ export type Menu_categoriesGroupByOutputType = {
   id: number
   name: string
   description: string | null
-  sort_order: number | null
+  sort_order: number
   is_active: boolean
   created_at: Date
   updated_at: Date
@@ -232,7 +232,7 @@ export type menu_categoriesWhereInput = {
   id?: Prisma.IntFilter<"menu_categories"> | number
   name?: Prisma.StringFilter<"menu_categories"> | string
   description?: Prisma.StringNullableFilter<"menu_categories"> | string | null
-  sort_order?: Prisma.IntNullableFilter<"menu_categories"> | number | null
+  sort_order?: Prisma.IntFilter<"menu_categories"> | number
   is_active?: Prisma.BoolFilter<"menu_categories"> | boolean
   created_at?: Prisma.DateTimeFilter<"menu_categories"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"menu_categories"> | Date | string
@@ -243,7 +243,7 @@ export type menu_categoriesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  sort_order?: Prisma.SortOrderInput | Prisma.SortOrder
+  sort_order?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -257,7 +257,7 @@ export type menu_categoriesWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.menu_categoriesWhereInput[]
   NOT?: Prisma.menu_categoriesWhereInput | Prisma.menu_categoriesWhereInput[]
   description?: Prisma.StringNullableFilter<"menu_categories"> | string | null
-  sort_order?: Prisma.IntNullableFilter<"menu_categories"> | number | null
+  sort_order?: Prisma.IntFilter<"menu_categories"> | number
   is_active?: Prisma.BoolFilter<"menu_categories"> | boolean
   created_at?: Prisma.DateTimeFilter<"menu_categories"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"menu_categories"> | Date | string
@@ -268,7 +268,7 @@ export type menu_categoriesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  sort_order?: Prisma.SortOrderInput | Prisma.SortOrder
+  sort_order?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -286,7 +286,7 @@ export type menu_categoriesScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"menu_categories"> | number
   name?: Prisma.StringWithAggregatesFilter<"menu_categories"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"menu_categories"> | string | null
-  sort_order?: Prisma.IntNullableWithAggregatesFilter<"menu_categories"> | number | null
+  sort_order?: Prisma.IntWithAggregatesFilter<"menu_categories"> | number
   is_active?: Prisma.BoolWithAggregatesFilter<"menu_categories"> | boolean
   created_at?: Prisma.DateTimeWithAggregatesFilter<"menu_categories"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"menu_categories"> | Date | string
@@ -295,7 +295,7 @@ export type menu_categoriesScalarWhereWithAggregatesInput = {
 export type menu_categoriesCreateInput = {
   name: string
   description?: string | null
-  sort_order?: number | null
+  sort_order?: number
   is_active?: boolean
   created_at?: Date | string
   updated_at?: Date | string
@@ -306,7 +306,7 @@ export type menu_categoriesUncheckedCreateInput = {
   id?: number
   name: string
   description?: string | null
-  sort_order?: number | null
+  sort_order?: number
   is_active?: boolean
   created_at?: Date | string
   updated_at?: Date | string
@@ -316,7 +316,7 @@ export type menu_categoriesUncheckedCreateInput = {
 export type menu_categoriesUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sort_order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sort_order?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -327,7 +327,7 @@ export type menu_categoriesUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sort_order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sort_order?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -338,7 +338,7 @@ export type menu_categoriesCreateManyInput = {
   id?: number
   name: string
   description?: string | null
-  sort_order?: number | null
+  sort_order?: number
   is_active?: boolean
   created_at?: Date | string
   updated_at?: Date | string
@@ -347,7 +347,7 @@ export type menu_categoriesCreateManyInput = {
 export type menu_categoriesUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sort_order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sort_order?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -357,7 +357,7 @@ export type menu_categoriesUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sort_order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sort_order?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -408,14 +408,6 @@ export type Menu_categoriesScalarRelationFilter = {
   isNot?: Prisma.menu_categoriesWhereInput
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type menu_categoriesCreateNestedOneWithoutMenu_itemsInput = {
   create?: Prisma.XOR<Prisma.menu_categoriesCreateWithoutMenu_itemsInput, Prisma.menu_categoriesUncheckedCreateWithoutMenu_itemsInput>
   connectOrCreate?: Prisma.menu_categoriesCreateOrConnectWithoutMenu_itemsInput
@@ -433,7 +425,7 @@ export type menu_categoriesUpdateOneRequiredWithoutMenu_itemsNestedInput = {
 export type menu_categoriesCreateWithoutMenu_itemsInput = {
   name: string
   description?: string | null
-  sort_order?: number | null
+  sort_order?: number
   is_active?: boolean
   created_at?: Date | string
   updated_at?: Date | string
@@ -443,7 +435,7 @@ export type menu_categoriesUncheckedCreateWithoutMenu_itemsInput = {
   id?: number
   name: string
   description?: string | null
-  sort_order?: number | null
+  sort_order?: number
   is_active?: boolean
   created_at?: Date | string
   updated_at?: Date | string
@@ -468,7 +460,7 @@ export type menu_categoriesUpdateToOneWithWhereWithoutMenu_itemsInput = {
 export type menu_categoriesUpdateWithoutMenu_itemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sort_order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sort_order?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -478,7 +470,7 @@ export type menu_categoriesUncheckedUpdateWithoutMenu_itemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sort_order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sort_order?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -574,7 +566,7 @@ export type $menu_categoriesPayload<ExtArgs extends runtime.Types.Extensions.Int
     id: number
     name: string
     description: string | null
-    sort_order: number | null
+    sort_order: number
     is_active: boolean
     created_at: Date
     updated_at: Date
