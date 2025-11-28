@@ -65,3 +65,28 @@ export async function getInventoryItems(): Promise<InventoryItem[]> {
         return []
     }
 }
+
+/**
+ * Get active stock items for dropdown selection
+ */
+export async function getActiveStockItems(): Promise<{ id: number; name: string; unit: string }[]> {
+    try {
+        const items = await prisma.stock_items.findMany({
+            where: {
+                is_active: true
+            },
+            select: {
+                id: true,
+                name: true,
+                unit: true
+            },
+            orderBy: {
+                name: 'asc'
+            }
+        })
+        return items
+    } catch (error) {
+        console.error('Error fetching stock items:', error)
+        return []
+    }
+}

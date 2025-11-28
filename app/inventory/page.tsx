@@ -1,14 +1,20 @@
-import { getInventoryItems } from "@/lib/db/inventory"
+import { getInventoryItems, getActiveStockItems } from "@/lib/db/inventory"
+import { getActiveSuppliers } from "@/lib/db/expenses"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { SidebarNav } from "@/components/layout/sidebar-nav"
+import { PurchaseButton } from "@/components/inventory/purchase-button"
 import { Package, AlertTriangle, CheckCircle2 } from "lucide-react"
 
 export const dynamic = 'force-dynamic'
 
 export default async function InventoryPage() {
-    const items = await getInventoryItems()
+    const [items, suppliers, stockItems] = await Promise.all([
+        getInventoryItems(),
+        getActiveSuppliers(),
+        getActiveStockItems()
+    ])
 
     // Calculate summary statistics
     const totalItems = items.length
@@ -25,6 +31,7 @@ export default async function InventoryPage() {
                         <h1 className="text-2xl font-bold text-gray-900">Inventario de Insumos</h1>
                         <p className="text-sm text-gray-500">Control de stock y valorización</p>
                     </div>
+                    <PurchaseButton suppliers={suppliers} stockItems={stockItems} />
                 </header>
 
                 <main className="flex-1 overflow-auto p-8">
