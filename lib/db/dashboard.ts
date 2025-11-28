@@ -84,13 +84,24 @@ export async function getRecentSales(limit: number = 10): Promise<RecentSale[]> 
 }
 
 /**
- * Get recent expenses from database
+ * Get recent expenses from database (filtered by current month)
  * @param limit Number of expenses to retrieve (default: 10)
  */
 export async function getRecentExpenses(limit: number = 10): Promise<RecentExpense[]> {
     try {
+        // Get current month date range
+        const now = new Date()
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999)
+
         const expenses = await prisma.expenses.findMany({
             take: limit,
+            where: {
+                expense_date: {
+                    gte: startOfMonth,
+                    lte: endOfMonth
+                }
+            },
             orderBy: {
                 expense_date: 'desc'
             },

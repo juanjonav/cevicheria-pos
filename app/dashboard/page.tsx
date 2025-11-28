@@ -12,12 +12,17 @@ import { cn } from "@/lib/utils"
 import { SidebarNav } from "@/components/layout/sidebar-nav"
 
 export default async function DashboardPage() {
-  // Fetch real data from database
+  // Get current month date range
+  const now = new Date()
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999)
+
+  // Fetch real data from database (filtered by current month)
   const [recentSales, recentExpenses, summary, expensesByCategory] = await Promise.all([
     getRecentSales(10),
     getRecentExpenses(10),
-    getDashboardSummary(),
-    getExpensesByCategory()
+    getDashboardSummary(startOfMonth, endOfMonth),
+    getExpensesByCategory(startOfMonth, endOfMonth)
   ])
 
   const { totalSales, totalExpenses, netCashFlow } = summary
@@ -201,11 +206,31 @@ export default async function DashboardPage() {
                   )}
                 </div>
 
-                <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                  <h4 className="text-sm font-semibold text-blue-900 mb-2">Estado Financiero</h4>
-                  <p className="text-xs text-blue-700 leading-relaxed">
-                    El flujo de caja actual es positivo. Se recomienda mantener el control de gastos en insumos, que
-                    representan la mayor parte de las salidas.
+                <div className={cn(
+                  "mt-8 p-4 rounded-lg border",
+                  netCashFlow > 0 ? "bg-emerald-50 border-emerald-100" :
+                    netCashFlow === 0 ? "bg-amber-50 border-amber-100" :
+                      "bg-rose-50 border-rose-100"
+                )}>
+                  <h4 className={cn(
+                    "text-sm font-semibold mb-2",
+                    netCashFlow > 0 ? "text-emerald-900" :
+                      netCashFlow === 0 ? "text-amber-900" :
+                        "text-rose-900"
+                  )}>Estado Financiero</h4>
+                  <p className={cn(
+                    "text-xs leading-relaxed",
+                    netCashFlow > 0 ? "text-emerald-700" :
+                      netCashFlow === 0 ? "text-amber-700" :
+                        "text-rose-700"
+                  )}>
+                    {netCashFlow > 0 ? (
+                      `El flujo de caja actual es positivo (S/ ${netCashFlow.toFixed(2)}). Se recomienda mantener el control de gastos en insumos, que representan la mayor parte de las salidas.`
+                    ) : netCashFlow === 0 ? (
+                      "El flujo de caja está en equilibrio. Se recomienda aumentar las ventas o reducir gastos para generar un margen de seguridad."
+                    ) : (
+                      `El flujo de caja es negativo (S/ ${netCashFlow.toFixed(2)}). Se requiere atención inmediata: revisar gastos operativos y aumentar ingresos.`
+                    )}
                   </p>
                 </div>
               </CardContent>

@@ -18,6 +18,7 @@ export interface RecentExpense {
     total: number
     expense_date: Date
     is_paid: boolean
+    is_fixed: boolean
     supplier_name: string | null
     receipt_reference: string | null
 }
@@ -78,11 +79,59 @@ export async function getRecentExpenses(limit: number = 10): Promise<RecentExpen
             total: Number(expense.total),
             expense_date: expense.expense_date,
             is_paid: expense.is_paid,
+            is_fixed: expense.is_fixed,
             supplier_name: expense.supplier?.name || null,
             receipt_reference: expense.receipt_reference
         }))
     } catch (error) {
         console.error('Error fetching recent expenses:', error)
+        return []
+    }
+}
+
+/**
+ * Get all expenses (limited to last 30 from current month)
+ */
+export async function getAllExpenses(): Promise<RecentExpense[]> {
+    try {
+        // Get current month date range
+        const now = new Date()
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999)
+
+        const expenses = await prisma.expenses.findMany({
+            take: 30,
+            where: {
+                expense_date: {
+                    gte: startOfMonth,
+                    lte: endOfMonth
+                }
+            },
+            orderBy: {
+                created_at: 'desc'
+            },
+            include: {
+                supplier: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+
+        return expenses.map(expense => ({
+            id: expense.id,
+            description: expense.description,
+            category: expense.category,
+            total: Number(expense.total),
+            expense_date: expense.expense_date,
+            is_paid: expense.is_paid,
+            is_fixed: expense.is_fixed,
+            supplier_name: expense.supplier?.name || null,
+            receipt_reference: expense.receipt_reference
+        }))
+    } catch (error) {
+        console.error('Error fetching all expenses:', error)
         return []
     }
 }
